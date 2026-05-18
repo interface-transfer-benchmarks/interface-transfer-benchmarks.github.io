@@ -1,3 +1,19 @@
+.VPNavBarTitle {
+  min-width: 0;
+}
+
+.VPNavBarTitle .title {
+  min-width: 0;
+}
+
+.VPNavBarTitle .title span {
+  display: block;
+  max-width: min(34vw, 360px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .pcnb-hero {
   display: grid;
   grid-template-columns: minmax(320px, 0.9fr) minmax(420px, 1.35fr);
@@ -60,7 +76,6 @@
 }
 
 .Layout:has(.pcnb-hero) .VPContent.has-sidebar,
-.Layout:has(.pcnb-hero) .VPNavBar.has-sidebar .content,
 .Layout:has(.pcnb-hero) .VPLocalNav.has-sidebar {
   padding-left: 0;
 }
@@ -114,5 +129,11 @@
 
   .pcnb-hero h1 {
     font-size: 2.45rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .VPNavBarTitle .title span {
+    max-width: min(48vw, 320px);
   }
 }

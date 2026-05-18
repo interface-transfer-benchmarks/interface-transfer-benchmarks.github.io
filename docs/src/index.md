@@ -1,8 +1,8 @@
 ```@raw html
 <section class="pcnb-hero">
   <div>
-    <h1>Phase-Change Numerical Benchmarks</h1>
-    <p>Community-maintained benchmark problems for numerical methods for phase-change problems, generated directly from the companion scientific database.</p>
+    <h1>Phase-Change Benchmarks</h1>
+    <p>Community-maintained benchmark problems for numerical methods for phase-change problems.</p>
     <div class="pcnb-actions">
       <a class="pcnb-button primary" href="/generated/index">Browse benchmarks</a>
       <a class="pcnb-button" href="/taxonomy">Read taxonomy</a>
