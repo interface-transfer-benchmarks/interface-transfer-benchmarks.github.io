@@ -20,6 +20,7 @@ geometry: vertical-plate
 interface_motion: moving
 
 reference_type: analytical-boundary-layer
+numerical_challenge: thin condensate film and interfacial shear
 has_exact_solution: true
 has_reference_data: true
 reference_data:

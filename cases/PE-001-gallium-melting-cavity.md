@@ -20,6 +20,7 @@ geometry: rectangular-cavity
 interface_motion: moving
 
 reference_type: experimental
+numerical_challenge: natural convection coupled to a melting front
 has_exact_solution: false
 has_reference_data: false
 

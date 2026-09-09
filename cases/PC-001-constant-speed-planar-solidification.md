@@ -18,6 +18,7 @@ geometry: planar
 interface_motion: prescribed
 
 reference_type: exact-solution
+numerical_challenge: prescribed moving Dirichlet boundary
 has_exact_solution: true
 has_reference_data: true
 reference_data:

@@ -22,6 +22,7 @@ geometry: horizontal-wall
 interface_motion: moving
 
 reference_type: numerical-plus-correlation
+numerical_challenge: vapor-film instability and bubble release
 has_exact_solution: false
 has_reference_data: true
 reference_data:

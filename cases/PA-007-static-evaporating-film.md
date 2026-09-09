@@ -18,6 +18,7 @@ geometry: planar-film
 interface_motion: moving
 
 reference_type: asymptotic-solution
+numerical_challenge: diffusion transient and film recession
 has_exact_solution: false
 has_reference_data: true
 reference_data:

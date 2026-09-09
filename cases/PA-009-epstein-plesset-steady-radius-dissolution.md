@@ -17,6 +17,7 @@ geometry: sphere
 interface_motion: fixed
 
 reference_type: exact-similarity
+numerical_challenge: early-time spherical diffusion flux
 has_exact_solution: true
 has_reference_data: true
 reference_data:

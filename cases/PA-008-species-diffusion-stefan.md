@@ -18,6 +18,7 @@ geometry: planar
 interface_motion: moving
 
 reference_type: exact-similarity
+numerical_challenge: species-driven interface displacement
 has_exact_solution: true
 has_reference_data: true
 reference_data:

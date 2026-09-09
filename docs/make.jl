@@ -4,6 +4,8 @@ repo_root = normpath(joinpath(@__DIR__, ".."))
 
 include(joinpath(repo_root, "scripts", "generate_cases.jl"))
 
+generate_cases()
+
 generated_cases_dir = joinpath(@__DIR__, "src", "generated", "cases")
 
 case_pages = sort([

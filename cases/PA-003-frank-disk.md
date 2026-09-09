@@ -18,6 +18,7 @@ geometry: disk
 interface_motion: moving
 
 reference_type: exact-similarity
+numerical_challenge: curvature, isotropy, and area conservation
 has_exact_solution: true
 has_reference_data: true
 reference_data:

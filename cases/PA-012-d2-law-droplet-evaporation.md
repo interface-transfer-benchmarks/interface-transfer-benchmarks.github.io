@@ -19,6 +19,7 @@ geometry: sphere
 interface_motion: moving
 
 reference_type: quasi-steady-analytical
+numerical_challenge: quasi-steady gas-phase transport and shrinking droplet
 has_exact_solution: true
 has_reference_data: true
 reference_data:

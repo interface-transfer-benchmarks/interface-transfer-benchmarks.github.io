@@ -6,8 +6,9 @@ for interfacial heat and mass transfer.
 Site: https://interface-transfer-benchmarks.github.io/
 
 Each benchmark is one Markdown file in `cases/` with a stable identifier.
-The list is in [`index.md`](index.md); the classification is in
-[`taxonomy.md`](taxonomy.md).
+Its YAML front matter is the single source of truth: [`index.md`](index.md)
+and the coverage table in [`taxonomy.md`](taxonomy.md) are generated from it
+by `scripts/generate_index.jl`, and `scripts/validate.jl` gates it in CI.
 
 ## Goals
 
@@ -33,7 +34,7 @@ Following the historical InterfaceTracking collection.
 cases/          Benchmark descriptions
 data/           Reference data
 figures/        Reference plots
-scripts/        Reference data generation, validation, site generation
+scripts/        Case loading, validation, index and site generation
 docs/           Website source
 references.bib  Bibliography
 ```

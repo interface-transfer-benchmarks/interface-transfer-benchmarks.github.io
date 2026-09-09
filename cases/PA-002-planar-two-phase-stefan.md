@@ -19,6 +19,7 @@ geometry: planar
 interface_motion: moving
 
 reference_type: exact-similarity
+numerical_challenge: two-sided heat-flux jump
 has_exact_solution: true
 has_reference_data: true
 reference_data:

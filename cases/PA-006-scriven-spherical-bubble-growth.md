@@ -20,6 +20,7 @@ geometry: sphere
 interface_motion: moving
 
 reference_type: exact-similarity
+numerical_challenge: spherical Stefan flow and large density ratio
 has_exact_solution: true
 has_reference_data: true
 reference_data:

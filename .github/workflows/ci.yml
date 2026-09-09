@@ -23,21 +23,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - run: pip install matplotlib mpmath
-
-      - run: python3 scripts/validate_cases.py
-
-      - run: python3 scripts/plot_reference_figures.py
-
-      - name: Check reference data is in sync
-        run: |
-          git diff --exit-code -- data/ \
-            || { echo "::error::Reference data is stale. Run scripts/plot_reference_figures.py and commit."; exit 1; }
-
       - uses: julia-actions/setup-julia@v2
         with:
           version: "1"
@@ -45,6 +30,28 @@ jobs:
       - uses: julia-actions/cache@v2
 
       - run: julia --project=docs -e 'using Pkg; Pkg.instantiate()'
+
+      - run: julia --project=docs scripts/validate.jl
+
+      - run: julia --project=docs scripts/generate_index.jl
+
+      - name: Check index.md and taxonomy.md are in sync
+        run: |
+          git diff --exit-code -- index.md taxonomy.md \
+            || { echo "::error::Run scripts/generate_index.jl and commit."; exit 1; }
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install matplotlib mpmath
+
+      - run: python3 scripts/plot_reference_figures.py
+
+      - name: Check reference data is in sync
+        run: |
+          git diff --exit-code -- data/ \
+            || { echo "::error::Run scripts/plot_reference_figures.py and commit."; exit 1; }
 
       - run: julia --project=docs docs/make.jl
 

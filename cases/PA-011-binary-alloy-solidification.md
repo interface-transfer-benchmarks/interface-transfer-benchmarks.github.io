@@ -20,6 +20,7 @@ geometry: planar
 interface_motion: moving
 
 reference_type: exact-similarity
+numerical_challenge: coupled heat and solute balance at the interface
 has_exact_solution: true
 has_reference_data: true
 reference_data:

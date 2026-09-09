@@ -18,6 +18,7 @@ geometry: sphere
 interface_motion: moving
 
 reference_type: exact-similarity
+numerical_challenge: surface integration, isotropy, and volume conservation
 has_exact_solution: true
 has_reference_data: true
 reference_data:

@@ -18,6 +18,7 @@ geometry: circle-sphere
 interface_motion: moving
 
 reference_type: exact-kinematic
+numerical_challenge: prescribed mass-transfer shrinkage
 has_exact_solution: true
 has_reference_data: true
 reference_data:

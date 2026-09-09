@@ -1,77 +1,4 @@
-using YAML
-
-const METADATA_FIELDS = [
-    "id",
-    "title",
-    "short_title",
-    "status",
-    "benchmark_class",
-    "physics",
-    "process",
-    "dimension",
-    "geometry",
-    "interface_motion",
-    "quantities_of_interest",
-    "has_exact_solution",
-    "has_reference_data",
-    "reference_data",
-    "figures",
-    "references",
-]
-
-const REPO_BLOB = "https://github.com/interface-transfer-benchmarks/interface-transfer-benchmarks.github.io/blob/main"
-
-function getmeta(metadata, key::AbstractString, default = "")
-    if haskey(metadata, key)
-        return metadata[key]
-    elseif haskey(metadata, Symbol(key))
-        return metadata[Symbol(key)]
-    else
-        return default
-    end
-end
-
-function frontmatter(markdown::AbstractString, path::AbstractString)
-    normalized = replace(markdown, "\r\n" => "\n")
-    if !startswith(normalized, "---\n")
-        return Dict{Any,Any}(), normalized
-    end
-
-    marker = findnext("\n---\n", normalized, 5)
-    marker === nothing && error("Unclosed YAML front matter in $path")
-
-    yaml_text = normalized[5:first(marker)-1]
-    body = normalized[last(marker)+1:end]
-    parsed = YAML.load(yaml_text)
-    metadata = parsed isa AbstractDict ? parsed : Dict{Any,Any}()
-    return metadata, body
-end
-
-function as_list(value)
-    if value === nothing || value == ""
-        return String[]
-    elseif value isa AbstractVector
-        return [string(item) for item in value if item !== nothing && string(item) != ""]
-    else
-        return [string(value)]
-    end
-end
-
-function render_value(value)
-    if value === nothing || value == ""
-        return ""
-    elseif value isa AbstractVector
-        return join([string(item) for item in value], ", ")
-    elseif value isa AbstractDict
-        return join(["$(key): $(val)" for (key, val) in value], ", ")
-    else
-        return string(value)
-    end
-end
-
-function table_cell(value)
-    return replace(render_value(value), "|" => "\\|", "\n" => " ")
-end
+include(joinpath(@__DIR__, "cases.jl"))
 
 function canonical_asset_path(path::AbstractString)
     normalized = replace(path, "\\" => "/")
@@ -183,14 +110,11 @@ function write_case_page(case, output_path::AbstractString)
     end
 end
 
-function generate_cases()
-    repo_root = normpath(joinpath(@__DIR__, ".."))
-    cases_dir = joinpath(repo_root, "cases")
+function generate_cases(root::AbstractString = REPO_ROOT)
+    repo_root = root
     docs_src = joinpath(repo_root, "docs", "src")
     generated_dir = joinpath(docs_src, "generated")
     generated_cases_dir = joinpath(generated_dir, "cases")
-
-    isdir(cases_dir) || error("No case files under $cases_dir.")
 
     mkpath(generated_cases_dir)
     for path in readdir(generated_cases_dir; join=true)
@@ -203,11 +127,7 @@ function generate_cases()
     taxonomy = joinpath(repo_root, "taxonomy.md")
     isfile(taxonomy) && cp(taxonomy, joinpath(docs_src, "taxonomy.md"); force=true)
 
-    case_paths = sort([
-        path for path in readdir(cases_dir; join=true)
-        if isfile(path) && endswith(path, ".md")
-    ])
-    cases = sort([case_record(path) for path in case_paths]; by = case -> case.id)
+    cases = load_cases(root)
 
     open(joinpath(generated_dir, "index.md"), "w") do io
         println(io, "# Benchmark index")
@@ -239,4 +159,6 @@ function generate_cases()
     return cases
 end
 
-generate_cases()
+if abspath(PROGRAM_FILE) == @__FILE__
+    generate_cases()
+end

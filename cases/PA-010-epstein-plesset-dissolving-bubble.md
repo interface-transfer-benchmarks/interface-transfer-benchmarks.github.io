@@ -18,6 +18,7 @@ geometry: sphere
 interface_motion: moving
 
 reference_type: semi-analytical-ode
+numerical_challenge: coupled radius-concentration ODE and vanishing radius
 has_exact_solution: true
 has_reference_data: true
 reference_data:
