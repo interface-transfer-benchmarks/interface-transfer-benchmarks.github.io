@@ -60,12 +60,12 @@ $$
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| drop radius | $R$ | 1 |
-| diffusivity | $D$ | 1 |
-| initial concentration | $C_0$ | 1 |
-| internal Peclet number | $\mathrm{Pe}$ | large |
+| Parameter | Symbol |
+|---|---|
+| drop radius | $R$ |
+| diffusivity | $D$ |
+| initial concentration | $C_0$ |
+| internal Peclet number | $\mathrm{Pe}$ |
 
 ## Reference
 
@@ -95,9 +95,11 @@ sweep.
 
 ## Results
 
-Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+### Two-fluid cut-cell method
 
-N = 32 uniform, 8 ranks.
+L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
+
+Uniform grid, N = 32, 8 MPI ranks. Pe_i = 0, 10, 100, 1000.
 
 | Pe_i | 0 | 10 | 100 | 1000 |
 |---|---|---|---|---|

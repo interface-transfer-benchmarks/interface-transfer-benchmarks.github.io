@@ -55,12 +55,12 @@ $$
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| pellet radius | $R$ | 1 |
-| diffusivity | $D$ | 1 |
-| surface concentration | $C_s$ | 1 |
-| Thiele modulus | $\phi = R\sqrt{k/D}$ | 0.1 to 20 |
+| Parameter | Symbol |
+|---|---|
+| pellet radius | $R$ |
+| diffusivity | $D$ |
+| surface concentration | $C_s$ |
+| Thiele modulus | $\phi = R\sqrt{k/D}$ |
 
 ## Reference
 
@@ -86,9 +86,11 @@ asymptote is $\eta \to 3/\phi$.
 
 ## Results
 
-Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+### Two-fluid cut-cell method
 
-N = 64 uniform, 3D, 8 ranks.
+L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
+
+Uniform grid, N = 64, three dimensions, 8 MPI ranks. phi = 0.5, 1, 2, 5, 10, 20.
 
 | phi | 0.5 | 1 | 2 | 5 | 10 | 20 |
 |---|---|---|---|---|---|---|
@@ -97,6 +99,10 @@ N = 64 uniform, 3D, 8 ranks.
 
 The two routes to `eta`, the interface flux and the volume-averaged
 concentration, agree to 1e-12 to 1e-16 at every rung and every phi.
+
+![MT-007 convergence](../results/two-fluid-cut-cell/MT-007-convergence.png)
+
+![MT-007 observable](../results/two-fluid-cut-cell/MT-007-sh.png)
 
 ## References
 

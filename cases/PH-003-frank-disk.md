@@ -112,17 +112,15 @@ Use the exact radial temperature outside the disk and $T=0$ inside it.
 
 ## Parameters
 
-Use this nondimensional reference case.
-
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| thermal diffusivity | $\alpha$ | 1 |
-| phase-change temperature | $T_m$ | 0 |
-| Stefan coefficient | $\mathrm{St}$ | -0.4 |
-| similarity radius | $S_0$ | 1.2 |
-| initial time | $t_0$ | 0.1 |
-| final time | $t_\mathrm{end}$ | 1 |
-| far-field temperature | $T_\infty$ | -0.999 |
+| Parameter | Symbol |
+|---|---|
+| thermal diffusivity | $\alpha$ |
+| phase-change temperature | $T_m$ |
+| Stefan coefficient | $\mathrm{St}$ |
+| similarity radius | $S_0$ |
+| initial time | $t_0$ |
+| final time | $t_\mathrm{end}$ |
+| far-field temperature | $T_\infty$ |
 
 The full-precision value from the formula below is
 

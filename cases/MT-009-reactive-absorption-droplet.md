@@ -54,13 +54,13 @@ fluxes are continuous. The exterior far field is set to unity.
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| droplet radius | $R$ | 1 |
-| interior diffusivity | $D_1$ | 1 |
-| exterior diffusivity | $D_2$ | 1 |
-| Henry coefficient | $\lambda$ | 1, 2, 4 |
-| Damkohler number | $\mathrm{Da} = k R^2/D_1$ | 0.25 to 64 |
+| Parameter | Symbol |
+|---|---|
+| droplet radius | $R$ |
+| interior diffusivity | $D_1$ |
+| exterior diffusivity | $D_2$ |
+| Henry coefficient | $\lambda$ |
+| Damkohler number | $\mathrm{Da} = k R^2/D_1$ |
 
 ## Reference
 
@@ -90,11 +90,18 @@ $$
 
 ## Results
 
-Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+### Two-fluid cut-cell method
 
-Uniform, 16 ranks. Observed order 2.00. At N = 256 the uptake is correct to
+L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
+
+Uniform grid, N up to 256, 16 MPI ranks. Da and lambda swept independently, lambda up to 100.
+
 6.4e-6 to 1.6e-4, and the interfacial traces reproduce the pair
 `(lambda, 1)` to six digits over four decades of `lambda`.
+
+![MT-009 convergence](../results/two-fluid-cut-cell/MT-009-convergence.png)
+
+![MT-009 observable](../results/two-fluid-cut-cell/MT-009-sh.png)
 
 ## References
 

@@ -58,12 +58,12 @@ $$
 
 Taking $W=1$ and $D=1$, so that $\mathrm{Pe}=U$ and $\mathrm{Da}=k$.
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| wall spacing | $W$ | 1 |
-| diffusivity | $D$ | 1 |
-| Peclet number | $\mathrm{Pe} = UW/D$ | 5 |
-| Damkohler number | $\mathrm{Da} = kW^2/D$ | 0, 1, 10, 100 |
+| Parameter | Symbol |
+|---|---|
+| wall spacing | $W$ |
+| diffusivity | $D$ |
+| Peclet number | $\mathrm{Pe} = UW/D$ |
+| Damkohler number | $\mathrm{Da} = kW^2/D$ |
 
 ## Reference
 
@@ -103,9 +103,11 @@ reaction is leaking into the convective flux.
 
 ## Results
 
-Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+### Two-fluid cut-cell method
 
-Pe = 5, N = 128 uniform, 16 ranks.
+L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
+
+Uniform grid, N = 32/64/128, 16 MPI ranks. Pe = 5, Da = 0, 1, 10, 100.
 
 | Da | 0 | 1 | 10 | 100 |
 |---|---|---|---|---|
@@ -117,6 +119,10 @@ into the convective flux: Sh drifts 1.5% over four decades of Da.
 
 **Gate not met.** The Sherwood number itself converges at order 1.03, not 2:
 the corner where the wall meets the interface is first order in this solver.
+
+![MT-010 convergence](../results/two-fluid-cut-cell/MT-010-convergence.png)
+
+![MT-010 observable](../results/two-fluid-cut-cell/MT-010-sh.png)
 
 ## References
 

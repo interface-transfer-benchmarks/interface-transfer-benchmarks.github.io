@@ -53,12 +53,12 @@ fixed, the interior starts uniform.
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| sphere radius | $R_0$ | 1 |
-| diffusivity ratio | $D^* = D_1/D_2$ | 0.1, 1, 10 |
-| partition coefficient | $k$ | 0.5, 1, 2 |
-| box size | $L$ | 4 to 40 |
+| Parameter | Symbol |
+|---|---|
+| sphere radius | $R_0$ |
+| diffusivity ratio | $D^* = D_1/D_2$ |
+| partition coefficient | $k$ |
+| box size | $L$ |
 
 ## Reference
 
@@ -87,10 +87,13 @@ infinite-domain value $\mathrm{Sh}_e = 2$ in a box with $R_0/R_\mathrm{out}
 
 ## Results
 
-Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+### Two-fluid cut-cell method
 
-k = 1, uniform, 8 ranks. Residual of
-`1/Sh - (1/Sh_i + k D* / Sh_e)`.
+L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
+
+Uniform grid, N = 16/32/64, 8 MPI ranks. k = 1, D* = 0.1, 1, 10.
+
+Residual of `1/Sh - (1/Sh_i + k D* / Sh_e)`.
 
 | D* | 0.1 | 1 | 10 |
 |---|---|---|---|
@@ -102,6 +105,10 @@ The measured external Sherwood number is 3.793 to 3.979 over `D*` in [0.1, 10]
 and N in [16, 64], against the concentric-shell value 3.685 for this box, that
 is 2.9 to 8.0% above it. The identity closes regardless, which is the point:
 it closes only because `Sh_e` is measured rather than substituted.
+
+![VC-006 convergence](../results/two-fluid-cut-cell/VC-006-convergence.png)
+
+![VC-006 observable](../results/two-fluid-cut-cell/VC-006-sh.png)
 
 ## References
 

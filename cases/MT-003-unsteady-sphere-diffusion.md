@@ -52,12 +52,12 @@ $$
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| sphere radius | $R_0$ | 1 |
-| diffusivity | $D$ | 1 |
-| surface concentration | $C_s$ | 1 |
-| Fourier number | $\mathrm{Fo}=Dt/R_0^2$ | 0.001 to 10 |
+| Parameter | Symbol |
+|---|---|
+| sphere radius | $R_0$ |
+| diffusivity | $D$ |
+| surface concentration | $C_s$ |
+| Fourier number | $\mathrm{Fo}=Dt/R_0^2$ |
 
 ## Reference
 
@@ -85,14 +85,20 @@ $$
 
 ## Results
 
-Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+### Two-fluid cut-cell method
 
-N = 64 uniform, Crank-Nicolson, 8 ranks, Da = 0.
+L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
+
+Uniform grid, N = 64, Crank-Nicolson in time, 8 MPI ranks. Da = 0, Fo = 0.05, 0.15, 0.50.
 
 | Fo | 0.05 | 0.15 | 0.50 |
 |---|---|---|---|
 | rel. error | 4.3e-3 | 8.3e-4 | 1.6e-3 |
 | order | 1.86 | 2.61 | 2.32 |
+
+![MT-003 convergence](../results/two-fluid-cut-cell/MT-003-convergence.png)
+
+![MT-003 observable](../results/two-fluid-cut-cell/MT-003-sh.png)
 
 ## References
 

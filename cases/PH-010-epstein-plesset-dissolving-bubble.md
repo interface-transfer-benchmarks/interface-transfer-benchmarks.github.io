@@ -83,15 +83,15 @@ with $\rho_b$ the gas density inside the bubble (taken constant).
 
 The parameters extend the PH-009 fixed-radius setup to a moving interface.
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| initial radius | $R_0$ | 0.5 |
-| diffusivity | $D$ | 1 |
-| interfacial concentration | $c_\Sigma$ | 0.2 |
-| bulk concentration | $c_\infty$ | 0 |
-| bubble gas density | $\rho_b$ | 1 |
-| uptake parameter | $\beta = (c_\Sigma-c_\infty)/\rho_b$ | 0.2 |
-| quasi-steady dissolution time | $t_{qs}$ | 0.625 |
+| Parameter | Symbol |
+|---|---|
+| initial radius | $R_0$ |
+| diffusivity | $D$ |
+| interfacial concentration | $c_\Sigma$ |
+| bulk concentration | $c_\infty$ |
+| bubble gas density | $\rho_b$ |
+| uptake parameter | $\beta = (c_\Sigma-c_\infty)/\rho_b$ |
+| quasi-steady dissolution time | $t_{qs}$ |
 
 ## Reference
 

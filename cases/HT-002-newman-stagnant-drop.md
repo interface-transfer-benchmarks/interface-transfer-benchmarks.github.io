@@ -54,12 +54,12 @@ $$
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| drop radius | $R$ | 1 |
-| diffusivity | $D$ | 1 |
-| initial concentration | $C_0$ | 1 |
-| Fourier number | $\mathrm{Fo}=Dt/R^2$ | 0.001 to 1 |
+| Parameter | Symbol |
+|---|---|
+| drop radius | $R$ |
+| diffusivity | $D$ |
+| initial concentration | $C_0$ |
+| Fourier number | $\mathrm{Fo}=Dt/R^2$ |
 
 ## Reference
 
@@ -88,9 +88,12 @@ so the two bracket the internal resistance on one axis.
 
 ## Results
 
-Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+### Two-fluid cut-cell method
 
-N = 32/64/128 uniform, 8 ranks. Three rungs against a closed-form reference,
+L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
+
+Uniform grid, N = 32/64/128, 8 MPI ranks. Fo = 0.030, 0.101, 0.300.
+
 so every order is a real measurement.
 
 | Fo | 0.030 | 0.101 | 0.300 |
@@ -103,6 +106,10 @@ so every order is a real measurement.
 
 `Sh_i(Fo = 0.3) = 6.58012` against `2 pi^2 / 3 = 6.57974`, four digits from a
 marched cut-cell solve.
+
+![HT-002 convergence](../results/two-fluid-cut-cell/HT-002-convergence.png)
+
+![HT-002 observable](../results/two-fluid-cut-cell/HT-002-sh.png)
 
 ## References
 

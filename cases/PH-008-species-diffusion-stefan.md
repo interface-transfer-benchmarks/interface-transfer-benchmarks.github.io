@@ -71,15 +71,13 @@ $$
 
 ## Parameters
 
-Use the Gennari Basilisk setup.
-
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| Schmidt number | $Sc$ | 10 |
-| diffusivity | $D$ | 0.1 |
-| Henry coefficient | $He$ | 1.2 |
-| interface concentration scale | $c_\Sigma$ | 1 |
-| final time | $t_{end}$ | 175 |
+| Parameter | Symbol |
+|---|---|
+| Schmidt number | $Sc$ |
+| diffusivity | $D$ |
+| Henry coefficient | $He$ |
+| interface concentration scale | $c_\Sigma$ |
+| final time | $t_{end}$ |
 
 ## Reference
 

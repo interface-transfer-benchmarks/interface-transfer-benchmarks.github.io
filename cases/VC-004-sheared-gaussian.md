@@ -51,11 +51,11 @@ domain large enough that the blob does not reach the boundary.
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| shear rate | $\dot\gamma$ | 1 |
-| initial standard deviation | $\sigma_0$ | 0.05 |
-| diffusivity | $D$ | $10^{-3}$ |
+| Parameter | Symbol |
+|---|---|
+| shear rate | $\dot\gamma$ |
+| initial standard deviation | $\sigma_0$ |
+| diffusivity | $D$ |
 
 ## Reference
 

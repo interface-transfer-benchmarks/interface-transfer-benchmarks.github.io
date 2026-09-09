@@ -55,12 +55,12 @@ $$
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| disk radius | $R_0$ | 1 |
-| diffusivity | $D$ | 1 |
-| surface concentration | $C_s$ | 1 |
-| Damkohler number | $\mathrm{Da}=\nu R_0^2/D$ | 0.25 to 100 |
+| Parameter | Symbol |
+|---|---|
+| disk radius | $R_0$ |
+| diffusivity | $D$ |
+| surface concentration | $C_s$ |
+| Damkohler number | $\mathrm{Da}=\nu R_0^2/D$ |
 
 ## Reference
 
@@ -89,9 +89,11 @@ $$
 
 ## Results
 
-Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+### Two-fluid cut-cell method
 
-N = 128 uniform, 16 ranks. No Da = 0 column exists in 2D.
+L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
+
+Uniform grid, N = 128, 16 MPI ranks, with a confirmation rung at N = 256. Da = 0.25, 1, 4, 10, 100, 1000.
 
 | Da | 0.25 | 1 | 4 | 10 | 100 | 1000 |
 |---|---|---|---|---|---|---|
@@ -100,6 +102,10 @@ N = 128 uniform, 16 ranks. No Da = 0 column exists in 2D.
 | order | 2.01 | 1.99 | 1.95 | 1.92 | 1.71 | 1.21 |
 
 A confirmation rung at N = 256 gives 5.3e-5 to 3.1e-2, orders 2.05 down to 1.57.
+
+![MT-002 convergence](../results/two-fluid-cut-cell/MT-002-convergence.png)
+
+![MT-002 observable](../results/two-fluid-cut-cell/MT-002-sh.png)
 
 ## References
 

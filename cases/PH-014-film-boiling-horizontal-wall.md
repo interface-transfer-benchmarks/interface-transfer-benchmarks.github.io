@@ -90,21 +90,21 @@ adopted so results are directly comparable to published simulations. This
 set is sometimes referred to as the "phantom fluid" and is conventionally
 run at a saturation temperature of 500 K with a wall at 505 K.
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| liquid density | $\rho_l$ | 200 |
-| vapor density | $\rho_v$ | 5 |
-| liquid viscosity | $\mu_l$ | 0.1 |
-| vapor viscosity | $\mu_v$ | 0.005 |
-| liquid conductivity | $k_l$ | 40 |
-| vapor conductivity | $k_v$ | 1 |
-| liquid heat capacity | $c_{p,l}$ | 400 |
-| vapor heat capacity | $c_{p,v}$ | 200 |
-| latent heat | $h_{fg}$ | $10^{4}$ |
-| surface tension | $\sigma$ | 0.1 |
-| gravity | $g$ | 9.81 |
-| saturation temperature | $T_{sat}$ | 500 |
-| wall superheat | $\Delta T$ | 5 |
+| Parameter | Symbol |
+|---|---|
+| liquid density | $\rho_l$ |
+| vapor density | $\rho_v$ |
+| liquid viscosity | $\mu_l$ |
+| vapor viscosity | $\mu_v$ |
+| liquid conductivity | $k_l$ |
+| vapor conductivity | $k_v$ |
+| liquid heat capacity | $c_{p,l}$ |
+| vapor heat capacity | $c_{p,v}$ |
+| latent heat | $h_{fg}$ |
+| surface tension | $\sigma$ |
+| gravity | $g$ |
+| saturation temperature | $T_{sat}$ |
+| wall superheat | $\Delta T$ |
 
 Derived scales: capillary length $\lambda_0 = \sqrt{\sigma/(g(\rho_l-\rho_v))}$,
 most dangerous wavelength $\lambda_d = 2\pi\sqrt3\,\lambda_0$, vapor Jakob

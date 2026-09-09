@@ -3,4 +3,5 @@ docs/Manifest.toml
 docs/src/generated/
 docs/src/data/
 docs/src/figures/
+docs/src/results/
 docs/src/taxonomy.md

@@ -115,25 +115,19 @@ s(t_0)=2\xi\sqrt{t_0}.
 $$
 
 ## Parameters
+| Parameter | Symbol |
+|---|---|
+| density | $\rho$ |
+| heat capacity | $c_p$ |
+| conductivity | $k$ |
+| thermal diffusivity | $\alpha=k/(\rho c_p)$ |
+| far-field temperatures | $T_{-\infty}$, $T_{+\infty}$ |
+| melting temperature | $T_m$ |
+| latent heat | $L$ |
 
-Use this dimensionless reference case first.
-
-| Parameter | Phase $-$ | Phase $+$ |
-|---|---:|---:|
-| $\rho$ | 1 | 1 |
-| $c_p$ | 1 | 1 |
-| $k$ | 1 | 1 |
-| $\alpha=k/(\rho c_p)$ | 1 | 1 |
-
-| Quantity | Value |
-|---|---:|
-| $T_{-\infty}$ | 1 |
-| $T_m$ | 0 |
-| $T_{+\infty}$ | -0.25 |
-| $L$ | 1 |
-
-The asymmetric far-field temperatures avoid the stationary balance obtained
-when the two heat fluxes exactly cancel.
+Each property is defined separately in the two phases. The far-field
+temperatures must not be symmetric about $T_m$, or the two heat fluxes cancel
+and the front does not move.
 
 ## Reference
 

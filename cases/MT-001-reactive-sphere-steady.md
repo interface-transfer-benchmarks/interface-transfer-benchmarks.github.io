@@ -55,12 +55,12 @@ $$
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| sphere radius | $R_0$ | 1 |
-| diffusivity | $D$ | 1 |
-| surface concentration | $C_s$ | 1 |
-| Damkohler number | $\mathrm{Da}=\nu R_0^2/D$ | 0 to 100 |
+| Parameter | Symbol |
+|---|---|
+| sphere radius | $R_0$ |
+| diffusivity | $D$ |
+| surface concentration | $C_s$ |
+| Damkohler number | $\mathrm{Da}=\nu R_0^2/D$ |
 
 ## Reference
 
@@ -90,9 +90,11 @@ Damkohler number would give $2(1+\phi/2)$ and look like a factor-of-two error.
 
 ## Results
 
-Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+### Two-fluid cut-cell method
 
-N = 128 uniform, 8 ranks. `n/l` is cells per reaction layer.
+L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
+
+Uniform grid, N = 128, 8 MPI ranks; also run on an octree and an adaptive octree. Da = 0, 1, 4, 10, 100, 1000.
 
 | Da | 0 | 1 | 4 | 10 | 100 | 1000 |
 |---|---|---|---|---|---|---|
@@ -102,6 +104,10 @@ N = 128 uniform, 8 ranks. `n/l` is cells per reaction layer.
 
 The error is set by `n/l`, not by Da: second order is retained while the layer
 is resolved and degrades once it is not.
+
+![MT-001 convergence](../results/two-fluid-cut-cell/MT-001-convergence.png)
+
+![MT-001 observable](../results/two-fluid-cut-cell/MT-001-sh.png)
 
 ## References
 

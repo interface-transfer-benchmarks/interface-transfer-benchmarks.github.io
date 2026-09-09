@@ -59,11 +59,11 @@ with $C_1(x,0)=1$ for $x<0$ and $C_2(x,0)=0$ for $x>0$.
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| diffusivity, phase 1 | $D_1$ | 1 |
-| diffusivity, phase 2 | $D_2$ | 1, 0.1, 10 |
-| partition coefficient | $k$ | 0.5, 1, 2, 5 |
+| Parameter | Symbol |
+|---|---|
+| diffusivity, phase 1 | $D_1$ |
+| diffusivity, phase 2 | $D_2$ |
+| partition coefficient | $k$ |
 
 ## Reference
 

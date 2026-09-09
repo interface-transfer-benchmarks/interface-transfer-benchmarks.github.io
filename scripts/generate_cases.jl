@@ -12,7 +12,7 @@ function asset_url(path::AbstractString)
 end
 
 function rewrite_relative_links(body::AbstractString)
-    return replace(body, r"(\]\(|src=\")(?:\.\./|/)*((?:data|figures)/)" => s"\1../../\2")
+    return replace(body, r"(\]\(|src=\")(?:\.\./|/)*((?:data|figures|results)/)" => s"\1../../\2")
 end
 
 function rewrite_math(body::AbstractString)
@@ -111,6 +111,7 @@ function generate_cases(root::AbstractString = REPO_ROOT)
 
     copytree(joinpath(repo_root, "data"), joinpath(docs_src, "data"))
     copytree(joinpath(repo_root, "figures"), joinpath(docs_src, "figures"))
+    copytree(joinpath(repo_root, "results"), joinpath(docs_src, "results"))
 
     taxonomy = joinpath(repo_root, "taxonomy.md")
     isfile(taxonomy) && cp(taxonomy, joinpath(docs_src, "taxonomy.md"); force=true)

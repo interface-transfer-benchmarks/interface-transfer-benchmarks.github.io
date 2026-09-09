@@ -56,12 +56,12 @@ $$
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| disk radius | $R_0$ | 1 |
-| diffusivity | $D$ | 1 |
-| Damkohler number | $\mathrm{Da}$ | 1, 16, 100 |
-| rotation rate | $\Omega$ | 0, 1, 10, 100 |
+| Parameter | Symbol |
+|---|---|
+| disk radius | $R_0$ |
+| diffusivity | $D$ |
+| Damkohler number | $\mathrm{Da}$ |
+| rotation rate | $\Omega$ |
 
 ## Reference
 
@@ -86,9 +86,11 @@ fractions, must be at round-off.
 
 ## Results
 
-Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+### Two-fluid cut-cell method
 
-Da = 4, uniform, 16 ranks. `Sh_exact = 4.91214734`.
+L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
+
+Uniform grid, N = 32/64/128, 16 MPI ranks. Da = 4, Pe_omega = 0, 1, 10, 100, 1000.
 
 | Pe_omega | 0 | 1 | 10 | 100 | 1000 |
 |---|---|---|---|---|---|
@@ -105,6 +107,10 @@ rotation rate; the face-area-weighted one merely converges, 2.7e-1 to 5.9e-2 to
 the centred convective row, not a defect of the case: read the case as a
 contamination meter against cell Peclet and gate it only where the cell Peclet
 is resolved.
+
+![VC-005 convergence](../results/two-fluid-cut-cell/VC-005-convergence.png)
+
+![VC-005 observable](../results/two-fluid-cut-cell/VC-005-sh.png)
 
 ## References
 

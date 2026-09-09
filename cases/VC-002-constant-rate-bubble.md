@@ -57,16 +57,14 @@ The reference case uses a dissolving bubble, so $\dot m<0$.
 
 ## Parameters
 
-Use the Gennari Basilisk setup.
-
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| initial radius | $R_0$ | 1 |
-| continuous-phase density | $\rho_c$ | 1 |
-| density ratio | $\rho_c/\rho_d$ | 1000 |
-| dispersed density | $\rho_d$ | 0.001 |
-| mass-transfer rate | $\dot m$ | $-10^{-3}$ |
-| final time | $t_{end}$ | 1 |
+| Parameter | Symbol |
+|---|---|
+| initial radius | $R_0$ |
+| continuous-phase density | $\rho_c$ |
+| density ratio | $\rho_c/\rho_d$ |
+| dispersed density | $\rho_d$ |
+| mass-transfer rate | $\dot m$ |
+| final time | $t_{end}$ |
 
 ## Reference
 

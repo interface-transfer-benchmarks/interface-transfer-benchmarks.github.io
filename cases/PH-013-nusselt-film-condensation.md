@@ -75,6 +75,25 @@ $$
 
 Saturated steam at atmospheric pressure on a subcooled plate.
 
+| Parameter | Symbol |
+|---|---|
+| plate height | $L_p$ |
+| saturation temperature | $T_{sat}$ |
+| wall temperature | $T_w$ |
+| liquid density | $\rho_l$ |
+| vapor density | $\rho_v$ |
+| liquid viscosity | $\mu_l$ |
+| liquid conductivity | $k_l$ |
+| liquid heat capacity | $c_{p,l}$ |
+| latent heat | $h_{fg}$ |
+| gravity | $g$ |
+
+## Reference
+
+The configuration of the reference, with the values it is stated for:
+
+Saturated steam at atmospheric pressure on a subcooled plate.
+
 | Parameter | Symbol | Value | Unit |
 |---|---:|---:|---|
 | plate height | $L_p$ | 0.1 | m |
@@ -88,7 +107,6 @@ Saturated steam at atmospheric pressure on a subcooled plate.
 | latent heat | $h_{fg}$ | $2.257\times10^{6}$ | J/kg |
 | gravity | $g$ | 9.81 | m/s^2 |
 
-## Reference
 
 The Nusselt solution is
 

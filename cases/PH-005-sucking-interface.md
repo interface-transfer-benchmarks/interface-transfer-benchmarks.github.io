@@ -118,6 +118,30 @@ $$
 
 ## Parameters
 
+| Parameter | Symbol |
+|---|---|
+| liquid density | $\rho_l$ |
+| vapor density | $\rho_g$ |
+| liquid conductivity | $k_l$ |
+| vapor conductivity | $k_g$ |
+| liquid heat capacity | $c_{p,l}$ |
+| vapor heat capacity | $c_{p,g}$ |
+| latent heat | $h_{lg}$ |
+| saturation temperature | $T_{sat}$ |
+| bulk liquid temperature | $T_{bulk}$ |
+
+The corresponding thermal diffusivities are
+
+$$
+\alpha_l = 1.68043750970150\times10^{-7}\ \mathrm{m^2/s},
+\qquad
+\alpha_g = 2.06285945325973\times10^{-5}\ \mathrm{m^2/s}.
+$$
+
+## Reference
+
+The configuration of the reference, with the values it is stated for:
+
 Use the water/vapor setup used in Basilisk's sucking-interface example.
 
 | Parameter | Symbol | Value | Unit |
@@ -140,7 +164,6 @@ $$
 \alpha_g = 2.06285945325973\times10^{-5}\ \mathrm{m^2/s}.
 $$
 
-## Reference
 
 The vapor-layer thickness is
 

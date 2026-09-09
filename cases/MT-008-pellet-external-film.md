@@ -58,13 +58,13 @@ $$
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| pellet radius | $R$ | 1 |
-| diffusivity | $D$ | 1 |
-| bulk concentration | $C_b$ | 1 |
-| Thiele modulus | $\phi = R\sqrt{k/D}$ | 0.1 to 20 |
-| Biot number | $\mathrm{Bi} = k_g R/D$ | 0.1 to 100 |
+| Parameter | Symbol |
+|---|---|
+| pellet radius | $R$ |
+| diffusivity | $D$ |
+| bulk concentration | $C_b$ |
+| Thiele modulus | $\phi = R\sqrt{k/D}$ |
+| Biot number | $\mathrm{Bi} = k_g R/D$ |
 
 ## Reference
 
@@ -93,9 +93,11 @@ resistances in series, measured on the two sides of the interface.
 
 ## Results
 
-Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+### Two-fluid cut-cell method
 
-phi = 5, Bi from 0.1 to 1e4, uniform.
+L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
+
+Uniform grid, both dimensions. phi = 5, Bi from 0.1 to 1e4.
 
 | | rel. error on eta_ov |
 |---|---|
@@ -104,6 +106,10 @@ phi = 5, Bi from 0.1 to 1e4, uniform.
 
 The solved surface concentration stays within 5e-3 of the reference
 `1/(1 + (phi coth phi - 1)/Bi)` throughout.
+
+![MT-008 convergence](../results/two-fluid-cut-cell/MT-008-convergence.png)
+
+![MT-008 observable](../results/two-fluid-cut-cell/MT-008-sh.png)
 
 ## References
 

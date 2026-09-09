@@ -77,14 +77,12 @@ implementation.
 
 ## Parameters
 
-Use this nondimensional reference setup.
-
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| interface speed | $V$ | 1 |
-| equilibrium temperature | $T_{eq}$ | 0 |
-| initial time shift | $t_0$ | $10^{-6}$ |
-| final time | $t_{end}$ | 0.2 |
+| Parameter | Symbol |
+|---|---|
+| interface speed | $V$ |
+| equilibrium temperature | $T_{eq}$ |
+| initial time shift | $t_0$ |
+| final time | $t_{end}$ |
 
 ## Reference
 

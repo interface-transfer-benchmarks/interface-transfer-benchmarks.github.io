@@ -104,6 +104,31 @@ and set the liquid temperature from the analytical radial profile.
 
 ## Parameters
 
+Scriven example.
+
+| Parameter | Symbol |
+|---|---|
+| liquid density | $\rho_l$ |
+| vapor density | $\rho_g$ |
+| liquid conductivity | $k_l$ |
+| vapor conductivity | $k_g$ |
+| liquid heat capacity | $c_{p,l}$ |
+| vapor heat capacity | $c_{p,g}$ |
+| latent heat | $h_{lg}$ |
+| saturation temperature | $T_{sat}$ |
+| Jakob number | $\mathrm{Ja}$ |
+| bulk liquid temperature | $T_{bulk}$ |
+
+The liquid thermal diffusivity is
+
+$$
+\alpha_l = 1.48554269845860\times10^{-7}\ \mathrm{m^2/s}.
+$$
+
+## Reference
+
+The configuration of the reference, with the values it is stated for:
+
 Use the water/vapor setup with Jakob number $\mathrm{Ja}=3$ used in Basilisk's
 Scriven example.
 
@@ -126,7 +151,6 @@ $$
 \alpha_l = 1.48554269845860\times10^{-7}\ \mathrm{m^2/s}.
 $$
 
-## Reference
 
 The bubble radius is
 

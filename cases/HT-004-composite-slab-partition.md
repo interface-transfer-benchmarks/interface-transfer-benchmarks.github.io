@@ -59,12 +59,12 @@ $$
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| slab thicknesses | $L_1$, $L_2$ | 1, 1 |
-| diffusivities | $D_1$, $D_2$ | 1; 1, 0.1, 10 |
-| partition coefficient | $k$ | 0.5, 1, 2, 5 |
-| face values | $C_a$, $C_b$ | 1, 0 |
+| Parameter | Symbol |
+|---|---|
+| slab thicknesses | $L_1$, $L_2$ |
+| diffusivities | $D_1$, $D_2$ |
+| partition coefficient | $k$ |
+| face values | $C_a$, $C_b$ |
 
 ## Reference
 

@@ -55,12 +55,12 @@ $$
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| pellet radius | $R$ | 1 |
-| diffusivity | $D$ | 1 |
-| surface concentration | $C_s$ | 1 |
-| Thiele modulus | $\phi = R\sqrt{k/D}$ | 0.1 to 20 |
+| Parameter | Symbol |
+|---|---|
+| pellet radius | $R$ |
+| diffusivity | $D$ |
+| surface concentration | $C_s$ |
+| Thiele modulus | $\phi = R\sqrt{k/D}$ |
 
 ## Reference
 
@@ -83,14 +83,20 @@ The asymptote is $\eta \to 2/\phi$.
 
 ## Results
 
-Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+### Two-fluid cut-cell method
 
-N = 128 uniform, 2D, 16 ranks.
+L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
+
+Uniform grid, N = 128, two dimensions, 16 MPI ranks. phi = 0.5, 1, 2, 5, 10, 20.
 
 | phi | 0.5 | 1 | 2 | 5 | 10 | 20 |
 |---|---|---|---|---|---|---|
 | rel. error | 1.3e-5 | 5.3e-5 | 2.2e-4 | 1.5e-3 | 6.2e-3 | 2.3e-2 |
 | order | 2.04 | 2.04 | 2.01 | 1.94 | 1.83 | 1.65 |
+
+![MT-006 convergence](../results/two-fluid-cut-cell/MT-006-convergence.png)
+
+![MT-006 observable](../results/two-fluid-cut-cell/MT-006-sh.png)
 
 ## References
 

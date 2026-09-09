@@ -54,13 +54,13 @@ $$
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| sphere radius | $R_0$ | 1 |
-| diffusivity | $D$ | 1 |
-| surface concentration | $C_s$ | 1 |
-| Damkohler number | $\mathrm{Da}=\nu R_0^2/D$ | 0, 1, 10 |
-| Fourier number | $\mathrm{Fo}=Dt/R_0^2$ | 0.001 to 10 |
+| Parameter | Symbol |
+|---|---|
+| sphere radius | $R_0$ |
+| diffusivity | $D$ |
+| surface concentration | $C_s$ |
+| Damkohler number | $\mathrm{Da}=\nu R_0^2/D$ |
+| Fourier number | $\mathrm{Fo}=Dt/R_0^2$ |
 
 ## Reference
 
@@ -101,9 +101,11 @@ $\mathrm{Fo}\to\infty$ and MT-003 the limit $\mathrm{Da}\to 0$.
 
 ## Results
 
-Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+### Two-fluid cut-cell method
 
-N = 64 uniform, Crank-Nicolson, 8 ranks.
+L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
+
+Uniform grid, N = 64, Crank-Nicolson in time, 8 MPI ranks. Da = 1 and 10, Fo = 0.05, 0.15, 0.50.
 
 | Fo | 0.05 | 0.15 | 0.50 |
 |---|---|---|---|
@@ -114,6 +116,10 @@ N = 64 uniform, Crank-Nicolson, 8 ranks.
 
 Time-step ladder at fixed N, against the same grid's finest-step solution:
 1.09 to 1.23 for backward Euler, 1.5 to 1.8 for Crank-Nicolson.
+
+![MT-004 convergence](../results/two-fluid-cut-cell/MT-004-convergence.png)
+
+![MT-004 observable](../results/two-fluid-cut-cell/MT-004-sh.png)
 
 ## References
 

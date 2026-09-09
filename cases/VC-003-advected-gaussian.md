@@ -54,13 +54,13 @@ periodic on all faces.
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| box side | $L$ | 1 |
-| initial standard deviation | $\sigma_0$ | 0.05 |
-| velocity | $\mathbf{U}$ | (1, 0) |
-| diffusivity | $D$ | $10^{-4}$ |
-| cell Peclet number | $\mathrm{Pe}_h = |U| h/D$ | swept |
+| Parameter | Symbol |
+|---|---|
+| box side | $L$ |
+| initial standard deviation | $\sigma_0$ |
+| velocity | $\mathbf{U}$ |
+| diffusivity | $D$ |
+| cell Peclet number | $\mathrm{Pe}_h = \lvert U\rvert h/D$ |
 
 ## Reference
 

@@ -73,16 +73,14 @@ $$
 
 ## Parameters
 
-Use the nondimensional Basilisk setup.
-
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| domain height | $L$ | 10 |
-| initial film thickness | $h_0$ | 1 |
-| diffusivity | $D$ | 1 |
-| interfacial concentration | $c_s$ | 1 |
-| far concentration | $c_\infty$ | 0.2 |
-| concentration-density ratio | $\mu$ | $8.0\times10^{-4}$ |
+| Parameter | Symbol |
+|---|---|
+| domain height | $L$ |
+| initial film thickness | $h_0$ |
+| diffusivity | $D$ |
+| interfacial concentration | $c_s$ |
+| far concentration | $c_\infty$ |
+| concentration-density ratio | $\mu$ |
 
 ## Reference
 

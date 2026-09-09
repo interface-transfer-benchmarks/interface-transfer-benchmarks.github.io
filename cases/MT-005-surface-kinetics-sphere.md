@@ -61,12 +61,12 @@ and $C(r\to\infty) = C_\infty$.
 
 ## Parameters
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| sphere radius | $R_0$ | 1 |
-| diffusivity | $D$ | 1 |
-| far-field concentration | $C_\infty$ | 1 |
-| surface Damkohler number | $\mathrm{Da}_s = k_s R_0/D$ | 0.01 to 100 |
+| Parameter | Symbol |
+|---|---|
+| sphere radius | $R_0$ |
+| diffusivity | $D$ |
+| far-field concentration | $C_\infty$ |
+| surface Damkohler number | $\mathrm{Da}_s = k_s R_0/D$ |
 
 ## Reference
 
@@ -100,9 +100,11 @@ gives the kinetics-controlled $\mathrm{Sh}=2\,\mathrm{Da}_s$.
 
 ## Results
 
-Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+### Two-fluid cut-cell method
 
-N = 64 uniform, 8 ranks.
+L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
+
+Uniform grid, N = 64, 8 MPI ranks. Da_s = 0.1, 1, 10, 100, 1000.
 
 | Da_s | 0.1 | 1 | 10 | 100 | 1000 |
 |---|---|---|---|---|---|
@@ -112,6 +114,8 @@ N = 64 uniform, 8 ranks.
 The errors on `Sh_ov` and on the solved `c_s` are the same numbers, because
 `Sh_ov = 2 Da_s c_s` with `Da_s` exact: measuring the solved surface
 concentration and measuring the transfer are one measurement.
+
+![MT-005 observable](../results/two-fluid-cut-cell/MT-005-sh.png)
 
 ## References
 

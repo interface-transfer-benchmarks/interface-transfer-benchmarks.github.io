@@ -89,20 +89,20 @@ phases; the Lewis number $\mathrm{Le} = \alpha/D = 20$ produces a solutal
 boundary layer much thinner than the thermal one, which is the physically
 relevant and numerically demanding regime.
 
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| density | $\rho$ | 1 |
-| heat capacity | $c_p$ | 1 |
-| conductivities | $k_s = k_l$ | 1 |
-| thermal diffusivities | $\alpha_s = \alpha_l$ | 1 |
-| solute diffusivity (liquid) | $D$ | 0.05 |
-| latent heat | $L$ | 1 |
-| pure-solvent melting point | $T_m$ | 0 |
-| liquidus slope | $m$ | -0.5 |
-| partition coefficient | $k_p$ | 0.2 |
-| initial concentration | $C_\infty$ | 1 |
-| initial melt temperature | $T_\infty$ | -0.3 |
-| wall temperature | $T_0$ | -1.5 |
+| Parameter | Symbol |
+|---|---|
+| density | $\rho$ |
+| heat capacity | $c_p$ |
+| conductivities | $k_s = k_l$ |
+| thermal diffusivities | $\alpha_s = \alpha_l$ |
+| solute diffusivity (liquid) | $D$ |
+| latent heat | $L$ |
+| pure-solvent melting point | $T_m$ |
+| liquidus slope | $m$ |
+| partition coefficient | $k_p$ |
+| initial concentration | $C_\infty$ |
+| initial melt temperature | $T_\infty$ |
+| wall temperature | $T_0$ |
 
 The initial melt is above its liquidus $T_m + mC_\infty = -0.5$ and the wall
 is well below it, so a solid layer nucleates at the wall and grows.

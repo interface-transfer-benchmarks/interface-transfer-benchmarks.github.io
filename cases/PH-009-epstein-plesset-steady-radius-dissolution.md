@@ -69,17 +69,15 @@ $$
 
 ## Parameters
 
-Use the Gennari Basilisk setup.
-
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| bubble radius | $R$ | 0.5 |
-| Schmidt number | $Sc$ | 0.0526 |
-| diffusivity | $D$ | 19.0114068441065 |
-| Henry coefficient | $He$ | 5 |
-| interfacial concentration | $c_\Sigma$ | 0.2 |
-| bulk concentration | $c_{bulk}$ | 0 |
-| final time | $t_{end}$ | 0.01 |
+| Parameter | Symbol |
+|---|---|
+| bubble radius | $R$ |
+| Schmidt number | $Sc$ |
+| diffusivity | $D$ |
+| Henry coefficient | $He$ |
+| interfacial concentration | $c_\Sigma$ |
+| bulk concentration | $c_{bulk}$ |
+| final time | $t_{end}$ |
 
 ## Reference
 

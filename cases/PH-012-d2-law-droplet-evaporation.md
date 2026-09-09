@@ -76,6 +76,24 @@ $$
 
 Water-like droplet in air at moderate surface saturation.
 
+| Parameter | Symbol |
+|---|---|
+| initial diameter | $d_0$ |
+| liquid density | $\rho_l$ |
+| gas density | $\rho_g$ |
+| vapor diffusivity | $D_g$ |
+| surface mass fraction | $Y_s$ |
+| far-field mass fraction | $Y_\infty$ |
+| transfer number | $B_M$ |
+| evaporation constant | $K$ |
+| droplet lifetime | $t_{life}$ |
+
+## Reference
+
+The configuration of the reference, with the values it is stated for:
+
+Water-like droplet in air at moderate surface saturation.
+
 | Parameter | Symbol | Value | Unit |
 |---|---:|---:|---|
 | initial diameter | $d_0$ | $1\times10^{-3}$ | m |
@@ -88,7 +106,6 @@ Water-like droplet in air at moderate surface saturation.
 | evaporation constant | $K$ | $1.0258\times10^{-8}$ | m^2/s |
 | droplet lifetime | $t_{life}$ | 97.48 | s |
 
-## Reference
 
 The quasi-steady solution gives
 

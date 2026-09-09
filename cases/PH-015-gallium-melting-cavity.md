@@ -76,6 +76,27 @@ Density change on melting and solid motion are neglected.
 
 Gallium properties as used in the enthalpy-porosity literature:
 
+| Parameter | Symbol |
+|---|---|
+| density | $\rho$ |
+| viscosity | $\mu$ |
+| conductivity | $k$ |
+| heat capacity | $c_p$ |
+| latent heat | $L$ |
+| thermal expansion | $\beta$ |
+| gravity | $g$ |
+
+The commonly quoted dimensionless groups for this configuration are
+$Pr \approx 0.0216$, $Ste = c_p (T_h - T_m)/L \approx 0.039$, and
+$Ra = g\beta(T_h - T_m)H^3 \rho^2 c_p/(\mu k) \approx 6\times10^{5}$
+(Boussinesq in the melt only).
+
+## Reference
+
+The configuration of the reference, with the values it is stated for:
+
+Gallium properties as used in the enthalpy-porosity literature:
+
 | Parameter | Symbol | Value | Unit |
 |---|---:|---:|---|
 | density | $\rho$ | 6093 | kg/m^3 |
@@ -91,7 +112,6 @@ $Pr \approx 0.0216$, $Ste = c_p (T_h - T_m)/L \approx 0.039$, and
 $Ra = g\beta(T_h - T_m)H^3 \rho^2 c_p/(\mu k) \approx 6\times10^{5}$
 (Boussinesq in the melt only).
 
-## Reference
 
 The primary reference is the sequence of melt-front shapes measured by
 Gau & Viskanta with the pour-out method at approximately
