@@ -19,8 +19,8 @@ const METADATA_FIELDS = [
     "references",
 ]
 
-const BENCHMARKS_REPO_BLOB = "https://github.com/Phase-Change-Numerical-Benchmarks/benchmarks/blob/main"
-const BENCHMARKS_REPO_RAW = "https://raw.githubusercontent.com/Phase-Change-Numerical-Benchmarks/benchmarks/main"
+const BENCHMARKS_REPO_BLOB = "https://github.com/interface-transfer-benchmarks/benchmarks/blob/main"
+const BENCHMARKS_REPO_RAW = "https://raw.githubusercontent.com/interface-transfer-benchmarks/benchmarks/main"
 
 function getmeta(metadata, key::AbstractString, default = "")
     if haskey(metadata, key)

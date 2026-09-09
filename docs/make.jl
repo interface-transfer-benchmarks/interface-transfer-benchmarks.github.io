@@ -14,14 +14,14 @@ case_pages = sort([
 ])
 
 makedocs(;
-    sitename = "Phase-Change Numerical Benchmarks",
+    sitename = "Interface Transfer Benchmarks",
     source = "src",
     build = "build",
     format = DocumenterVitepress.MarkdownVitepress(;
-        repo = "github.com/Phase-Change-Numerical-Benchmarks/phase-change-numerical-benchmarks.github.io",
+        repo = "github.com/interface-transfer-benchmarks/interface-transfer-benchmarks.github.io",
         devbranch = "main",
         devurl = "dev",
-        deploy_url = "https://phase-change-numerical-benchmarks.github.io",
+        deploy_url = "https://interface-transfer-benchmarks.github.io",
         inventory_version = "1",
     ),
     pages = [

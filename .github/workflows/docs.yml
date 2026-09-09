@@ -31,7 +31,7 @@ jobs:
       - name: Checkout benchmark repository
         uses: actions/checkout@v4
         with:
-          repository: Phase-Change-Numerical-Benchmarks/benchmarks
+          repository: interface-transfer-benchmarks/benchmarks
           path: _upstream/benchmarks
 
       - name: Setup Julia
