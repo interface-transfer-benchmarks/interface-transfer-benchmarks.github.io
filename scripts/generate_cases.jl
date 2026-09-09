@@ -19,8 +19,7 @@ const METADATA_FIELDS = [
     "references",
 ]
 
-const BENCHMARKS_REPO_BLOB = "https://github.com/interface-transfer-benchmarks/benchmarks/blob/main"
-const BENCHMARKS_REPO_RAW = "https://raw.githubusercontent.com/interface-transfer-benchmarks/benchmarks/main"
+const REPO_BLOB = "https://github.com/interface-transfer-benchmarks/interface-transfer-benchmarks.github.io/blob/main"
 
 function getmeta(metadata, key::AbstractString, default = "")
     if haskey(metadata, key)
@@ -82,33 +81,16 @@ function canonical_asset_path(path::AbstractString)
 end
 
 function data_url(path::AbstractString)
-    return BENCHMARKS_REPO_BLOB * "/" * canonical_asset_path(path)
+    return REPO_BLOB * "/" * canonical_asset_path(path)
 end
 
 function figure_url(path::AbstractString)
-    return BENCHMARKS_REPO_RAW * "/" * canonical_asset_path(path)
+    return "../../" * canonical_asset_path(path)
 end
 
 function rewrite_relative_links(body::AbstractString)
-    rewritten = body
-    replacements = [
-        "](/data/" => "]($(BENCHMARKS_REPO_BLOB)/data/",
-        "](data/" => "]($(BENCHMARKS_REPO_BLOB)/data/",
-        "](../data/" => "]($(BENCHMARKS_REPO_BLOB)/data/",
-        "](/figures/" => "]($(BENCHMARKS_REPO_RAW)/figures/",
-        "](figures/" => "]($(BENCHMARKS_REPO_RAW)/figures/",
-        "](../figures/" => "]($(BENCHMARKS_REPO_RAW)/figures/",
-        "src=\"/data/" => "src=\"$(BENCHMARKS_REPO_BLOB)/data/",
-        "src=\"data/" => "src=\"$(BENCHMARKS_REPO_BLOB)/data/",
-        "src=\"../data/" => "src=\"$(BENCHMARKS_REPO_BLOB)/data/",
-        "src=\"/figures/" => "src=\"$(BENCHMARKS_REPO_RAW)/figures/",
-        "src=\"figures/" => "src=\"$(BENCHMARKS_REPO_RAW)/figures/",
-        "src=\"../figures/" => "src=\"$(BENCHMARKS_REPO_RAW)/figures/",
-    ]
-    for (from, to) in replacements
-        rewritten = replace(rewritten, from => to)
-    end
-    return rewritten
+    rewritten = replace(body, r"(\]\(|src=\")(?:\.\./|/)*(data/)" => SubstitutionString("\\1$(REPO_BLOB)/\\2"))
+    return replace(rewritten, r"(\]\(|src=\")(?:\.\./|/)*(figures/)" => s"\1../../\2")
 end
 
 function rewrite_math(body::AbstractString)
@@ -164,7 +146,7 @@ function write_case_page(case, output_path::AbstractString)
     open(output_path, "w") do io
         println(io, "# ", case.title)
         println(io)
-        println(io, "Source: [", case.filename, "](", BENCHMARKS_REPO_BLOB, "/cases/", case.filename, ")")
+        println(io, "Source: [", case.filename, "](", REPO_BLOB, "/cases/", case.filename, ")")
         println(io)
         println(io, "| Field | Value |")
         println(io, "|---|---|")
@@ -205,23 +187,22 @@ end
 
 function generate_cases()
     repo_root = normpath(joinpath(@__DIR__, ".."))
-    upstream = joinpath(repo_root, "_upstream", "benchmarks")
-    cases_dir = joinpath(upstream, "cases")
+    cases_dir = joinpath(repo_root, "cases")
     docs_src = joinpath(repo_root, "docs", "src")
     generated_dir = joinpath(docs_src, "generated")
     generated_cases_dir = joinpath(generated_dir, "cases")
 
-    isdir(cases_dir) || error("Benchmark repository not found at $upstream. Expected case files under $cases_dir.")
+    isdir(cases_dir) || error("No case files under $cases_dir.")
 
     mkpath(generated_cases_dir)
     for path in readdir(generated_cases_dir; join=true)
         isfile(path) && endswith(path, ".md") && rm(path; force=true)
     end
 
-    copytree(joinpath(upstream, "data"), joinpath(docs_src, "data"))
-    copytree(joinpath(upstream, "figures"), joinpath(docs_src, "figures"))
+    copytree(joinpath(repo_root, "data"), joinpath(docs_src, "data"))
+    copytree(joinpath(repo_root, "figures"), joinpath(docs_src, "figures"))
 
-    taxonomy = joinpath(upstream, "taxonomy.md")
+    taxonomy = joinpath(repo_root, "taxonomy.md")
     isfile(taxonomy) && cp(taxonomy, joinpath(docs_src, "taxonomy.md"); force=true)
 
     case_paths = sort([

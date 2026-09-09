@@ -1,34 +1,48 @@
-# Interface Transfer Benchmarks website
+# Interface Transfer Benchmarks
 
-This repository builds the public website:
+Benchmark definitions, reference data, and the website for numerical methods
+for interfacial heat and mass transfer.
 
-https://interface-transfer-benchmarks.github.io/
+Site: https://interface-transfer-benchmarks.github.io/
 
-The benchmark source files live in:
+Each benchmark is one Markdown file in `cases/` with a stable identifier.
+The list is in [`index.md`](index.md); the classification is in
+[`taxonomy.md`](taxonomy.md).
 
-https://github.com/interface-transfer-benchmarks/benchmarks
+## Goals
 
-## Local build
+Not to promote one numerical method, but to define reproducible test cases for
+comparing sharp-interface, front-tracking, level-set, VOF, cut-cell,
+ghost-fluid, immersed-boundary, enthalpy, and phase-field methods.
 
-Clone both repositories:
+## Identifiers
 
-```bash
-git clone https://github.com/interface-transfer-benchmarks/interface-transfer-benchmarks.github.io
-cd interface-transfer-benchmarks.github.io
+Following the historical InterfaceTracking collection.
 
-mkdir -p _upstream
-git clone https://github.com/interface-transfer-benchmarks/benchmarks _upstream/benchmarks
+| Prefix | Meaning |
+|---|---|
+| `N` | Purely numerical test-case |
+| `PA` | Compared to an analytical solution |
+| `PN` | Compared to a numerical reference method |
+| `PE` | Compared to an experiment |
+| `PC` | Test of coherence |
+
+## Layout
+
+```text
+cases/          Benchmark descriptions
+data/           Reference data
+figures/        Reference plots
+scripts/        Reference data generation, validation, site generation
+docs/           Website source
+references.bib  Bibliography
 ```
 
-Build:
+## Build the site
 
 ```bash
 julia --project=docs -e 'using Pkg; Pkg.instantiate()'
 julia --project=docs docs/make.jl
 ```
 
-The generated site is written to:
-
-```text
-docs/build/
-```
+Output in `docs/build/`. See `CONTRIBUTING.md` and `benchmark-template.md`.
