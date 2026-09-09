@@ -25,7 +25,7 @@ The prefix is the physics family and is stable. How a case is validated is the
 |---|---|
 | `PH` | Phase change: Stefan problems, melting, solidification, evaporation, boiling |
 | `MT` | Mass transfer with interfacial reaction |
-| `HT` | Conjugate heat transfer |
+| `HT` | Conjugate transfer across an interface, heat or mass |
 | `VC` | Verification and coherence tests |
 
 Identifiers used before this scheme are mapped in [`aliases.csv`](aliases.csv).

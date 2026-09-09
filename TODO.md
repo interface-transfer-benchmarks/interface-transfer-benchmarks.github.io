@@ -19,6 +19,14 @@ Remaining candidates (IDs assigned at implementation time):
 - Landau ablation problem with imposed surface heat flux.
 - High-transfer-number d2-law variant (Y_s = 0.5).
 
+### Mass and conjugate transfer candidates
+
+- Unsteady Henry jump across a circle, two-phase Bessel-integral reference.
+- Static bubble with a Henry jump in 3D, Laplace-inversion reference.
+- Second-order and n-th order kinetics outside a disk, independent BVP reference.
+- Non-isothermal pellet with multiplicity and an S-shaped effectiveness curve.
+- Leveque entrance region for a reactive wall.
+
 ### Numerical-reference benchmarks
 
 Implemented so far: PH-014 (film boiling on a horizontal wall).

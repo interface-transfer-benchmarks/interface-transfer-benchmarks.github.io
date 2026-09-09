@@ -1045,6 +1045,544 @@ def generate_ph014() -> None:
     )
 
 
+
+def generate_mt001() -> None:
+    da_values = [0.0, 0.25, 1.0, 4.0, 16.0, 100.0]
+    rows = [[da, 2 * (1 + math.sqrt(da))] for da in da_values]
+    write_csv(ROOT / "data/MT-001/reference.csv", ["damkohler", "sherwood"], rows)
+
+    radii = linspace(1.0, 6.0, CURVE_POINTS)
+    plt.figure(figsize=(7.2, 4.3))
+    for da in [0.0, 1.0, 16.0, 100.0]:
+        profile = [math.exp(-math.sqrt(da) * (r - 1.0)) / r for r in radii]
+        plt.plot(radii, profile, linewidth=2.0, label=f"Da = {da:g}")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/MT-001-reference.svg",
+        "MT-001 reaction-diffusion outside a sphere",
+        "r / R0",
+        "C / Cs",
+    )
+
+
+def generate_mt002() -> None:
+    da_values = [0.25, 1.0, 4.0, 16.0, 64.0, 100.0]
+    rows = []
+    for da in da_values:
+        m = mp.sqrt(da)
+        flux = 2 * mp.pi * m * mp.besselk(1, m) / mp.besselk(0, m)
+        rows.append([da, float(flux)])
+    write_csv(ROOT / "data/MT-002/reference.csv", ["damkohler", "uptake"], rows)
+
+    sweep = [0.05 * 1.15**index for index in range(60)]
+    fluxes = [
+        float(2 * mp.pi * mp.sqrt(da) * mp.besselk(1, mp.sqrt(da)) / mp.besselk(0, mp.sqrt(da)))
+        for da in sweep
+    ]
+    plt.figure(figsize=(7.2, 4.3))
+    plt.plot(sweep, fluxes, color="#1f77b4", linewidth=2.2, label="F(Da)")
+    plt.xscale("log")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/MT-002-reference.svg",
+        "MT-002 reactive uptake outside a disk",
+        "Da",
+        "F / (D Cs)",
+    )
+
+
+def generate_mt003() -> None:
+    fo_values = [0.001, 0.01, 0.1, 1.0, 10.0]
+    rows = [[fo, 2 + 2 / math.sqrt(math.pi * fo)] for fo in fo_values]
+    write_csv(ROOT / "data/MT-003/reference.csv", ["fourier", "sherwood"], rows)
+
+    sweep = [0.001 * 1.2**index for index in range(55)]
+    plt.figure(figsize=(7.2, 4.3))
+    plt.plot(
+        sweep,
+        [2 + 2 / math.sqrt(math.pi * fo) for fo in sweep],
+        color="#1f77b4",
+        linewidth=2.2,
+        label="Sh(Fo)",
+    )
+    plt.axhline(2.0, color="0.5", linewidth=1.2, label="Sh = 2")
+    plt.xscale("log")
+    plt.yscale("log")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/MT-003-reference.svg",
+        "MT-003 unsteady diffusion to a sphere",
+        "Fo",
+        "Sh",
+    )
+
+
+def mt004_sherwood(fourier: float, damkohler: float) -> float:
+    return float(
+        2
+        * (
+            1
+            + mp.sqrt(damkohler) * mp.erf(mp.sqrt(damkohler * fourier))
+            + mp.e ** (-damkohler * fourier) / mp.sqrt(mp.pi * fourier)
+        )
+    )
+
+
+def generate_mt004() -> None:
+    rows = []
+    for da in [0.0, 1.0, 10.0]:
+        for fo in [0.001, 0.01, 0.1, 1.0, 10.0]:
+            rows.append([da, fo, mt004_sherwood(fo, da)])
+    write_csv(ROOT / "data/MT-004/reference.csv", ["damkohler", "fourier", "sherwood"], rows)
+
+    sweep = [0.001 * 1.2**index for index in range(55)]
+    plt.figure(figsize=(7.2, 4.3))
+    for da in [0.0, 1.0, 10.0]:
+        plt.plot(
+            sweep,
+            [mt004_sherwood(fo, da) for fo in sweep],
+            linewidth=2.0,
+            label=f"Da = {da:g}",
+        )
+        plt.axhline(2 * (1 + math.sqrt(da)), color="0.75", linewidth=1.0)
+    plt.xscale("log")
+    plt.yscale("log")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/MT-004-reference.svg",
+        "MT-004 unsteady reaction-diffusion outside a sphere",
+        "Fo",
+        "Sh",
+    )
+
+
+def generate_mt005() -> None:
+    das = [0.01, 0.1, 1.0, 10.0, 100.0]
+    rows = [[da, 1 / (1 + da), 2 * da / (1 + da)] for da in das]
+    write_csv(
+        ROOT / "data/MT-005/reference.csv",
+        ["surface_damkohler", "surface_concentration", "sherwood"],
+        rows,
+    )
+
+    sweep = [0.01 * 1.2**index for index in range(56)]
+    plt.figure(figsize=(7.2, 4.3))
+    plt.plot(sweep, [2 * da / (1 + da) for da in sweep], linewidth=2.2, label="Sh_ov")
+    plt.plot(sweep, [1 / (1 + da) for da in sweep], linewidth=2.2, label="Cs / Cinf")
+    plt.axhline(2.0, color="0.5", linewidth=1.2, label="Sh = 2")
+    plt.xscale("log")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/MT-005-reference.svg",
+        "MT-005 first-order surface kinetics on a sphere",
+        "Da_s",
+        "Sh_ov, Cs / Cinf",
+    )
+
+
+
+def pellet_cylinder_eta(phi: float) -> float:
+    return float(2 * mp.besseli(1, phi) / (phi * mp.besseli(0, phi)))
+
+
+def pellet_sphere_eta(phi: float) -> float:
+    return float(3 * (phi / mp.tanh(phi) - 1) / phi**2)
+
+
+def generate_mt006() -> None:
+    phis = [0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 20.0]
+    rows = [[phi, pellet_cylinder_eta(phi)] for phi in phis]
+    write_csv(ROOT / "data/MT-006/reference.csv", ["thiele", "effectiveness"], rows)
+
+    sweep = [0.05 * 1.15**index for index in range(60)]
+    plt.figure(figsize=(7.2, 4.3))
+    plt.plot(sweep, [pellet_cylinder_eta(phi) for phi in sweep], linewidth=2.2, label="eta(phi)")
+    plt.plot(sweep, [min(1.0, 2 / phi) for phi in sweep], "--", color="0.5", linewidth=1.4, label="2 / phi")
+    plt.xscale("log")
+    plt.yscale("log")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/MT-006-reference.svg",
+        "MT-006 isothermal pellet, cylinder",
+        "phi",
+        "eta",
+    )
+
+
+def generate_mt007() -> None:
+    phis = [0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 20.0]
+    rows = [[phi, pellet_sphere_eta(phi)] for phi in phis]
+    write_csv(ROOT / "data/MT-007/reference.csv", ["thiele", "effectiveness"], rows)
+
+    sweep = [0.05 * 1.15**index for index in range(60)]
+    plt.figure(figsize=(7.2, 4.3))
+    plt.plot(sweep, [pellet_sphere_eta(phi) for phi in sweep], linewidth=2.2, label="eta(phi)")
+    plt.plot(sweep, [min(1.0, 3 / phi) for phi in sweep], "--", color="0.5", linewidth=1.4, label="3 / phi")
+    plt.xscale("log")
+    plt.yscale("log")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/MT-007-reference.svg",
+        "MT-007 isothermal pellet, sphere",
+        "phi",
+        "eta",
+    )
+
+
+def generate_mt008() -> None:
+    rows = []
+    for biot in [0.1, 1.0, 10.0, 100.0]:
+        for phi in [0.1, 1.0, 5.0, 20.0]:
+            eta = pellet_sphere_eta(phi)
+            eta_ov = eta / (1 + phi**2 * eta / (3 * biot))
+            surface = float(1 / (1 + (phi / mp.tanh(phi) - 1) / biot))
+            rows.append([biot, phi, surface, eta_ov])
+    write_csv(
+        ROOT / "data/MT-008/reference.csv",
+        ["biot", "thiele", "surface_concentration", "effectiveness_overall"],
+        rows,
+    )
+
+    sweep = [0.05 * 1.15**index for index in range(60)]
+    plt.figure(figsize=(7.2, 4.3))
+    for biot in [0.1, 1.0, 10.0, 100.0]:
+        values = [
+            pellet_sphere_eta(phi) / (1 + phi**2 * pellet_sphere_eta(phi) / (3 * biot))
+            for phi in sweep
+        ]
+        plt.plot(sweep, values, linewidth=2.0, label=f"Bi = {biot:g}")
+    plt.plot(sweep, [pellet_sphere_eta(phi) for phi in sweep], "--", color="0.5", linewidth=1.4, label="Bi -> inf")
+    plt.xscale("log")
+    plt.yscale("log")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/MT-008-reference.svg",
+        "MT-008 pellet with an external film",
+        "phi",
+        "eta_ov",
+    )
+
+
+def mt009_uptake(damkohler: float, henry: float) -> float:
+    q = mp.sqrt(damkohler)
+    return float(2 * mp.pi * henry * q * mp.besseli(1, q) / mp.besseli(0, q))
+
+
+def generate_mt009() -> None:
+    rows = []
+    for henry in [1.0, 2.0, 4.0]:
+        for da in [0.25, 1.0, 4.0, 16.0, 64.0]:
+            rows.append([henry, da, mt009_uptake(da, henry)])
+    write_csv(ROOT / "data/MT-009/reference.csv", ["henry", "damkohler", "uptake"], rows)
+
+    sweep = [0.1 * 1.15**index for index in range(50)]
+    plt.figure(figsize=(7.2, 4.3))
+    for henry in [1.0, 2.0, 4.0]:
+        plt.plot(sweep, [mt009_uptake(da, henry) for da in sweep], linewidth=2.0, label=f"lambda = {henry:g}")
+    plt.xscale("log")
+    plt.yscale("log")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/MT-009-reference.svg",
+        "MT-009 reactive absorption into a droplet",
+        "Da",
+        "F / D1",
+    )
+
+
+def generate_mt010() -> None:
+    lambda0 = float(mp.findroot(lambda value: mp.besselj(0, value), 2.4))
+    sherwood = lambda0**2
+    rows = [[da, lambda0, sherwood, sherwood + da] for da in [0.0, 1.0, 4.0, 16.0]]
+    write_csv(
+        ROOT / "data/MT-010/reference.csv",
+        ["damkohler", "eigenvalue", "sherwood_infinity", "axial_decay_rate"],
+        rows,
+    )
+
+    radii = linspace(0.0, 1.0, CURVE_POINTS)
+    figure, axes = plt.subplots(1, 2, figsize=(9.6, 4.0))
+    axes[0].plot(radii, [float(mp.besselj(0, lambda0 * r)) for r in radii], linewidth=2.2)
+    axes[0].set_xlabel("r / R")
+    axes[0].set_ylabel("J0(lambda0 r / R)")
+    axes[0].grid(True, color="0.88", linewidth=0.8)
+    das = linspace(0.0, 16.0, 65)
+    axes[1].plot(das, [sherwood + da for da in das], linewidth=2.2, label="sigma_0")
+    axes[1].plot(das, [sherwood for _ in das], "--", linewidth=1.8, label="Sh_inf")
+    axes[1].set_xlabel("Da")
+    axes[1].grid(True, color="0.88", linewidth=0.8)
+    axes[1].legend()
+    figure.suptitle("MT-010 plug-flow reactive Graetz problem")
+    figure.tight_layout()
+    figure.savefig(ROOT / "figures/MT-010-reference.svg", format="svg")
+    plt.close(figure)
+
+
+
+def ht001_interface_values(henry: float, ratio: float) -> tuple[float, float]:
+    denominator = math.sqrt(ratio) + henry
+    return henry / denominator, 1.0 / denominator
+
+
+def generate_ht001() -> None:
+    rows = []
+    for ratio in [0.1, 1.0, 10.0]:
+        for henry in [0.5, 1.0, 2.0, 5.0]:
+            first, second = ht001_interface_values(henry, ratio)
+            rows.append([ratio, henry, first, second])
+    write_csv(
+        ROOT / "data/HT-001/reference.csv",
+        ["diffusivity_ratio", "henry", "interface_value_phase1", "interface_value_phase2"],
+        rows,
+    )
+
+    sweep = [0.1 * 1.1**index for index in range(50)]
+    plt.figure(figsize=(7.2, 4.3))
+    for ratio in [0.1, 1.0, 10.0]:
+        plt.plot(
+            sweep,
+            [ht001_interface_values(henry, ratio)[0] for henry in sweep],
+            linewidth=2.0,
+            label=f"D2/D1 = {ratio:g}",
+        )
+    plt.xscale("log")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/HT-001-reference.svg",
+        "HT-001 planar partition between two half-spaces",
+        "k",
+        "C1 at the interface",
+    )
+
+
+def newman_mean(fourier: float, terms: int = 200) -> float:
+    total = mp.mpf(0)
+    for n in range(1, terms + 1):
+        total += mp.e ** (-(n**2) * mp.pi**2 * fourier) / n**2
+    return float(6 / mp.pi**2 * total)
+
+
+def generate_ht002() -> None:
+    fos = [0.001, 0.01, 0.05, 0.1, 0.2, 0.5, 1.0]
+    rows = [[fo, newman_mean(fo)] for fo in fos]
+    rows.append(["sherwood_asymptote", float(2 * mp.pi**2 / 3)])
+    write_csv(ROOT / "data/HT-002/reference.csv", ["fourier", "mean_concentration"], rows)
+
+    sweep = [0.001 * 1.15**index for index in range(55)]
+    figure, axes = plt.subplots(1, 2, figsize=(9.6, 4.0))
+    axes[0].plot(sweep, [newman_mean(fo) for fo in sweep], linewidth=2.2)
+    axes[0].set_xscale("log")
+    axes[0].set_xlabel("Fo")
+    axes[0].set_ylabel("mean C / C0")
+    axes[0].grid(True, color="0.88", linewidth=0.8)
+    rates = []
+    for fo in sweep:
+        delta = fo * 1e-4
+        rate = -(math.log(newman_mean(fo + delta)) - math.log(newman_mean(fo))) / delta
+        rates.append(rate * 4 / 6)
+    axes[1].plot(sweep, rates, linewidth=2.2, label="Sh_i(Fo)")
+    axes[1].axhline(float(2 * mp.pi**2 / 3), color="0.5", linewidth=1.4, label="2 pi^2 / 3")
+    axes[1].set_xscale("log")
+    axes[1].set_xlabel("Fo")
+    axes[1].set_ylim(0, 20)
+    axes[1].grid(True, color="0.88", linewidth=0.8)
+    axes[1].legend()
+    figure.suptitle("HT-002 Newman internal transient in a stagnant drop")
+    figure.tight_layout()
+    figure.savefig(ROOT / "figures/HT-002-reference.svg", format="svg")
+    plt.close(figure)
+
+
+def generate_ht003() -> None:
+    eigenvalue = 1.678
+    sherwood = 32 * eigenvalue / 3
+    rows = [
+        ["eigenvalue_lambda1", eigenvalue],
+        ["sherwood_asymptote", sherwood],
+        ["decay_rate_over_D_per_d2", 64 * eigenvalue],
+        ["newman_asymptote", float(2 * mp.pi**2 / 3)],
+    ]
+    write_csv(ROOT / "data/HT-003/reference.csv", ["quantity", "value"], rows)
+
+    times = linspace(0.0, 0.08, CURVE_POINTS)
+    plt.figure(figsize=(7.2, 4.3))
+    plt.plot(
+        times,
+        [math.exp(-64 * eigenvalue * t / 4.0) for t in times],
+        linewidth=2.2,
+        label="Kronig-Brink, Sh_i = 17.90",
+    )
+    plt.plot(
+        times,
+        [newman_mean(t) for t in times],
+        linewidth=2.2,
+        label="Newman, Sh_i = 6.58",
+    )
+    plt.yscale("log")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/HT-003-reference.svg",
+        "HT-003 Kronig-Brink circulating drop",
+        "Fo",
+        "mean C / C0",
+    )
+
+
+def ht004_flux(henry: float, ratio: float) -> float:
+    return 1.0 / (1.0 + henry / ratio)
+
+
+def generate_ht004() -> None:
+    rows = []
+    for ratio in [0.1, 1.0, 10.0]:
+        for henry in [0.5, 1.0, 2.0, 5.0]:
+            flux = ht004_flux(henry, ratio)
+            rows.append([ratio, henry, flux, 1.0 - flux, (1.0 - flux) / henry])
+    write_csv(
+        ROOT / "data/HT-004/reference.csv",
+        ["diffusivity_ratio", "henry", "flux", "interface_value_phase1", "interface_value_phase2"],
+        rows,
+    )
+
+    sweep = [0.1 * 1.1**index for index in range(50)]
+    plt.figure(figsize=(7.2, 4.3))
+    for ratio in [0.1, 1.0, 10.0]:
+        plt.plot(sweep, [ht004_flux(henry, ratio) for henry in sweep], linewidth=2.0, label=f"D2/D1 = {ratio:g}")
+    plt.xscale("log")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/HT-004-reference.svg",
+        "HT-004 steady composite slab with an interfacial partition",
+        "k",
+        "J L1 / (D1 Ca)",
+    )
+
+
+
+def generate_vc003() -> None:
+    sigma0, diffusivity, speed = 0.05, 1e-4, 1.0
+    rows = []
+    for time in [0.0, 0.1, 0.25, 0.5, 1.0]:
+        variance = sigma0**2 + 2 * diffusivity * time
+        rows.append([time, variance, 1 / (2 * math.pi * variance), speed * time])
+    write_csv(
+        ROOT / "data/VC-003/reference.csv",
+        ["time", "variance", "peak_amplitude", "centroid_x"],
+        rows,
+    )
+
+    times = linspace(0.0, 1.0, CURVE_POINTS)
+    figure, axes = plt.subplots(1, 2, figsize=(9.6, 4.0))
+    axes[0].plot(
+        times,
+        [1 / (2 * math.pi * (sigma0**2 + 2 * diffusivity * t)) for t in times],
+        linewidth=2.2,
+    )
+    axes[0].set_xlabel("t")
+    axes[0].set_ylabel("peak amplitude")
+    axes[0].grid(True, color="0.88", linewidth=0.8)
+    axes[1].plot(times, [speed * t for t in times], linewidth=2.2)
+    axes[1].set_xlabel("t")
+    axes[1].set_ylabel("centroid x")
+    axes[1].grid(True, color="0.88", linewidth=0.8)
+    figure.suptitle("VC-003 advected Gaussian in a uniform flow")
+    figure.tight_layout()
+    figure.savefig(ROOT / "figures/VC-003-reference.svg", format="svg")
+    plt.close(figure)
+
+
+def vc004_moments(time: float, sigma0: float, diffusivity: float, shear: float):
+    yy = sigma0**2 + 2 * diffusivity * time
+    xy = shear * (sigma0**2 * time + diffusivity * time**2)
+    xx = (
+        sigma0**2
+        + 2 * diffusivity * time
+        + shear**2 * (sigma0**2 * time**2 + 2 * diffusivity * time**3 / 3)
+    )
+    return xx, yy, xy
+
+
+def generate_vc004() -> None:
+    sigma0, diffusivity, shear = 0.05, 1e-3, 1.0
+    rows = []
+    for time in [0.0, 0.25, 0.5, 1.0, 2.0]:
+        xx, yy, xy = vc004_moments(time, sigma0, diffusivity, shear)
+        dispersion = 2 * shear**2 * diffusivity * time**3 / 3
+        rows.append([time, xx, yy, xy, dispersion])
+    write_csv(
+        ROOT / "data/VC-004/reference.csv",
+        ["time", "sigma_xx", "sigma_yy", "sigma_xy", "shear_dispersion_term"],
+        rows,
+    )
+
+    times = linspace(0.0, 2.0, CURVE_POINTS)
+    plt.figure(figsize=(7.2, 4.3))
+    plt.plot(times, [vc004_moments(t, sigma0, diffusivity, shear)[0] for t in times], linewidth=2.2, label="sigma_xx")
+    plt.plot(times, [vc004_moments(t, sigma0, diffusivity, shear)[1] for t in times], linewidth=2.2, label="sigma_yy")
+    plt.plot(times, [vc004_moments(t, sigma0, diffusivity, shear)[2] for t in times], linewidth=2.2, label="sigma_xy")
+    plt.plot(
+        times,
+        [2 * shear**2 * diffusivity * t**3 / 3 for t in times],
+        "--",
+        color="0.4",
+        linewidth=1.8,
+        label="(2/3) D gamma^2 t^3",
+    )
+    plt.legend()
+    save_figure(
+        ROOT / "figures/VC-004-reference.svg",
+        "VC-004 sheared Gaussian in a linear shear flow",
+        "t",
+        "second moments",
+    )
+
+
+def generate_vc005() -> None:
+    rows = []
+    for da in [1.0, 16.0, 100.0]:
+        m = mp.sqrt(da)
+        flux = float(2 * mp.pi * m * mp.besselk(1, m) / mp.besselk(0, m))
+        for omega in [0.0, 1.0, 10.0, 100.0]:
+            rows.append([da, omega, flux])
+    write_csv(ROOT / "data/VC-005/reference.csv", ["damkohler", "rotation_rate", "uptake"], rows)
+
+    omegas = linspace(0.0, 100.0, CURVE_POINTS)
+    plt.figure(figsize=(7.2, 4.3))
+    for da in [1.0, 16.0, 100.0]:
+        m = mp.sqrt(da)
+        flux = float(2 * mp.pi * m * mp.besselk(1, m) / mp.besselk(0, m))
+        plt.plot(omegas, [flux for _ in omegas], linewidth=2.2, label=f"Da = {da:g}")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/VC-005-reference.svg",
+        "VC-005 rotation invariance of the uptake by a reactive disk",
+        "Omega",
+        "F / (D Cs)",
+    )
+
+
+def generate_vc006() -> None:
+    rows = [["additivity_residual_target", 0.0]]
+    for outer in [2.0, 5.0, 10.0, 20.0, 50.0]:
+        rows.append([f"shell_sherwood_Rout_over_R0_{outer:g}", 2 / (1 - 1 / outer)])
+    rows.append(["shell_sherwood_infinite", 2.0])
+    rows.append(["equal_volume_radius_over_box_side", (3 / (4 * math.pi)) ** (1 / 3)])
+    write_csv(ROOT / "data/VC-006/reference.csv", ["quantity", "value"], rows)
+
+    ratios = linspace(1.5, 50.0, CURVE_POINTS)
+    plt.figure(figsize=(7.2, 4.3))
+    plt.plot(ratios, [2 / (1 - 1 / ratio) for ratio in ratios], linewidth=2.2, label="Sh_e shell")
+    plt.axhline(2.0, color="0.5", linewidth=1.4, label="Sh_e = 2")
+    plt.xscale("log")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/VC-006-reference.svg",
+        "VC-006 external Sherwood number in a finite domain",
+        "Rout / R0",
+        "Sh_e",
+    )
+
+
 GENERATORS = {
     "PH-001": generate_ph001,
     "PH-002": generate_ph002,
@@ -1062,6 +1600,24 @@ GENERATORS = {
     "PH-014": generate_ph014,
     "VC-001": generate_vc001,
     "VC-002": generate_vc002,
+    "MT-001": generate_mt001,
+    "MT-002": generate_mt002,
+    "MT-003": generate_mt003,
+    "MT-004": generate_mt004,
+    "MT-005": generate_mt005,
+    "MT-006": generate_mt006,
+    "MT-007": generate_mt007,
+    "MT-008": generate_mt008,
+    "MT-009": generate_mt009,
+    "MT-010": generate_mt010,
+    "HT-001": generate_ht001,
+    "HT-002": generate_ht002,
+    "HT-003": generate_ht003,
+    "HT-004": generate_ht004,
+    "VC-003": generate_vc003,
+    "VC-004": generate_vc004,
+    "VC-005": generate_vc005,
+    "VC-006": generate_vc006,
 }
 
 

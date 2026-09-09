@@ -2,6 +2,20 @@
 
 | ID | Benchmark | Class | Status | Reference |
 |---|---|---|---|---|
+| HT-001 | [Planar partition between two half-spaces](cases/HT-001-planar-partition-two-phases.md) | HT | ready | exact-solution |
+| HT-002 | [Newman internal transient in a stagnant drop](cases/HT-002-newman-stagnant-drop.md) | HT | ready | series-solution |
+| HT-003 | [Kronig-Brink circulating drop](cases/HT-003-kronig-brink-circulating-drop.md) | HT | ready | series-solution |
+| HT-004 | [Steady composite slab with an interfacial partition](cases/HT-004-composite-slab-partition.md) | HT | ready | exact-solution |
+| MT-001 | [Steady reaction-diffusion outside a sphere](cases/MT-001-reactive-sphere-steady.md) | MT | ready | exact-solution |
+| MT-002 | [Steady reactive uptake outside a disk](cases/MT-002-reactive-disk-steady.md) | MT | ready | exact-solution |
+| MT-003 | [Unsteady diffusion to a sphere](cases/MT-003-unsteady-sphere-diffusion.md) | MT | ready | exact-solution |
+| MT-004 | [Unsteady diffusion with a first-order reaction outside a sphere](cases/MT-004-unsteady-reactive-sphere.md) | MT | ready | exact-solution |
+| MT-005 | [First-order surface kinetics on a sphere](cases/MT-005-surface-kinetics-sphere.md) | MT | ready | exact-solution |
+| MT-006 | [Isothermal catalyst pellet, cylinder](cases/MT-006-pellet-cylinder.md) | MT | ready | exact-solution |
+| MT-007 | [Isothermal catalyst pellet, sphere](cases/MT-007-pellet-sphere.md) | MT | ready | exact-solution |
+| MT-008 | [Catalyst pellet with an external film](cases/MT-008-pellet-external-film.md) | MT | ready | exact-solution |
+| MT-009 | [Reactive absorption into a droplet](cases/MT-009-reactive-absorption-droplet.md) | MT | ready | exact-solution |
+| MT-010 | [Plug-flow reactive Graetz problem](cases/MT-010-plug-flow-reactive-graetz.md) | MT | ready | exact-solution |
 | PH-001 | [Planar one-phase Stefan problem](cases/PH-001-planar-one-phase-stefan.md) | PH | ready | exact-similarity |
 | PH-002 | [Planar two-phase Stefan problem](cases/PH-002-planar-two-phase-stefan.md) | PH | ready | exact-similarity |
 | PH-003 | [Frank disk](cases/PH-003-frank-disk.md) | PH | ready | exact-similarity |
@@ -19,6 +33,10 @@
 | PH-015 | [Gallium melting in a side-heated cavity](cases/PH-015-gallium-melting-cavity.md) | PH | draft | experimental |
 | VC-001 | [Constant-speed planar solidification](cases/VC-001-constant-speed-planar-solidification.md) | VC | ready | exact-solution |
 | VC-002 | [Constant-rate dissolving bubble](cases/VC-002-constant-rate-bubble.md) | VC | ready | exact-kinematic |
+| VC-003 | [Advected Gaussian in a uniform flow](cases/VC-003-advected-gaussian.md) | VC | ready | exact-solution |
+| VC-004 | [Sheared Gaussian in a linear shear flow](cases/VC-004-sheared-gaussian.md) | VC | ready | exact-solution |
+| VC-005 | [Rotation invariance of the uptake by a reactive disk](cases/VC-005-rotation-invariance-reactive-disk.md) | VC | ready | exact-solution |
+| VC-006 | [Resistance additivity across a conjugate interface](cases/VC-006-resistance-additivity.md) | VC | ready | exact-identity |
 
 Reference data is under `data/<ID>/`, reference plots under `figures/`.
 

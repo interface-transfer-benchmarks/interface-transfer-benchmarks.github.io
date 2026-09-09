@@ -1,0 +1,9 @@
+quantity,value
+additivity_residual_target,0.0
+shell_sherwood_Rout_over_R0_2,4.0
+shell_sherwood_Rout_over_R0_5,2.5
+shell_sherwood_Rout_over_R0_10,2.2222222222222223
+shell_sherwood_Rout_over_R0_20,2.1052631578947367
+shell_sherwood_Rout_over_R0_50,2.0408163265306123
+shell_sherwood_infinite,2.0
+equal_volume_radius_over_box_side,0.6203504908994001

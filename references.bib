@@ -351,3 +351,170 @@
   year    = {2003},
   doi     = {10.1080/713836378}
 }
+
+@book{frankkamenetskii1969,
+  author    = {Frank-Kamenetskii, D. A.},
+  title     = {Diffusion and Heat Exchange in Chemical Kinetics},
+  edition   = {2}, publisher = {Plenum Press}, address = {New York}, year = {1969},
+  note      = {[VERIFY] Origin of the kinetic- vs diffusion-controlled split for a
+               reacting particle; 1st Russian ed. 1947. The regime language of B7.}
+}
+
+@book{fogler2016,
+  author    = {Fogler, H. S.},
+  title     = {Elements of Chemical Reaction Engineering},
+  edition   = {5}, publisher = {Prentice Hall}, address = {Boston}, year = {2016},
+  note      = {[VERIFY] Ch. 15, Eqs. (15-58), (15-60): the overall effectiveness
+               factor Omega = eta/(1 + eta k1/(kc ac)), which with ac = 3/R and
+               k1 = De phi^2/R^2 is exactly eta_ov = eta/(1 + phi^2 eta/(3 Bi)).
+               The reference for case C6. Equation text confirmed from the
+               author's own web chapter; edition metadata not DOI-confirmed.}
+}
+
+@article{taylor1963,
+  author  = {Taylor, T. D.},
+  title   = {Mass transfer from single spheres in {S}tokes flow with surface reactions},
+  journal = {International Journal of Heat and Mass Transfer},
+  volume  = {6}, pages = {993--994}, year = {1963},
+  doi     = {10.1016/0017-9310(63)90056-5},
+  note    = {[CROSSREF] The reactive-surface companion to acrivos1962.}
+}
+
+@article{collins1949,
+  author  = {Collins, F. C. and Kimball, G. E.},
+  title   = {Diffusion-controlled reaction rates},
+  journal = {Journal of Colloid Science}, volume = {4}, number = {4},
+  pages   = {425--437}, year = {1949},
+  doi     = {10.1016/0095-8522(49)90023-9},
+  note    = {[CROSSREF] The "radiation boundary condition" generalisation of
+             Smoluchowski: a Robin condition on a sphere, k = 4 pi D R
+             Da_s/(1+Da_s). The physical-chemistry name for case B7.}
+}
+
+@article{lu2018,
+  author  = {Lu, J. and Das, S. and Peters, E. A. J. F. and Kuipers, J. A. M.},
+  title   = {Direct numerical simulation of fluid flow and mass transfer in dense
+             fluid--particle systems with surface reactions},
+  journal = {Chemical Engineering Science}, volume = {176},
+  pages   = {1--18}, year = {2018},
+  doi     = {10.1016/j.ces.2017.10.018},
+  note    = {[CROSSREF] Dense reactive arrays by IBM. Hakkoum's 573-particle citation.}
+}
+
+@article{thiele1939,
+  author  = {Thiele, E. W.},
+  title   = {Relation between catalytic activity and size of particle},
+  journal = {Industrial \& Engineering Chemistry}, volume = {31},
+  pages   = {916--920}, year = {1939},
+  doi     = {10.1021/ie50355a027},
+  note    = {[CROSSREF] Origin of the Thiele modulus and eta(phi).}
+}
+
+@book{aris1975,
+  author    = {Aris, R.},
+  title     = {The Mathematical Theory of Diffusion and Reaction in Permeable Catalysts},
+  publisher = {Clarendon Press}, address = {Oxford}, year = {1975},
+  note      = {[VERIFY] 2 vols. Generalized Thiele modulus collapsing eta(phi)
+               across reaction order n and pellet geometry.}
+}
+
+@book{froment2011,
+  author    = {Froment, G. F. and Bischoff, K. B. and De Wilde, J.},
+  title     = {Chemical Reactor Analysis and Design},
+  edition   = {3}, publisher = {Wiley}, address = {Hoboken, NJ}, year = {2011},
+  note      = {[VERIFY] Ch. 3: the global (overall) effectiveness factor combining
+               film and intraparticle resistance. Second source for C6.}
+}
+
+@article{sulaiman2019b,
+  author  = {Sulaiman, M. and Climent, E. and Hammouti, A. and Wachs, A.},
+  title   = {Mass transfer towards a reactive particle in a fluid flow:
+             numerical simulations and modeling},
+  journal = {Chemical Engineering Science},
+  volume  = {199}, pages = {496--507}, year = {2019},
+  doi     = {10.1016/j.ces.2018.12.051},
+  note    = {[CROSSREF] Source of the C_s/C_inf surface-concentration closure
+             used as "Sulaiman Eq. 9" in thesis Ch.9 (cases B3/B9).}
+}
+
+@article{libat2025st,
+  author  = {Libat, L. and Sel{\c c}uk, C. and Ch{\'e}nier, E. and Le Chenadec, V.},
+  title   = {A space--time extension of a conservative two-fluid cut-cell method
+             for moving diffusion problems},
+  journal = {arXiv preprint arXiv:2512.23358}, year = {2025},
+  note    = {[CROSSREF/arXiv] OUR method paper. The article proposed here is its
+             physics companion -- cite, do not re-derive.}
+}
+
+@book{shah1978,
+  author    = {Shah, R. K. and London, A. L.},
+  title     = {Laminar Flow Forced Convection in Ducts},
+  publisher = {Academic Press}, address = {New York}, year = {1978},
+  note      = {[VERIFY] Boundary condition "T3" -- third kind, finite wall
+               resistance -- tabulating Nu against the wall Biot number between
+               the H1 and T limits. THIS, not higuera2023, is the source for
+               case G2's 8.235 -> 7.541 (plates) and 4.364 -> 3.657 (tube).}
+}
+
+@article{higuera2023,
+  author  = {Higuera, F. J. and Fern{\'a}ndez de la Mora, J.},
+  title   = {The reactive {G}raetz problem for a first order homogeneous
+             decomposition reaction, and the limit of moderately large reaction
+             constants},
+  journal = {Physics of Fluids}, volume = {35}, pages = {093616}, year = {2023},
+  doi     = {10.1063/5.0168890},
+  note    = {[CROSSREF] Modern reactive-Graetz reference. Our 2D steady case G2
+             (asymptotic Sh vs wall/bulk Damkohler) sits here.}
+}
+
+@article{newman1931,
+  author  = {Newman, A. B.},
+  title   = {The drying of porous solids: diffusion and surface emission equations},
+  journal = {Transactions of the AIChE}, volume = {27},
+  pages   = {203--220}, year = {1931},
+  note    = {[VERIFY] Origin of the stagnant internal limit Sh_i -> 2 pi^2 / 3 = 6.58.
+             Already used in thesis Ch.9 (case B7).}
+}
+
+@article{colombet2013,
+  author  = {Colombet, D. and Legendre, D. and Cockx, A. and Guiraud, P.},
+  title   = {Mass or heat transfer inside a spherical gas bubble at low to
+             moderate {R}eynolds number},
+  journal = {International Journal of Heat and Mass Transfer}, volume = {67},
+  pages   = {1096--1105}, year = {2013},
+  doi     = {10.1016/j.ijheatmasstransfer.2013.08.069},
+  note    = {[CROSSREF] Internal Sh from Newman 6.58 to Kronig-Brink 17.9 vs Pe.
+             The interpolation curve our case D3 should land on.}
+}
+
+@article{kronig1951,
+  author  = {Kronig, R. and Brink, J. C.},
+  title   = {On the theory of extraction from falling droplets},
+  journal = {Applied Scientific Research}, volume = {A2},
+  pages   = {142--154}, year = {1951},
+  doi     = {10.1007/BF00411978},
+  note    = {[CROSSREF] Internal Sh -> 17.90 for a CIRCULATING drop (Re->0, Pe->inf).
+             The companion bracket to Newman's stagnant 6.58. HIGH PRIORITY ADD.}
+}
+
+@article{taylor1953,
+  author  = {Taylor, G. I.},
+  title   = {Dispersion of soluble matter in solvent flowing slowly through a tube},
+  journal = {Proceedings of the Royal Society of London A},
+  volume  = {219}, number = {1137}, pages = {186--203}, year = {1953},
+  doi     = {10.1098/rspa.1953.0139},
+  note    = {[VERIFY] The parent of G4. K_eff = D(1 + Pe^2/48) for a tube,
+             Pe radius-based -- CHECK the length convention before plotting,
+             it is the same factor-of-2 trap flagged for acrivos1962.}
+}
+
+@article{aris1956,
+  author  = {Aris, R.},
+  title   = {On the dispersion of a solute in a fluid flowing through a tube},
+  journal = {Proceedings of the Royal Society of London A},
+  volume  = {235}, number = {1200}, pages = {67--77}, year = {1956},
+  doi     = {10.1098/rspa.1956.0065},
+  note    = {[VERIFY] Adds axial diffusion to taylor1953. NOT aris1975, which is
+             the catalysis monograph behind C5 -- two different Aris references
+             and citing the wrong one here is an easy and visible slip.}
+}
