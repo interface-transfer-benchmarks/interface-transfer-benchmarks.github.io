@@ -73,8 +73,9 @@ The closed form, series, or reference dataset, with the conventions stated.
 
 ## Results
 
-Optional. One subsection per solver, naming the solver and the date. Include
-runs that did not meet their gate, and say so.
+Optional. One `###` subsection per solver, titled with the method and its
+authors, then the date and the run configuration, then the numbers and the
+figures. Include runs that did not meet their gate, and say so.
 
 ## References
 

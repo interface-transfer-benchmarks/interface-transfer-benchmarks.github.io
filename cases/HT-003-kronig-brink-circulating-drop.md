@@ -95,11 +95,9 @@ sweep.
 
 ## Results
 
-### Two-fluid cut-cell method
+### Two-fluid cut-cell method - L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec
 
-L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
-
-Uniform grid, N = 32, 8 MPI ranks. Pe_i = 0, 10, 100, 1000.
+Measured 2026-09-09. Uniform grid, N = 32, 8 MPI ranks. Pe_i = 0, 10, 100, 1000.
 
 | Pe_i | 0 | 10 | 100 | 1000 |
 |---|---|---|---|---|

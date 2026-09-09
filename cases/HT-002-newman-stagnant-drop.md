@@ -88,11 +88,9 @@ so the two bracket the internal resistance on one axis.
 
 ## Results
 
-### Two-fluid cut-cell method
+### Two-fluid cut-cell method - L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec
 
-L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
-
-Uniform grid, N = 32/64/128, 8 MPI ranks. Fo = 0.030, 0.101, 0.300.
+Measured 2026-09-09. Uniform grid, N = 32/64/128, 8 MPI ranks. Fo = 0.030, 0.101, 0.300.
 
 so every order is a real measurement.
 

@@ -90,11 +90,9 @@ Damkohler number would give $2(1+\phi/2)$ and look like a factor-of-two error.
 
 ## Results
 
-### Two-fluid cut-cell method
+### Two-fluid cut-cell method - L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec
 
-L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
-
-Uniform grid, N = 128, 8 MPI ranks; also run on an octree and an adaptive octree. Da = 0, 1, 4, 10, 100, 1000.
+Measured 2026-09-09. Uniform grid, N = 128, 8 MPI ranks; also run on an octree and an adaptive octree. Da = 0, 1, 4, 10, 100, 1000.
 
 | Da | 0 | 1 | 4 | 10 | 100 | 1000 |
 |---|---|---|---|---|---|---|

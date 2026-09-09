@@ -89,11 +89,9 @@ $$
 
 ## Results
 
-### Two-fluid cut-cell method
+### Two-fluid cut-cell method - L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec
 
-L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
-
-Uniform grid, N = 128, 16 MPI ranks, with a confirmation rung at N = 256. Da = 0.25, 1, 4, 10, 100, 1000.
+Measured 2026-09-09. Uniform grid, N = 128, 16 MPI ranks, with a confirmation rung at N = 256. Da = 0.25, 1, 4, 10, 100, 1000.
 
 | Da | 0.25 | 1 | 4 | 10 | 100 | 1000 |
 |---|---|---|---|---|---|---|

@@ -83,11 +83,9 @@ The asymptote is $\eta \to 2/\phi$.
 
 ## Results
 
-### Two-fluid cut-cell method
+### Two-fluid cut-cell method - L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec
 
-L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
-
-Uniform grid, N = 128, two dimensions, 16 MPI ranks. phi = 0.5, 1, 2, 5, 10, 20.
+Measured 2026-09-09. Uniform grid, N = 128, two dimensions, 16 MPI ranks. phi = 0.5, 1, 2, 5, 10, 20.
 
 | phi | 0.5 | 1 | 2 | 5 | 10 | 20 |
 |---|---|---|---|---|---|---|

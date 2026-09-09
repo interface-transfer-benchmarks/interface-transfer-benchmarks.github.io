@@ -103,11 +103,9 @@ reaction is leaking into the convective flux.
 
 ## Results
 
-### Two-fluid cut-cell method
+### Two-fluid cut-cell method - L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec
 
-L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
-
-Uniform grid, N = 32/64/128, 16 MPI ranks. Pe = 5, Da = 0, 1, 10, 100.
+Measured 2026-09-09. Uniform grid, N = 32/64/128, 16 MPI ranks. Pe = 5, Da = 0, 1, 10, 100.
 
 | Da | 0 | 1 | 10 | 100 |
 |---|---|---|---|---|

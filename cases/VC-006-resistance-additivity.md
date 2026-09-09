@@ -87,11 +87,9 @@ infinite-domain value $\mathrm{Sh}_e = 2$ in a box with $R_0/R_\mathrm{out}
 
 ## Results
 
-### Two-fluid cut-cell method
+### Two-fluid cut-cell method - L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec
 
-L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
-
-Uniform grid, N = 16/32/64, 8 MPI ranks. k = 1, D* = 0.1, 1, 10.
+Measured 2026-09-09. Uniform grid, N = 16/32/64, 8 MPI ranks. k = 1, D* = 0.1, 1, 10.
 
 Residual of `1/Sh - (1/Sh_i + k D* / Sh_e)`.
 

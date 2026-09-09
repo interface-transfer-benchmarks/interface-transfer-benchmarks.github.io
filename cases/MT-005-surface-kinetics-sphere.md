@@ -100,11 +100,9 @@ gives the kinetics-controlled $\mathrm{Sh}=2\,\mathrm{Da}_s$.
 
 ## Results
 
-### Two-fluid cut-cell method
+### Two-fluid cut-cell method - L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec
 
-L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
-
-Uniform grid, N = 64, 8 MPI ranks. Da_s = 0.1, 1, 10, 100, 1000.
+Measured 2026-09-09. Uniform grid, N = 64, 8 MPI ranks. Da_s = 0.1, 1, 10, 100, 1000.
 
 | Da_s | 0.1 | 1 | 10 | 100 | 1000 |
 |---|---|---|---|---|---|

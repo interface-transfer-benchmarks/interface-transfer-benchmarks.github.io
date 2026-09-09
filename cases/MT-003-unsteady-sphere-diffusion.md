@@ -85,11 +85,9 @@ $$
 
 ## Results
 
-### Two-fluid cut-cell method
+### Two-fluid cut-cell method - L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec
 
-L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
-
-Uniform grid, N = 64, Crank-Nicolson in time, 8 MPI ranks. Da = 0, Fo = 0.05, 0.15, 0.50.
+Measured 2026-09-09. Uniform grid, N = 64, Crank-Nicolson in time, 8 MPI ranks. Da = 0, Fo = 0.05, 0.15, 0.50.
 
 | Fo | 0.05 | 0.15 | 0.50 |
 |---|---|---|---|

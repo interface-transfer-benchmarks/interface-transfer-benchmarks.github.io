@@ -90,11 +90,9 @@ $$
 
 ## Results
 
-### Two-fluid cut-cell method
+### Two-fluid cut-cell method - L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec
 
-L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
-
-Uniform grid, N up to 256, 16 MPI ranks. Da and lambda swept independently, lambda up to 100.
+Measured 2026-09-09. Uniform grid, N up to 256, 16 MPI ranks. Da and lambda swept independently, lambda up to 100.
 
 6.4e-6 to 1.6e-4, and the interfacial traces reproduce the pair
 `(lambda, 1)` to six digits over four decades of `lambda`.

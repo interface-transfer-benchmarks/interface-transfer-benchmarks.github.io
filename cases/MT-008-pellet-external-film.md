@@ -93,11 +93,9 @@ resistances in series, measured on the two sides of the interface.
 
 ## Results
 
-### Two-fluid cut-cell method
+### Two-fluid cut-cell method - L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec
 
-L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec. Measured 2026-09-09.
-
-Uniform grid, both dimensions. phi = 5, Bi from 0.1 to 1e4.
+Measured 2026-09-09. Uniform grid, both dimensions. phi = 5, Bi from 0.1 to 1e4.
 
 | | rel. error on eta_ov |
 |---|---|
