@@ -39,14 +39,7 @@ references:
 
 # PH-001 - Planar one-phase Stefan problem
 
-## Purpose
-
-This benchmark verifies the motion of a planar phase-change front driven by
-one-sided heat diffusion. It is the minimal verification case for the Stefan
-condition, the fixed interfacial temperature, interfacial heat fluxes, interface
-position convergence, and global latent-heat balance.
-
-## Physical Configuration
+## Problem
 
 A semi-infinite material initially at the phase-change temperature is heated
 from one side. A liquid layer grows from the heated wall and is separated from
@@ -59,8 +52,6 @@ x = 0                        x = s(t)
 
 The active phase is the liquid phase. The solid phase remains at the
 phase-change temperature and does not solve a heat equation.
-
-## Governing Equations
 
 In the liquid phase, $0 < x < s(t)$,
 
@@ -85,8 +76,6 @@ $$
 This sign convention assumes that the liquid occupies $0 < x < s(t)$ and that
 the interface moves toward positive $x$ during melting.
 
-## Boundary And Initial Conditions
-
 At the heated wall,
 
 $$
@@ -108,7 +97,7 @@ $$
 For numerical computations, initialize at a small nonzero time $t_0$ using the
 reference solution to avoid the singular gradient at $t=0$.
 
-## Material Parameters
+## Parameters
 
 Use this dimensionless setup for the reference case.
 
@@ -123,7 +112,7 @@ Use this dimensionless setup for the reference case.
 | Stefan number | $\mathrm{Ste}=c_p(T_h-T_m)/L$ | 1 |
 | latent heat | $L$ | 1 |
 
-## Reference Solution
+## Reference
 
 The exact similarity solution is
 
@@ -171,28 +160,13 @@ times and normalized positions $\chi=x/s(t)$.
 
 ![PH-001 reference interface position](../figures/PH-001-reference.svg)
 
-## Recommended Numerical Setup
-
-Use a finite domain $0 \le x \le 2$ and simulate from $t_0=0.01$ to
-$t_\mathrm{end}=1$. Initialize the interface and liquid temperature from the
-reference solution at $t_0$. Keep the right boundary in the solid at $T_m$ far
-enough from the interface, or impose a phase-aware condition that does not alter
-the one-phase solution.
-
-## Quantities To Report
+## Report
 
 - interface position $s_h(t)$ at every output time,
 - absolute interface error $|s_h(t)-s(t)|$,
 - temperature profiles at $t=0.1$, $0.4$, and $1.0$,
 - global latent plus sensible energy balance,
 - observed convergence rate under grid refinement.
-
-## Known Difficulties
-
-- the initial singularity at $t=0$,
-- wrong sign in the Stefan condition,
-- evaluating the one-sided gradient on the liquid side,
-- inconsistent boundary conditions in the solid phase,
 
 ## References
 

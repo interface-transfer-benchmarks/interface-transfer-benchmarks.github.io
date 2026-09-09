@@ -38,17 +38,10 @@ references:
 
 # MT-007 - Isothermal catalyst pellet, sphere
 
-## Purpose
-
-The three-dimensional form of MT-006, and the case where the classical
-factor-of-three convention error appears.
-
-## Physical Configuration
+## Problem
 
 A spherical pellet of radius $R$ at surface concentration $C_s$, consuming the
 species internally at rate $k C$.
-
-## Governing Equations
 
 For $r < R$,
 
@@ -56,13 +49,11 @@ $$
 D \nabla^2 C = k C .
 $$
 
-## Boundary And Initial Conditions
-
 $$
 C(R) = C_s, \qquad \partial_r C(0) = 0 .
 $$
 
-## Material Parameters
+## Parameters
 
 | Parameter | Symbol | Value |
 |---|---:|---:|
@@ -71,7 +62,7 @@ $$
 | surface concentration | $C_s$ | 1 |
 | Thiele modulus | $\phi = R\sqrt{k/D}$ | 0.1 to 20 |
 
-## Reference Solution
+## Reference
 
 $$
 \frac{C(r)}{C_s} = \frac{R}{r}\,\frac{\sinh(\phi r/R)}{\sinh \phi},
@@ -86,22 +77,26 @@ asymptote is $\eta \to 3/\phi$.
 
 ![MT-007 reference](../figures/MT-007-reference.svg)
 
-## Recommended Numerical Setup
-
-As MT-006, in three dimensions. Report $\eta$ by both the volume-integral and
-the surface-flux route.
-
-## Quantities To Report
+## Report
 
 - $\eta(\phi)$ and its relative error,
 - agreement of the two routes to $\eta$,
 - radial profile at $\phi=5$,
 - observed convergence rate.
 
-## Known Difficulties
+## Results
 
-- the radius-based versus characteristic-length Thiele modulus,
-- surface-integration error on a curved interface entering $\eta$ directly.
+Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+
+N = 64 uniform, 3D, 8 ranks.
+
+| phi | 0.5 | 1 | 2 | 5 | 10 | 20 |
+|---|---|---|---|---|---|---|
+| rel. error | 3.3e-5 | 1.4e-4 | 5.8e-4 | 4.4e-3 | 1.9e-2 | 6.6e-2 |
+| order | 1.99 | 1.98 | 1.95 | 1.84 | 1.69 | 1.41 |
+
+The two routes to `eta`, the interface flux and the volume-averaged
+concentration, agree to 1e-12 to 1e-16 at every rung and every phi.
 
 ## References
 

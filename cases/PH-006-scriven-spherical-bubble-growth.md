@@ -45,22 +45,7 @@ references:
 
 # PH-006 - Scriven spherical vapor bubble growth
 
-## Purpose
-
-This benchmark verifies heat-transfer-controlled growth of a spherical vapor
-bubble in an infinite superheated liquid. It tests radial Stefan flow,
-curvature-free spherical similarity growth, interfacial heat transfer, and
-large density-ratio phase expansion.
-
-## Is There A 2D Scriven Case?
-
-Scriven's original analytical solution is spherically symmetric. The usual
-"2D" numerical implementation is an axisymmetric $(r,z)$ computation, which
-represents a three-dimensional sphere. A true two-dimensional cylindrical
-analogue can be formulated, but it is not the standard Scriven spherical bubble
-benchmark and uses a different radial geometry.
-
-## Physical Configuration
+## Problem
 
 A vapor bubble is embedded in an initially quiescent, uniformly superheated
 liquid. The interface is spherical:
@@ -76,8 +61,6 @@ r < R(t)                     r > R(t)
 
 The gas is at saturation temperature. Heat conducted from the liquid supplies
 latent heat at the interface and drives bubble growth.
-
-## Governing Equations
 
 The liquid temperature satisfies the radial advection-diffusion equation
 
@@ -104,8 +87,6 @@ The heat flux at the interface balances latent and sensible energy needed to
 create vapor. The resulting similarity equation for the growth constant is
 given below.
 
-## Boundary And Initial Conditions
-
 In the infinite-domain reference solution,
 
 $$
@@ -121,7 +102,7 @@ $$
 
 and set the liquid temperature from the analytical radial profile.
 
-## Material Parameters
+## Parameters
 
 Use the water/vapor setup with Jakob number $\mathrm{Ja}=3$ used in Basilisk's
 Scriven example.
@@ -145,7 +126,7 @@ $$
 \alpha_l = 1.48554269845860\times10^{-7}\ \mathrm{m^2/s}.
 $$
 
-## Reference Solution
+## Reference
 
 The bubble radius is
 
@@ -219,8 +200,6 @@ selected times and radii.
 
 ![PH-006 Scriven reference](../figures/PH-006-reference.svg)
 
-## Reference Assets
-
 The reference CSV file and SVG figure are generated from:
 
 ```bash
@@ -230,30 +209,15 @@ python3 scripts/plot_reference_figures.py PH-006
 The CSV table intentionally uses a compact set of verification points. The SVG
 figure uses 401 plotted points for a smooth curve.
 
-## Recommended Numerical Setup
+## Note
 
-Use a spherical or axisymmetric domain large enough that the far boundary does
-not affect the thermal layer. A practical setup is an axisymmetric domain with
-radius and height at least $12\ \mathrm{mm}$, initialized with
-$R_0=1\ \mathrm{mm}$ and simulated until $R=2\ \mathrm{mm}$. This corresponds
-to the time shift
+Scriven's original analytical solution is spherically symmetric. The usual
+"2D" numerical implementation is an axisymmetric $(r,z)$ computation, which
+represents a three-dimensional sphere. A true two-dimensional cylindrical
+analogue can be formulated, but it is not the standard Scriven spherical bubble
+benchmark and uses a different radial geometry.
 
-$$
-t_0 = 0.152088195917732\ \mathrm{s}.
-$$
-
-For full 3D solvers, use the same radial initial condition in a cubic domain
-whose side length is several times the final bubble diameter.
-
-Recommended grid/time refinements:
-
-| Case | Radius cells across $R_0$ | Time step | Final radius |
-|---|---:|---:|---:|
-| coarse | 16 | adaptive | 2 mm |
-| medium | 32 | adaptive | 2 mm |
-| fine | 64 | adaptive | 2 mm |
-
-## Quantities To Report
+## Report
 
 - bubble radius $R_h(t)$ from vapor volume,
 - radial temperature profile at selected times,
@@ -261,14 +225,6 @@ Recommended grid/time refinements:
 - vapor volume conservation relative to $4\pi R^3/3$,
 - interfacial heat flux and latent-heat balance,
 - convergence of final-radius error.
-
-## Known Difficulties
-
-- this is a 3D spherical benchmark even when solved in 2D axisymmetry,
-- the density ratio creates strong radial Stefan flow,
-- the temperature profile depends on an integral with a singular endpoint,
-- the gas volume source must be consistent with interface advection,
-- finite boundaries can distort the infinite-domain similarity solution.
 
 ## References
 

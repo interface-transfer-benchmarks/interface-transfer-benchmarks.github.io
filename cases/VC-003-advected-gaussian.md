@@ -36,27 +36,14 @@ references:
 
 # VC-003 - Advected Gaussian in a uniform flow
 
-## Purpose
-
-The meter, not the physics. Every transfer number in the `MT` and `HT`
-families is a flux, and a flux is an amplitude, so a scheme that damps a
-Gaussian under-reports a Sherwood number in exactly the way an unresolved
-reaction layer does. This case separates the two causes before any
-$\mathrm{Sh}(\mathrm{Pe})$ is quoted: the peak amplitude is the
-numerical-diffusion meter and the centroid is the phase-error meter.
-
-## Physical Configuration
+## Problem
 
 A Gaussian blob of initial variance $\sigma_0^2$ is carried by a uniform
 velocity $\mathbf{U}$ across a periodic box while it diffuses.
 
-## Governing Equations
-
 $$
 \partial_t C + \mathbf{U}\cdot\nabla C = D \nabla^2 C .
 $$
-
-## Boundary And Initial Conditions
 
 $$
 C(\mathbf{x},0) = \frac{1}{2\pi\sigma_0^2}
@@ -65,7 +52,7 @@ $$
 
 periodic on all faces.
 
-## Material Parameters
+## Parameters
 
 | Parameter | Symbol | Value |
 |---|---:|---:|
@@ -75,7 +62,7 @@ periodic on all faces.
 | diffusivity | $D$ | $10^{-4}$ |
 | cell Peclet number | $\mathrm{Pe}_h = |U| h/D$ | swept |
 
-## Reference Solution
+## Reference
 
 The blob translates without change of shape and spreads exactly,
 
@@ -93,27 +80,13 @@ the axis.
 
 ![VC-003 reference](../figures/VC-003-reference.svg)
 
-## Recommended Numerical Setup
-
-Sweep the cell Peclet number at fixed resolution by varying $D$, and sweep the
-Courant number at fixed $\mathrm{Pe}_h$. Report peak amplitude and centroid
-separately: a scheme can be exact in one and poor in the other.
-
-## Quantities To Report
+## Report
 
 - peak amplitude against $1/(2\pi\sigma^2(t))$, as a function of
   $\mathrm{Pe}_h$,
 - centroid displacement against $\mathbf{U}t$,
 - $L_2$ and $L_\infty$ errors against the closed form,
 - observed convergence rate.
-
-## Known Difficulties
-
-- reporting only a norm, which merges amplitude loss with phase error,
-- an initial blob too narrow for the mesh, so that the initial condition itself
-  is under-resolved,
-- diffusion small enough that the exact spreading is below the scheme's own
-  numerical diffusion, which makes the meter unreadable.
 
 ## References
 

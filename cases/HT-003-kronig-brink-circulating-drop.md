@@ -38,21 +38,12 @@ references:
 
 # HT-003 - Kronig-Brink circulating drop
 
-## Purpose
-
-The upper bracket of the internal resistance of a drop. Internal circulation
-raises the internal Sherwood number from HT-002's stagnant value to a second
-pure number, and the ratio between them is a direct measure of how much
-numerical diffusion the advection scheme adds.
-
-## Physical Configuration
+## Problem
 
 HT-002's drop, with the Hadamard-Rybczynski internal circulation imposed as a
 prescribed steady velocity field in the creeping-flow limit
 $\mathrm{Re}\to 0$, at large internal Peclet number. No momentum solve is
 needed.
-
-## Governing Equations
 
 For $r<R$,
 
@@ -63,13 +54,11 @@ $$
 with $\mathbf{u}$ the Hadamard interior field, whose streamlines are the
 Hill spherical vortex.
 
-## Boundary And Initial Conditions
-
 $$
 C(R,t) = 0, \qquad C(r,0) = C_0 .
 $$
 
-## Material Parameters
+## Parameters
 
 | Parameter | Symbol | Value |
 |---|---:|---:|
@@ -78,7 +67,7 @@ $$
 | initial concentration | $C_0$ | 1 |
 | internal Peclet number | $\mathrm{Pe}$ | large |
 
-## Reference Solution
+## Reference
 
 At large $\mathrm{Pe}$ the mean concentration decays as
 $\bar C \propto \exp(-64\lambda_1 D t/d^2)$, and with the same definition used
@@ -97,25 +86,29 @@ sweep.
 
 ![HT-003 reference](../figures/HT-003-reference.svg)
 
-## Recommended Numerical Setup
-
-Impose the analytic interior velocity field rather than solving for it, and
-check that it is discretely divergence-free on the mesh actually used;
-otherwise the measured decay mixes transport error with a spurious source.
-
-## Quantities To Report
+## Report
 
 - $\mathrm{Sh}_i$ at large $\mathrm{Pe}$ against $32\lambda_1/3$,
 - recovery of HT-002's 6.58 as $\mathrm{Pe}\to 0$,
 - $\mathrm{Sh}_i(\mathrm{Pe})$ across the interpolation range,
 - observed convergence rate.
 
-## Known Difficulties
+## Results
 
-- numerical diffusion, which pushes $\mathrm{Sh}_i$ toward the stagnant value
-  and makes the scheme look conservative rather than wrong,
-- an interior velocity field that is not discretely solenoidal,
-- quoting 17.90 against a computation truncated at $\lambda_1 = 1.656$.
+Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+
+N = 32 uniform, 8 ranks.
+
+| Pe_i | 0 | 10 | 100 | 1000 |
+|---|---|---|---|---|
+| Sh_i | 6.576 | 6.863 | 14.589 | diverged |
+
+**Gate not met.** The `Pe_i = 0` control reproduces HT-002's Newman value to
+0.06%, so the interior solve is right, but every row is at a single resolution:
+there is no convergence ladder, and `Pe_i = 100` is only 82% of the way to the
+`Pe_i -> inf` plateau. `Pe_i = 1000` does not converge at this resolution, where
+the cell Peclet number is 52. Closing the case needs an axisymmetric metric or
+a 3D ladder.
 
 ## References
 

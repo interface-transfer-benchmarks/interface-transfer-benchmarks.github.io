@@ -40,20 +40,11 @@ references:
 
 # VC-002 - Constant-rate dissolving bubble
 
-## Purpose
-
-This benchmark verifies interface motion and phase volume change under a
-prescribed constant mass-transfer rate. It is a kinematic phase-change test:
-the transported species is present in the Basilisk examples but the imposed
-mass-transfer rate sets the analytical radius.
-
-## Physical Configuration
+## Problem
 
 A circular or spherical bubble dissolves at a constant interfacial mass flux.
 The Basilisk sandbox provides both a planar 2D circle and an axisymmetric
 sphere variant.
-
-## Governing Equations
 
 For a constant mass-transfer rate $\dot m$ and dispersed-phase density
 $\rho_d$, the radius evolves as
@@ -64,7 +55,7 @@ $$
 
 The reference case uses a dissolving bubble, so $\dot m<0$.
 
-## Material Parameters
+## Parameters
 
 Use the Gennari Basilisk setup.
 
@@ -77,7 +68,7 @@ Use the Gennari Basilisk setup.
 | mass-transfer rate | $\dot m$ | $-10^{-3}$ |
 | final time | $t_{end}$ | 1 |
 
-## Reference Solution
+## Reference
 
 For these values,
 
@@ -97,33 +88,18 @@ The file `data/VC-002/reference.csv` tabulates radius, area, and volume.
 
 ![VC-002 constant-rate bubble reference](../figures/VC-002-reference.svg)
 
-## Reference Assets
-
 Generate the CSV and figure with:
 
 ```bash
 python3 scripts/plot_reference_figures.py VC-002
 ```
 
-## Recommended Numerical Setup
-
-Use outflow boundaries far from the bubble so that the liquid can enter as the
-bubble dissolves. For the 2D variant report area-equivalent radius; for the
-axisymmetric variant report volume-equivalent radius.
-
-## Quantities To Report
+## Report
 
 - equivalent radius $R_h(t)$,
 - phase area for 2D or phase volume for axisymmetric/3D runs,
 - radial symmetry error,
 - final radius error.
-
-## Known Difficulties
-
-- comparing 2D area and axisymmetric volume with the correct reference measure,
-- avoiding boundary influence as the surrounding liquid enters,
-- preserving circular/spherical symmetry during strong shrinkage,
-- stopping before the radius approaches zero.
 
 ## References
 

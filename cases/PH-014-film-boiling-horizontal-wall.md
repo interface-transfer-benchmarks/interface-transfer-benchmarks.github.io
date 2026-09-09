@@ -47,23 +47,7 @@ references:
 
 # PH-014 - Film boiling on a horizontal wall
 
-## Purpose
-
-This benchmark tests the full boiling problem: a saturated liquid rests on a
-vapor film above a superheated wall, and the Rayleigh-Taylor-unstable
-interface periodically releases bubbles while evaporation feeds the film. It
-couples phase change, buoyancy, surface tension, large interface deformation,
-and (for most methods) topology change, and is the standard integral test
-after the one-dimensional and single-bubble cases (PH-005, PH-006) pass.
-
-There is no exact solution. Quantitative comparison uses (i) the
-space-and-time-averaged Nusselt number against the Berenson flat-plate
-correlation, around which converged simulations in the literature oscillate,
-and (ii) published simulation results for the same configuration
-(Welch & Wilson VOF; Juric & Tryggvason and Esmaeeli & Tryggvason front
-tracking; more recent LFRM and CLSVOF studies).
-
-## Physical Configuration
+## Problem
 
 A two-dimensional periodic strip of width $\lambda_d$ (the most dangerous
 Taylor wavelength) contains a vapor layer on a horizontal superheated wall
@@ -85,8 +69,6 @@ The wall is isothermal at $T_{sat}+\Delta T$; the liquid and interface are at
 $T_{sat}$. Side boundaries are periodic; the top is an outflow far from the
 film (domain height $\geq 3\lambda_d$).
 
-## Governing Equations
-
 Incompressible Navier-Stokes in both phases with surface tension and gravity;
 energy equation with the interface held at $T_{sat}$; interfacial mass flux
 from the conductive jump
@@ -100,7 +82,7 @@ $$
 which drives the velocity jump $[\![\mathbf u\cdot\mathbf n]\!] =
 \dot m''\,[\![1/\rho]\!]$ across the front.
 
-## Material Parameters
+## Parameters
 
 The artificial-fluid property set widely used in the film-boiling
 verification literature (moderate density ratio, thick thermal layers) is
@@ -129,7 +111,7 @@ most dangerous wavelength $\lambda_d = 2\pi\sqrt3\,\lambda_0$, vapor Jakob
 number $Ja = c_{p,v}\Delta T/h_{fg} = 0.1$, vapor Prandtl number
 $Pr_v = c_{p,v}\mu_v/k_v = 1$.
 
-## Reference Solution
+## Reference
 
 The wall Nusselt number, space-averaged over the strip and based on
 $\lambda_0$,
@@ -166,40 +148,18 @@ simulation studies.
 
 ![PH-014 film boiling reference](../figures/PH-014-reference.svg)
 
-## Reference Assets
-
 Generate the CSV and figure with:
 
 ```bash
 python3 scripts/plot_reference_figures.py PH-014
 ```
 
-## Recommended Numerical Setup
-
-Domain $[0,\lambda_d]\times[0,3\lambda_d]$, periodic laterally, no-slip
-isothermal superheated wall at the bottom, open top held at $T_{sat}$.
-Initialize the perturbed film with a linear vapor temperature profile and
-saturated liquid. At least 100-128 cells per $\lambda_d$ are needed for a
-release-period-converged Nusselt history; run through several bubble cycles
-before averaging.
-
-## Quantities To Report
+## Report
 
 - $Nu(t)$ history and its quasi-periodic time average,
 - comparison of the mean against Berenson and against published simulations,
 - bubble release period and interface snapshots over one cycle,
 - vapor volume history and global mass/energy balances.
-
-## Known Difficulties
-
-- results depend on whether and how bubble pinch-off (topology change) is
-  handled; sharp front-tracking methods without topology change reach only
-  the first release,
-- thin-film resolution under the rising bubble controls the Nusselt minimum,
-- averaged Nusselt converges slowly in time; too-short averaging windows
-  dominate the reported spread in the literature,
-- the initial condition sets the phase of the cycle; compare averages, not
-  instantaneous histories.
 
 ## References
 

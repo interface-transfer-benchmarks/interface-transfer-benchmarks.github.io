@@ -37,13 +37,7 @@ references:
 
 # PH-007 - Static evaporating film
 
-## Purpose
-
-This benchmark verifies diffusion-driven recession of a flat liquid film into a
-quiescent vapor domain. It is based on the Basilisk elementary-body static-film
-test.
-
-## Physical Configuration
+## Problem
 
 A liquid film initially occupies $0\le y\le h_0$. Vapor fills the region
 $h(t)<y<L$. The concentration is fixed at the interface and at the top boundary.
@@ -52,8 +46,6 @@ $h(t)<y<L$. The concentration is fixed at the interface and at the top boundary.
 y = 0                 y = h(t)                     y = L
 wall | liquid film | evaporating interface | vapor | c = c_inf
 ```
-
-## Governing Equations
 
 In the vapor phase,
 
@@ -79,7 +71,7 @@ $$
 \mu=\frac{c_s-c_\infty}{\rho}.
 $$
 
-## Material Parameters
+## Parameters
 
 Use the nondimensional Basilisk setup.
 
@@ -92,7 +84,7 @@ Use the nondimensional Basilisk setup.
 | far concentration | $c_\infty$ | 0.2 |
 | concentration-density ratio | $\mu$ | $8.0\times10^{-4}$ |
 
-## Reference Solution
+## Reference
 
 The open-box quasi-static model is
 
@@ -120,33 +112,18 @@ speed predicted by these formulas.
 
 ![PH-007 static-film reference](../figures/PH-007-reference.svg)
 
-## Reference Assets
-
 Generate the CSV and figure with:
 
 ```bash
 python3 scripts/plot_reference_figures.py PH-007
 ```
 
-## Recommended Numerical Setup
-
-Use a vertical domain with no-flux side and bottom boundaries, and a fixed top
-concentration $c_\infty$. Start from a sharp flat film with $h_0=1$.
-
-## Quantities To Report
+## Report
 
 - mean film thickness $h(t)$,
 - interface recession velocity,
 - vapor concentration profile,
 - time at which the concentration profile becomes close to linear.
-
-## Known Difficulties
-
-- the initial diffusion layer is singular without a time offset,
-- the quasi-static model is valid only after the diffusion transient,
-- the top boundary must remain consistent with the open-box approximation,
-- post-processing should use mean film thickness rather than local interface
-  roughness.
 
 ## References
 

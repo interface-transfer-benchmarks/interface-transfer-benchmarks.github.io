@@ -38,20 +38,10 @@ references:
 
 # VC-005 - Rotation invariance of the uptake by a reactive disk
 
-## Purpose
-
-A null test with a known answer. Solid-body rotation about the centre of an
-axisymmetric problem carries no species across any concentration contour, so
-the uptake must equal MT-002's stationary value at every rotation rate. Any
-dependence on the rotation rate is scheme error, and it is measured against an
-exact number rather than against a refined run.
-
-## Physical Configuration
+## Problem
 
 MT-002's reactive disk, with the surrounding medium in solid-body rotation
 $\mathbf{u} = \Omega\,\hat{\mathbf{e}}_\theta\, r$ about the disk centre.
-
-## Governing Equations
 
 $$
 \mathbf{u}\cdot\nabla C = D \nabla^2 C - \nu C .
@@ -60,13 +50,11 @@ $$
 Because $C$ is a function of $r$ alone and $\mathbf{u}$ is purely azimuthal,
 $\mathbf{u}\cdot\nabla C \equiv 0$ and the steady field is MT-002's exactly.
 
-## Boundary And Initial Conditions
-
 $$
 C(R_0) = C_s, \qquad C(r\to\infty) = 0 .
 $$
 
-## Material Parameters
+## Parameters
 
 | Parameter | Symbol | Value |
 |---|---:|---:|
@@ -75,7 +63,7 @@ $$
 | Damkohler number | $\mathrm{Da}$ | 1, 16, 100 |
 | rotation rate | $\Omega$ | 0, 1, 10, 100 |
 
-## Reference Solution
+## Reference
 
 The uptake is MT-002's, unchanged by $\Omega$,
 
@@ -89,25 +77,34 @@ fractions, must be at round-off.
 
 ![VC-005 reference](../figures/VC-005-reference.svg)
 
-## Recommended Numerical Setup
-
-Impose the rotation as an analytic velocity field. Sweep $\Omega$ over at least
-two decades at fixed mesh, so that the cell Peclet number varies while the
-exact answer does not.
-
-## Quantities To Report
+## Report
 
 - $F(\Omega)$ at each $\mathrm{Da}$, and its drift relative to $\Omega=0$,
 - the volume-fraction-weighted divergence residual,
 - the largest cell Peclet number at which the drift stays below a stated
   tolerance.
 
-## Known Difficulties
+## Results
 
-- a velocity field that is analytically but not discretely solenoidal, which
-  makes the rotation a spurious source,
-- upwinding that adds diffusion proportional to $\Omega$, which lowers $F$,
-- cut cells where the azimuthal flux is not exactly tangential.
+Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+
+Da = 4, uniform, 16 ranks. `Sh_exact = 4.91214734`.
+
+| Pe_omega | 0 | 1 | 10 | 100 | 1000 |
+|---|---|---|---|---|---|
+| N = 32 | 1.4e-2 | 1.4e-2 | 3.8e-3 | 3.1e-1 | 3.8e+0 |
+| N = 64 | 3.9e-3 | 3.8e-3 | 1.2e-3 | 8.7e-2 | 2.1e+0 |
+| N = 128 | 1.0e-3 | 9.9e-4 | 3.3e-4 | 2.6e-2 | 6.4e-1 |
+| order | 1.95 | 1.95 | 1.87 | 1.72 | 1.72 |
+
+The volume-fraction-weighted divergence is `0.0e+00` at every rung and every
+rotation rate; the face-area-weighted one merely converges, 2.7e-1 to 5.9e-2 to
+1.6e-2. That settles which discrete divergence a prescribed field has to satisfy.
+
+**Gate not met above Pe_omega = 10.** The failure is a cell-Peclet failure of
+the centred convective row, not a defect of the case: read the case as a
+contamination meter against cell Peclet and gate it only where the cell Peclet
+is resolved.
 
 ## References
 

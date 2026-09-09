@@ -39,19 +39,11 @@ references:
 
 # PH-009 - Epstein-Plesset steady-radius dissolution
 
-## Purpose
-
-This benchmark verifies spherical diffusion from a gas bubble into an
-undersaturated liquid while holding the interface shape fixed. It tests the
-species field and diffusive mass flux independently of interface advection.
-
-## Physical Configuration
+## Problem
 
 A spherical bubble of radius $R$ is held fixed in a liquid with zero initial and
 far-field dissolved gas concentration. The interfacial concentration is fixed by
 Henry's law.
-
-## Governing Equations
 
 For $r>R$,
 
@@ -75,7 +67,7 @@ c(R,t)=c_\Sigma,
 c(r,t)\to c_{bulk}\quad r\to\infty.
 $$
 
-## Material Parameters
+## Parameters
 
 Use the Gennari Basilisk setup.
 
@@ -89,7 +81,7 @@ Use the Gennari Basilisk setup.
 | bulk concentration | $c_{bulk}$ | 0 |
 | final time | $t_{end}$ | 0.01 |
 
-## Reference Solution
+## Reference
 
 The concentration field is
 
@@ -125,32 +117,18 @@ profile.
 
 ![PH-009 Epstein-Plesset reference](../figures/PH-009-reference.svg)
 
-## Reference Assets
-
 Generate the CSV and figure with:
 
 ```bash
 python3 scripts/plot_reference_figures.py PH-009
 ```
 
-## Recommended Numerical Setup
-
-Use a spherical or axisymmetric domain with far-field concentration fixed at
-$c_{bulk}=0$. Keep the bubble radius fixed at $R=0.5$.
-
-## Quantities To Report
+## Report
 
 - radial concentration profile,
 - concentration at sample radii,
 - diffusive mass flux at the interface,
 - integrated gas released into the liquid.
-
-## Known Difficulties
-
-- resolving the early-time $1/\sqrt{t}$ flux singularity,
-- keeping the interface radius fixed while mass is released,
-- placing the far boundary sufficiently far from the diffusion layer,
-- comparing axisymmetric samples to the spherical radial reference.
 
 ## References
 

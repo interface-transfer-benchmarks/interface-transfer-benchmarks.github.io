@@ -38,17 +38,9 @@ references:
 
 # MT-004 - Unsteady diffusion with a first-order reaction outside a sphere
 
-## Purpose
-
-Couples MT-001's reaction layer to MT-003's transient. Both limits are
-recovered from one closed form, so a scheme cannot pass by being right in time
-and wrong in space, or the reverse.
-
-## Physical Configuration
+## Problem
 
 MT-003's sphere in a medium that also consumes the species at rate $\nu C$.
-
-## Governing Equations
 
 For $r > R_0$,
 
@@ -56,13 +48,11 @@ $$
 \partial_t C = D \nabla^2 C - \nu C .
 $$
 
-## Boundary And Initial Conditions
-
 $$
 C(R_0,t) = C_s, \qquad C(r,0) = 0, \qquad C(r\to\infty,t)=0 .
 $$
 
-## Material Parameters
+## Parameters
 
 | Parameter | Symbol | Value |
 |---|---:|---:|
@@ -72,7 +62,7 @@ $$
 | Damkohler number | $\mathrm{Da}=\nu R_0^2/D$ | 0, 1, 10 |
 | Fourier number | $\mathrm{Fo}=Dt/R_0^2$ | 0.001 to 10 |
 
-## Reference Solution
+## Reference
 
 With $\xi=(r-R_0)/R_0$ and $m=\sqrt{\mathrm{Da}}$,
 
@@ -102,24 +92,28 @@ $\mathrm{Fo}\to\infty$ and MT-003 the limit $\mathrm{Da}\to 0$.
 
 ![MT-004 reference](../figures/MT-004-reference.svg)
 
-## Recommended Numerical Setup
-
-As MT-003, with the mesh additionally satisfying MT-001's reaction-layer
-constraint at the chosen $\mathrm{Da}$.
-
-## Quantities To Report
+## Report
 
 - $\mathrm{Sh}(\mathrm{Fo})$ at each $\mathrm{Da}$,
 - recovery of $2(1+\sqrt{\mathrm{Da}})$ at large $\mathrm{Fo}$,
 - recovery of MT-003 at $\mathrm{Da}=0$,
 - observed convergence rate in space and in time.
 
-## Known Difficulties
+## Results
 
-- a time step that resolves the transient but a mesh that does not resolve the
-  reaction layer, or the reverse,
-- comparing against surface-reaction references, which are a different problem:
-  this case has a bulk reaction and no Stefan flow.
+Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+
+N = 64 uniform, Crank-Nicolson, 8 ranks.
+
+| Fo | 0.05 | 0.15 | 0.50 |
+|---|---|---|---|
+| Da = 1, rel. error | 3.0e-3 | 2.1e-3 | 2.9e-3 |
+| Da = 1, order | 1.84 | 2.23 | 2.15 |
+| Da = 10, rel. error | 6.2e-3 | 9.6e-3 | 9.8e-3 |
+| Da = 10, order | 1.88 | 1.93 | 1.93 |
+
+Time-step ladder at fixed N, against the same grid's finest-step solution:
+1.09 to 1.23 for backward Euler, 1.5 to 1.8 for Crank-Nicolson.
 
 ## References
 

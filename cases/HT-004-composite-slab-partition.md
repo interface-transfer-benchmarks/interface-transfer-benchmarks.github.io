@@ -37,25 +37,15 @@ references:
 
 # HT-004 - Steady composite slab with an interfacial partition
 
-## Purpose
-
-The steady counterpart of HT-001, and the case that states the
-resistances-in-series law in its simplest form. Because the exact flux is a
-single number, any error in the jump treatment shows up undiluted.
-
-## Physical Configuration
+## Problem
 
 Two slabs in series between $x=0$ and $x=L_1+L_2$. Phase 1 occupies
 $0<x<L_1$ with diffusivity $D_1$, phase 2 occupies $L_1<x<L_1+L_2$ with
 diffusivity $D_2$. The outer faces are held at fixed values.
 
-## Governing Equations
-
 $$
 \partial_x\left(D_i \partial_x C_i\right) = 0, \qquad i = 1,2 .
 $$
-
-## Boundary And Initial Conditions
 
 $$
 C_1(0) = C_a, \qquad C_2(L_1+L_2) = C_b,
@@ -67,7 +57,7 @@ $$
 C_1 = k\,C_2, \qquad D_1 \partial_x C_1 = D_2 \partial_x C_2 .
 $$
 
-## Material Parameters
+## Parameters
 
 | Parameter | Symbol | Value |
 |---|---:|---:|
@@ -76,7 +66,7 @@ $$
 | partition coefficient | $k$ | 0.5, 1, 2, 5 |
 | face values | $C_a$, $C_b$ | 1, 0 |
 
-## Reference Solution
+## Reference
 
 The flux is constant through both slabs,
 
@@ -100,24 +90,12 @@ composite wall.
 
 ![HT-004 reference](../figures/HT-004-reference.svg)
 
-## Recommended Numerical Setup
-
-Place the interface off a cell face. Sweep $k$ at $D_1=D_2$ and then the
-diffusivity ratio at $k=1$, so that the two effects are separated.
-
-## Quantities To Report
+## Report
 
 - $J$ against the closed form, at each $k$ and diffusivity ratio,
 - the residual of $C_1 - kC_2$ at the interface,
 - the flux measured on each side, which must agree,
 - observed convergence rate.
-
-## Known Difficulties
-
-- a partition applied to the flux rather than to the value,
-- harmonic averaging of the diffusivity across the interface, which silently
-  replaces the partition with a continuous field,
-- an interface aligned with a cell face, which hides first-order jump errors.
 
 ## References
 

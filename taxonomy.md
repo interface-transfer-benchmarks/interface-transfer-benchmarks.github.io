@@ -99,7 +99,7 @@ Examples:
 | MT-007 | catalysis, homogeneous-reaction | 3D sphere | exact-solution | interior reaction layer on a curved three-dimensional interface |
 | MT-008 | catalysis, homogeneous-reaction | 3D sphere | exact-solution | a Robin condition on the interior field with a finite Biot number |
 | MT-009 | absorption, homogeneous-reaction | 2D disk | exact-solution | a Henry jump and an interior reaction solved together |
-| MT-010 | interfacial-mass-transfer, homogeneous-reaction | axisymmetric tube | exact-solution | separating an advective eigenvalue from a reactive shift |
+| MT-010 | interfacial-mass-transfer, homogeneous-reaction | 2D channel | exact-solution | keeping a bulk reaction out of the convective flux |
 | PH-001 | melting, solidification | 1D planar | exact-similarity | one-sided gradient and latent-heat balance |
 | PH-002 | melting, solidification | 1D planar | exact-similarity | two-sided heat-flux jump |
 | PH-003 | solidification | 2D disk | exact-similarity | curvature, isotropy, and area conservation |

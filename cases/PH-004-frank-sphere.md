@@ -42,14 +42,7 @@ references:
 
 # PH-004 - Frank sphere
 
-## Purpose
-
-This benchmark verifies a radially symmetric three-dimensional Stefan problem in
-which a spherical solid nucleus grows into an undercooled liquid. It is the 3D
-counterpart of the Frank disk and tests surface heat-flux integration, volume
-conservation, radial symmetry, and 3D interface reconstruction.
-
-## Physical Configuration
+## Problem
 
 The solid sphere is centered at the origin and the moving interface is
 
@@ -64,8 +57,6 @@ r < R(t)                    r > R(t)
 
 The analytical reference is radial, but numerical methods should solve the full
 three-dimensional problem unless they are specifically radial solvers.
-
-## Governing Equations
 
 Use the nondimensional heat equation in the thermally active liquid:
 
@@ -102,8 +93,6 @@ $$
 
 As in the disk case, $\mathrm{St}<0$ and $T_\infty<0$ produce outward growth.
 
-## Boundary And Initial Conditions
-
 The infinite-domain reference satisfies
 
 $$
@@ -119,7 +108,7 @@ $$
 
 Use the exact radial temperature outside the sphere and $T=0$ inside it.
 
-## Material Parameters
+## Parameters
 
 Use this nondimensional reference case.
 
@@ -139,7 +128,7 @@ $$
 T_\infty = -0.821033129452817.
 $$
 
-## Reference Solution
+## Reference
 
 The interface radius is
 
@@ -190,16 +179,7 @@ times and normalized radii.
 
 ![PH-004 Frank sphere reference temperature profile](../figures/PH-004-reference.svg)
 
-## Recommended Numerical Setup
-
-Use $\Omega=[-2,2]^3$, initialize at $t_0=0.1$, and simulate to
-$t_\mathrm{end}=1$. The exact final radius is
-
-$$
-R(1)=1.2.
-$$
-
-## Quantities To Report
+## Report
 
 - volume-equivalent radius $R_h=(3V_h/(4\pi))^{1/3}$,
 - interface radius error over reconstructed interface points,
@@ -207,12 +187,6 @@ $$
 - radial symmetry error,
 - phase volume error,
 - global energy balance.
-
-## Known Difficulties
-
-- Mullins-Sekerka-type instability can be triggered
-- Inconsistent initialization
-- a finite computational box can corrupt the far-field condition.
 
 ## References
 

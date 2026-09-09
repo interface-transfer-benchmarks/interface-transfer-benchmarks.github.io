@@ -37,19 +37,10 @@ references:
 
 # HT-002 - Newman internal transient in a stagnant drop
 
-## Purpose
-
-Fixes the internal resistance of a drop with no internal circulation. The
-long-time internal Sherwood number is a pure number, so the case is a sharp
-test of the interior solve and of how the internal transfer coefficient is
-defined.
-
-## Physical Configuration
+## Problem
 
 A spherical drop of radius $R$, initially uniform at $C_0$, with its surface
 held at $C=0$. There is no flow inside or outside.
-
-## Governing Equations
 
 For $r<R$,
 
@@ -57,13 +48,11 @@ $$
 \partial_t C = \frac{D}{r^2}\,\partial_r\!\left(r^2 \partial_r C\right).
 $$
 
-## Boundary And Initial Conditions
-
 $$
 C(R,t) = 0, \qquad C(r,0) = C_0, \qquad \partial_r C(0,t)=0 .
 $$
 
-## Material Parameters
+## Parameters
 
 | Parameter | Symbol | Value |
 |---|---:|---:|
@@ -72,7 +61,7 @@ $$
 | initial concentration | $C_0$ | 1 |
 | Fourier number | $\mathrm{Fo}=Dt/R^2$ | 0.001 to 1 |
 
-## Reference Solution
+## Reference
 
 $$
 \frac{\bar C(t)}{C_0} = \frac{6}{\pi^2}\sum_{n=1}^{\infty}
@@ -91,24 +80,29 @@ so the two bracket the internal resistance on one axis.
 
 ![HT-002 reference](../figures/HT-002-reference.svg)
 
-## Recommended Numerical Setup
-
-Start from a uniform interior. Reach $\mathrm{Fo}\gtrsim 0.2$ so that the first
-mode dominates and the asymptote is visible. Report the definition used for
-$\mathrm{Sh}_i$.
-
-## Quantities To Report
+## Report
 
 - $\bar C(\mathrm{Fo})$ against the series,
 - $\mathrm{Sh}_i(\mathrm{Fo})$ and its approach to $2\pi^2/3$,
 - observed convergence rate.
 
-## Known Difficulties
+## Results
 
-- reading the asymptote before the higher modes have decayed,
-- a radius- rather than diameter-based transfer coefficient, which changes the
-  constant by a factor of two,
-- the singular initial flux at $t=0$.
+Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+
+N = 32/64/128 uniform, 8 ranks. Three rungs against a closed-form reference,
+so every order is a real measurement.
+
+| Fo | 0.030 | 0.101 | 0.300 |
+|---|---|---|---|
+| N = 32 | 1.55e-2 | 2.12e-3 | 9.33e-4 |
+| N = 64 | 3.83e-3 | 5.12e-4 | 2.16e-4 |
+| order | 2.02 | 2.05 | 2.11 |
+| N = 128 | 9.63e-4 | 1.33e-4 | 4.64e-5 |
+| order | 1.99 | 1.95 | 2.22 |
+
+`Sh_i(Fo = 0.3) = 6.58012` against `2 pi^2 / 3 = 6.57974`, four digits from a
+marched cut-cell solve.
 
 ## References
 

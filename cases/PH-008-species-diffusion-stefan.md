@@ -38,18 +38,10 @@ references:
 
 # PH-008 - Species-diffusion Stefan problem
 
-## Purpose
-
-This benchmark verifies a planar interface displaced by diffusion of a soluble
-species into the liquid. It is the species-transfer counterpart of a thermal
-Stefan problem.
-
-## Physical Configuration
+## Problem
 
 A planar gas-liquid interface releases gas into an initially gas-free liquid.
 The concentration at the interface is fixed by Henry's law.
-
-## Governing Equations
 
 The liquid concentration satisfies
 
@@ -77,7 +69,7 @@ c_\Sigma
 \right].
 $$
 
-## Material Parameters
+## Parameters
 
 Use the Gennari Basilisk setup.
 
@@ -89,7 +81,7 @@ Use the Gennari Basilisk setup.
 | interface concentration scale | $c_\Sigma$ | 1 |
 | final time | $t_{end}$ | 175 |
 
-## Reference Solution
+## Reference
 
 For the recommended case,
 
@@ -102,32 +94,18 @@ concentration profile.
 
 ![PH-008 species Stefan reference](../figures/PH-008-reference.svg)
 
-## Reference Assets
-
 Generate the CSV and figure with:
 
 ```bash
 python3 scripts/plot_reference_figures.py PH-008
 ```
 
-## Recommended Numerical Setup
-
-Use a one-dimensional or planar two-dimensional domain with the far liquid
-boundary fixed at zero concentration. Initialize the interface as a flat plane.
-
-## Quantities To Report
+## Report
 
 - interface displacement $\ell_h(t)$,
 - gas volume change,
 - concentration profile,
 - final displacement error.
-
-## Known Difficulties
-
-- handling the initially singular concentration gradient,
-- measuring displacement relative to the initialized interface location,
-- keeping the far-field concentration at zero,
-- separating species-volume change from numerical interface diffusion.
 
 ## References
 

@@ -43,17 +43,7 @@ references:
 
 # PH-011 - Binary-alloy solidification (Rubinstein problem)
 
-## Purpose
-
-This benchmark verifies coupled thermo-solutal phase change: heat diffusion in
-both phases, solute diffusion in the liquid, solute rejection at the front,
-and an interface temperature set by the liquidus rather than by a fixed
-melting point. It is the only classical exact solution in which the interface
-temperature is itself an unknown coupled to the concentration field, so it
-directly tests solvers in which thermal and species Stefan conditions must be
-satisfied simultaneously at the same front.
-
-## Physical Configuration
+## Problem
 
 A semi-infinite binary melt occupies $x > 0$ with uniform initial temperature
 $T_\infty$ and solute concentration $C_\infty$. At $t=0$ the wall $x=0$ is
@@ -67,8 +57,6 @@ $$
 T_\Gamma = T_m + m\,C_l^\Gamma ,
 \qquad m < 0 .
 $$
-
-## Governing Equations
 
 Heat diffusion in each phase,
 
@@ -94,7 +82,32 @@ T_s = T_l = T_m + m\,C^\Gamma,
 (1-k_p)\,C^\Gamma\,\dot s = -\,D\,\partial_x C .
 $$
 
-## Reference Solution
+## Parameters
+
+All quantities are non-dimensional. Equal thermal properties are used in both
+phases; the Lewis number $\mathrm{Le} = \alpha/D = 20$ produces a solutal
+boundary layer much thinner than the thermal one, which is the physically
+relevant and numerically demanding regime.
+
+| Parameter | Symbol | Value |
+|---|---:|---:|
+| density | $\rho$ | 1 |
+| heat capacity | $c_p$ | 1 |
+| conductivities | $k_s = k_l$ | 1 |
+| thermal diffusivities | $\alpha_s = \alpha_l$ | 1 |
+| solute diffusivity (liquid) | $D$ | 0.05 |
+| latent heat | $L$ | 1 |
+| pure-solvent melting point | $T_m$ | 0 |
+| liquidus slope | $m$ | -0.5 |
+| partition coefficient | $k_p$ | 0.2 |
+| initial concentration | $C_\infty$ | 1 |
+| initial melt temperature | $T_\infty$ | -0.3 |
+| wall temperature | $T_0$ | -1.5 |
+
+The initial melt is above its liquidus $T_m + mC_\infty = -0.5$ and the wall
+is well below it, so a solid layer nucleates at the wall and grows.
+
+## Reference
 
 With $s(t) = 2\lambda\sqrt{D t}$ and $\varepsilon_s = \sqrt{D/\alpha_s}$,
 $\varepsilon_l = \sqrt{D/\alpha_l}$, the fields are
@@ -143,74 +156,19 @@ $$
 T_\Gamma(\lambda) = T_m + m\,C^\Gamma(\lambda).
 $$
 
-## Material Parameters
-
-All quantities are non-dimensional. Equal thermal properties are used in both
-phases; the Lewis number $\mathrm{Le} = \alpha/D = 20$ produces a solutal
-boundary layer much thinner than the thermal one, which is the physically
-relevant and numerically demanding regime.
-
-| Parameter | Symbol | Value |
-|---|---:|---:|
-| density | $\rho$ | 1 |
-| heat capacity | $c_p$ | 1 |
-| conductivities | $k_s = k_l$ | 1 |
-| thermal diffusivities | $\alpha_s = \alpha_l$ | 1 |
-| solute diffusivity (liquid) | $D$ | 0.05 |
-| latent heat | $L$ | 1 |
-| pure-solvent melting point | $T_m$ | 0 |
-| liquidus slope | $m$ | -0.5 |
-| partition coefficient | $k_p$ | 0.2 |
-| initial concentration | $C_\infty$ | 1 |
-| initial melt temperature | $T_\infty$ | -0.3 |
-| wall temperature | $T_0$ | -1.5 |
-
-The initial melt is above its liquidus $T_m + mC_\infty = -0.5$ and the wall
-is well below it, so a solid layer nucleates at the wall and grows.
-
-## Reference Data
-
-The file `data/PH-011/reference.csv` tabulates $\lambda$, $C^\Gamma$,
-$T_\Gamma$, the front position $s(t)$, and temperature and concentration
-profiles at selected times, computed from the transcendental system with
-`mpmath` root finding.
-
-![PH-011 Rubinstein reference](../figures/PH-011-reference.svg)
-
-## Reference Assets
-
 Generate the CSV and figure with:
 
 ```bash
 python3 scripts/plot_reference_figures.py PH-011
 ```
 
-## Recommended Numerical Setup
-
-Use a 1D domain large enough that the thermal far field is unperturbed at the
-final time ($x \in [0, 20]$ up to $t = 10$ is sufficient). Impose $T = T_0$ at
-the wall, $T = T_\infty$ and $C = C_\infty$ at the far boundary, and zero
-solute flux into the solid. Initialize with a small solid seed layer and the
-similarity fields at a small positive time $t_0$ to avoid the nucleation
-singularity.
-
-## Quantities To Report
+## Report
 
 - front position $s(t)$ and error against $2\lambda\sqrt{Dt}$,
 - interface temperature and concentration histories against
   $T_\Gamma$, $C^\Gamma$,
 - temperature and concentration profiles at selected times,
 - global solute conservation (rejected solute vs. liquid enrichment).
-
-## Known Difficulties
-
-- the interface temperature is an unknown: enforcing $T_\Gamma = T_m + mC^\Gamma$
-  requires simultaneous (or tightly iterated) thermal-solutal coupling,
-- the solutal layer thickness scales as $\sqrt{D/\alpha}$ relative to the
-  thermal layer: under-resolving it biases $C^\Gamma$ and thus the front speed,
-- spurious solute leakage into the solid destroys the similarity solution,
-- constitutional supercooling exists ahead of the front; numerical
-  perturbations can trigger unphysical instability of the planar solution.
 
 ## References
 

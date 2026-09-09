@@ -37,27 +37,16 @@ references:
 
 # HT-001 - Planar partition between two half-spaces
 
-## Purpose
-
-The minimal conjugate case. Two half-spaces exchange across a flat interface
-that enforces a partition ratio and flux continuity, and the interfacial values
-are known in closed form. It is the case that catches a partition written in
-the wrong direction or applied with the wrong diffusivity.
-
-## Physical Configuration
+## Problem
 
 Phase 1 occupies $x<0$ with diffusivity $D_1$ and initial value $1$; phase 2
 occupies $x>0$ with diffusivity $D_2$ and initial value $0$. The same equations
 describe conjugate heat transfer with $D$ a thermal diffusivity and $k$ the
 ratio of the equilibrium values.
 
-## Governing Equations
-
 $$
 \partial_t C_i = D_i \partial_x^2 C_i, \qquad i = 1, 2 .
 $$
-
-## Boundary And Initial Conditions
 
 At $x=0$,
 
@@ -68,7 +57,7 @@ $$
 
 with $C_1(x,0)=1$ for $x<0$ and $C_2(x,0)=0$ for $x>0$.
 
-## Material Parameters
+## Parameters
 
 | Parameter | Symbol | Value |
 |---|---:|---:|
@@ -76,7 +65,7 @@ with $C_1(x,0)=1$ for $x<0$ and $C_2(x,0)=0$ for $x>0$.
 | diffusivity, phase 2 | $D_2$ | 1, 0.1, 10 |
 | partition coefficient | $k$ | 0.5, 1, 2, 5 |
 
-## Reference Solution
+## Reference
 
 The interfacial values are constant in time,
 
@@ -93,25 +82,13 @@ case exists to catch.
 
 ![HT-001 reference](../figures/HT-001-reference.svg)
 
-## Recommended Numerical Setup
-
-Place the interface off a cell face so that the jump is carried by cut cells.
-Run to $t_\mathrm{end}$ short enough that the diffusion length stays well
-inside the domain.
-
-## Quantities To Report
+## Report
 
 - $C_1^s$ and $C_2^s$ against the closed form,
 - the residual of $C_1 - kC_2$ at the interface, which should reach machine
   precision,
 - profiles on both sides,
 - observed convergence rate.
-
-## Known Difficulties
-
-- using $k/(1+k)$ at a diffusivity contrast,
-- the direction of the partition,
-- a flux continuity condition written with a single diffusivity.
 
 ## References
 

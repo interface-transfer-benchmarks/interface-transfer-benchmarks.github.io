@@ -45,8 +45,12 @@ function rewrite_math(body::AbstractString)
     return join(rewritten, "\n")
 end
 
+function strip_title(body::AbstractString)
+    return replace(body, r"^\s*#\s[^\n]*\n+" => ""; count = 1)
+end
+
 function rewrite_body(body::AbstractString)
-    return rewrite_math(rewrite_relative_links(body))
+    return rewrite_math(rewrite_relative_links(strip_title(body)))
 end
 
 function copytree(src::AbstractString, dst::AbstractString)
@@ -71,39 +75,23 @@ function write_case_page(case, output_path::AbstractString)
     open(output_path, "w") do io
         println(io, "# ", case.title)
         println(io)
-        println(io, "Source: [", case.filename, "](", REPO_BLOB, "/cases/", case.filename, ")")
+        facets = [
+            table_cell(getmeta(metadata, "benchmark_class", "")),
+            table_cell(getmeta(metadata, "dimension", "")),
+            table_cell(getmeta(metadata, "geometry", "")),
+            table_cell(getmeta(metadata, "interface_motion", "")),
+            table_cell(getmeta(metadata, "reference_type", "")),
+            table_cell(getmeta(metadata, "status", "")),
+        ]
+        println(io, "`", join(filter(!isempty, facets), "` · `"), "`")
         println(io)
-        println(io, "| Field | Value |")
-        println(io, "|---|---|")
-        for key in METADATA_FIELDS
-            value = getmeta(metadata, key, "")
-            rendered = table_cell(value)
-            isempty(rendered) || println(io, "| `", key, "` | ", rendered, " |")
-        end
+        println(io, "[Source](", REPO_BLOB, "/cases/", case.filename, ")")
 
         data_files = as_list(getmeta(metadata, "reference_data", ""))
-        if !isempty(data_files)
-            println(io)
-            println(io, "## Data")
-            println(io)
-            for file in data_files
-                println(io, "- [", basename(file), "](", asset_url(file), ")")
-            end
+        for file in data_files
+            println(io, " · [", basename(file), "](", asset_url(file), ")")
         end
 
-        figure_files = as_list(getmeta(metadata, "figures", ""))
-        if !isempty(figure_files)
-            println(io)
-            println(io, "## Figures")
-            println(io)
-            for file in figure_files
-                alt = splitext(basename(file))[1]
-                println(io, "![", alt, "](", asset_url(file), ")")
-            end
-        end
-
-        println(io)
-        println(io, "## Benchmark Definition")
         println(io)
         print(io, rewrite_body(case.body))
         endswith(case.body, "\n") || println(io)

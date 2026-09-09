@@ -38,19 +38,10 @@ references:
 
 # MT-002 - Steady reactive uptake outside a disk
 
-## Purpose
-
-The two-dimensional counterpart of MT-001, and the case that exposes the
-two-dimensional far-field trap: without reaction the exterior problem has no
-bounded solution, so a Sherwood number normalised on the non-reactive limit
-does not exist in 2D.
-
-## Physical Configuration
+## Problem
 
 A disk of radius $R_0$ at concentration $C_s$ in a quiescent plane that
 consumes the species at rate $\nu C$.
-
-## Governing Equations
 
 For $r > R_0$,
 
@@ -58,13 +49,11 @@ $$
 D \nabla^2 C = \nu C .
 $$
 
-## Boundary And Initial Conditions
-
 $$
 C(R_0) = C_s, \qquad C(r \to \infty) = 0 .
 $$
 
-## Material Parameters
+## Parameters
 
 | Parameter | Symbol | Value |
 |---|---:|---:|
@@ -73,7 +62,7 @@ $$
 | surface concentration | $C_s$ | 1 |
 | Damkohler number | $\mathrm{Da}=\nu R_0^2/D$ | 0.25 to 100 |
 
-## Reference Solution
+## Reference
 
 With $m=\sqrt{\mathrm{Da}}/R_0$,
 
@@ -91,27 +80,26 @@ $$
 
 ![MT-002 reference](../figures/MT-002-reference.svg)
 
-## Recommended Numerical Setup
-
-Report the uptake $F$ directly rather than a normalised enhancement. Steady
-exterior diffusion around a circle admits only $a + b\ln r$, so the flux decays
-like $1/\ln(L/R_0)$ and never converges as the box opens; this is the diffusive
-analogue of Stokes' paradox. Reaction restores well-posedness through the $K_0$
-decay, so the case is legitimate for $\mathrm{Da} \gtrsim 1$ and illegitimate
-as $\mathrm{Da} \to 0$.
-
-## Quantities To Report
+## Report
 
 - $F$ at each $\mathrm{Da}$ and its relative error,
 - radial profile against $K_0(mr)/K_0(mR_0)$,
 - observed convergence rate,
 - the drift of $F$ with box size at fixed $h$, at low and high $\mathrm{Da}$.
 
-## Known Difficulties
+## Results
 
-- quoting an enhancement factor $E = \mathrm{Sh}(\mathrm{Da})/\mathrm{Sh}(0)$,
-  which diverges as the box opens,
-- taking the 2D case as a cheap stand-in for 3D.
+Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+
+N = 128 uniform, 16 ranks. No Da = 0 column exists in 2D.
+
+| Da | 0.25 | 1 | 4 | 10 | 100 | 1000 |
+|---|---|---|---|---|---|---|
+| n/l | 51.2 | 25.6 | 12.8 | 8.1 | 2.6 | 0.8 |
+| rel. error | 2.2e-4 | 4.0e-4 | 1.0e-3 | 2.1e-3 | 1.5e-2 | 9.2e-2 |
+| order | 2.01 | 1.99 | 1.95 | 1.92 | 1.71 | 1.21 |
+
+A confirmation rung at N = 256 gives 5.3e-5 to 3.1e-2, orders 2.05 down to 1.57.
 
 ## References
 

@@ -42,14 +42,7 @@ references:
 
 # PH-003 - Frank disk
 
-## Purpose
-
-This benchmark verifies a radially symmetric two-dimensional Stefan problem in
-which a circular solid nucleus grows into an undercooled liquid. It is useful
-for testing curved-interface motion, radial similarity solutions, area
-conservation, isotropy on Cartesian grids, and interface reconstruction.
-
-## Physical Configuration
+## Problem
 
 The solid disk is centered at the origin and the moving interface is
 
@@ -65,8 +58,6 @@ r < R(t)                    r > R(t)
 The analytical reference is radial, but numerical methods should solve the
 problem in the full two-dimensional domain unless they are specifically being
 tested in radial coordinates.
-
-## Governing Equations
 
 Use the nondimensional heat equation in the thermally active liquid:
 
@@ -104,8 +95,6 @@ $$
 The recommended benchmark uses the same sign convention as recent Frank-disk
 validation tests: $\mathrm{St}<0$ and $T_\infty<0$ produce outward growth.
 
-## Boundary And Initial Conditions
-
 The infinite-domain reference satisfies
 
 $$
@@ -121,7 +110,7 @@ $$
 
 Use the exact radial temperature outside the disk and $T=0$ inside it.
 
-## Material Parameters
+## Parameters
 
 Use this nondimensional reference case.
 
@@ -141,7 +130,7 @@ $$
 T_\infty = -0.99905352952645.
 $$
 
-## Reference Solution
+## Reference
 
 The interface radius is
 
@@ -194,16 +183,7 @@ times and normalized radii.
 
 ![PH-003 Frank disk reference temperature profile](../figures/PH-003-reference.svg)
 
-## Recommended Numerical Setup
-
-Use $\Omega=[-2,2]^2$, initialize at $t_0=0.1$, and simulate to
-$t_\mathrm{end}=1$. The exact final radius is
-
-$$
-R(1)=1.2.
-$$
-
-## Quantities To Report
+## Report
 
 - area-equivalent radius $R_h=\sqrt{A_h/\pi}$,
 - radial interface error measured over interface points,
@@ -211,11 +191,6 @@ $$
 - radial symmetry error of interface position,
 - phase area error,
 - global energy balance.
-
-## Known Difficulties
-
-- Inconsistent initialization
-- a finite computational box can corrupt the far-field condition.
 
 ## References
 

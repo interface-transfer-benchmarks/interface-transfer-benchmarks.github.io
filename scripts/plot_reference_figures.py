@@ -1290,33 +1290,45 @@ def generate_mt009() -> None:
     )
 
 
+def mt010_decay(peclet: float, damkohler: float) -> float:
+    return (-peclet + math.sqrt(peclet**2 + 4 * (damkohler + math.pi**2))) / 2
+
+
 def generate_mt010() -> None:
-    lambda0 = float(mp.findroot(lambda value: mp.besselj(0, value), 2.4))
-    sherwood = lambda0**2
-    rows = [[da, lambda0, sherwood, sherwood + da] for da in [0.0, 1.0, 4.0, 16.0]]
+    peclet = 5.0
+    rows = []
+    for da in [0.0, 1.0, 10.0, 100.0]:
+        mu = mt010_decay(peclet, da)
+        rows.append([da, mu, mu - mt010_decay(peclet, 0.0), da / peclet])
     write_csv(
         ROOT / "data/MT-010/reference.csv",
-        ["damkohler", "eigenvalue", "sherwood_infinity", "axial_decay_rate"],
+        ["damkohler", "decay_rate", "decay_shift", "large_peclet_limit"],
         rows,
     )
 
-    radii = linspace(0.0, 1.0, CURVE_POINTS)
+    das = linspace(0.0, 100.0, CURVE_POINTS)
     figure, axes = plt.subplots(1, 2, figsize=(9.6, 4.0))
-    axes[0].plot(radii, [float(mp.besselj(0, lambda0 * r)) for r in radii], linewidth=2.2)
-    axes[0].set_xlabel("r / R")
-    axes[0].set_ylabel("J0(lambda0 r / R)")
+    axes[0].plot(das, [mt010_decay(peclet, da) for da in das], linewidth=2.2, label="mu (exact)")
+    axes[0].plot(
+        das,
+        [mt010_decay(peclet, 0.0) + da / peclet for da in das],
+        "--",
+        linewidth=1.8,
+        label="mu(0) + Da/Pe",
+    )
+    axes[0].set_xlabel("Da")
+    axes[0].set_ylabel("mu")
     axes[0].grid(True, color="0.88", linewidth=0.8)
-    das = linspace(0.0, 16.0, 65)
-    axes[1].plot(das, [sherwood + da for da in das], linewidth=2.2, label="sigma_0")
-    axes[1].plot(das, [sherwood for _ in das], "--", linewidth=1.8, label="Sh_inf")
-    axes[1].set_xlabel("Da")
+    axes[0].legend()
+    ys = linspace(-0.5, 0.5, CURVE_POINTS)
+    axes[1].plot(ys, [math.cos(math.pi * y) for y in ys], linewidth=2.2)
+    axes[1].set_xlabel("y / W")
+    axes[1].set_ylabel("cos(q y)")
     axes[1].grid(True, color="0.88", linewidth=0.8)
-    axes[1].legend()
-    figure.suptitle("MT-010 plug-flow reactive Graetz problem")
+    figure.suptitle("MT-010 plug-flow reactive channel")
     figure.tight_layout()
     figure.savefig(ROOT / "figures/MT-010-reference.svg", format="svg")
     plt.close(figure)
-
 
 
 def ht001_interface_values(henry: float, ratio: float) -> tuple[float, float]:

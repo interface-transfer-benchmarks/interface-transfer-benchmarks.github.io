@@ -35,19 +35,10 @@ references:
 
 # MT-003 - Unsteady diffusion to a sphere
 
-## Purpose
-
-The non-reactive transient that MT-004 generalises. It checks the time
-discretisation of the interfacial flux against a closed form whose early-time
-behaviour is singular and whose late-time limit is the steady value
-$\mathrm{Sh}=2$.
-
-## Physical Configuration
+## Problem
 
 A sphere of radius $R_0$ is held at $C=C_s$ from $t=0$ in an infinite medium
 initially at $C=0$. There is no flow and no reaction.
-
-## Governing Equations
 
 For $r > R_0$,
 
@@ -55,13 +46,11 @@ $$
 \partial_t C = D \nabla^2 C .
 $$
 
-## Boundary And Initial Conditions
-
 $$
 C(R_0,t) = C_s, \qquad C(r,0) = 0, \qquad C(r\to\infty,t)=0 .
 $$
 
-## Material Parameters
+## Parameters
 
 | Parameter | Symbol | Value |
 |---|---:|---:|
@@ -70,7 +59,7 @@ $$
 | surface concentration | $C_s$ | 1 |
 | Fourier number | $\mathrm{Fo}=Dt/R_0^2$ | 0.001 to 10 |
 
-## Reference Solution
+## Reference
 
 With $\xi = (r-R_0)/R_0$,
 
@@ -87,25 +76,23 @@ $$
 
 ![MT-003 reference](../figures/MT-003-reference.svg)
 
-## Recommended Numerical Setup
-
-Start at $\mathrm{Fo}_0 = 10^{-3}$ from the reference profile rather than from
-a step, so that the initial diffusion layer is resolved. Keep the outer
-boundary at $r \ge R_0 + 6\sqrt{D t_\mathrm{end}}$ or impose the reference
-value there.
-
-## Quantities To Report
+## Report
 
 - $\mathrm{Sh}(\mathrm{Fo})$ against the closed form,
 - the approach to $\mathrm{Sh}=2$ at large $\mathrm{Fo}$,
 - profiles at $\mathrm{Fo}=0.01$, $0.1$ and $1$,
 - observed convergence rate in space and in time.
 
-## Known Difficulties
+## Results
 
-- starting from a discontinuous initial condition,
-- an outer boundary reached by the diffusion layer before $t_\mathrm{end}$,
-- first-order time stepping masked by the $\mathrm{Fo}^{-1/2}$ transient.
+Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+
+N = 64 uniform, Crank-Nicolson, 8 ranks, Da = 0.
+
+| Fo | 0.05 | 0.15 | 0.50 |
+|---|---|---|---|
+| rel. error | 4.3e-3 | 8.3e-4 | 1.6e-3 |
+| order | 1.86 | 2.61 | 2.32 |
 
 ## References
 

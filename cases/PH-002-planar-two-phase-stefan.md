@@ -41,14 +41,7 @@ references:
 
 # PH-002 - Planar two-phase Stefan problem
 
-## Purpose
-
-This benchmark verifies a two-sided Stefan problem where both phases solve heat
-diffusion. It tests conductivity and diffusivity contrasts, the two-sided
-Stefan condition, accurate interfacial gradients from both sides, and
-conservation of latent and sensible heat.
-
-## Physical Configuration
+## Problem
 
 A planar interface separates two phases in a one-dimensional infinite-domain
 similarity problem.
@@ -70,8 +63,6 @@ $$
 For a finite-domain numerical test, the computational domain must be large
 enough that outer boundaries do not influence the solution over the simulated
 time interval.
-
-## Governing Equations
 
 In each phase $\Omega_i(t)$, $i\in\{-,+\}$,
 
@@ -103,8 +94,6 @@ k_+\partial_xT_+(s(t)^+,t)
 k_-\partial_xT_-(s(t)^-,t).
 $$
 
-## Boundary And Initial Conditions
-
 The analytical solution uses far-field conditions
 
 $$
@@ -125,7 +114,7 @@ $$
 s(t_0)=2\xi\sqrt{t_0}.
 $$
 
-## Material Parameters
+## Parameters
 
 Use this dimensionless reference case first.
 
@@ -146,7 +135,7 @@ Use this dimensionless reference case first.
 The asymmetric far-field temperatures avoid the stationary balance obtained
 when the two heat fluxes exactly cancel.
 
-## Reference Solution
+## Reference
 
 The interface position is
 
@@ -229,13 +218,7 @@ times and normalized coordinates.
 
 ![PH-002 reference interface position](../figures/PH-002-reference.svg)
 
-## Recommended Numerical Setup
-
-Use $-2 \le x \le 2$, initialize at $t_0=0.01$, and simulate to
-$t_\mathrm{end}=1$. Dirichlet far-field values at the two ends are acceptable
-if the boundaries remain far from the thermal layers.
-
-## Quantities To Report
+## Report
 
 - interface position $s_h(t)$,
 - one-sided heat fluxes at the interface,
@@ -243,13 +226,6 @@ if the boundaries remain far from the thermal layers.
 - temperature profiles at $t=0.1$, $0.4$, and $1.0$,
 - global energy balance,
 - convergence rates for $s(t)$ and $T(x,t)$.
-
-## Known Difficulties
-
-- sign convention in the two-sided Stefan condition,
-- cancellation between hot-side and cold-side heat fluxes,
-- initialization from a nonzero time,
-- applying finite-domain boundaries too close to the interface.
 
 ## References
 

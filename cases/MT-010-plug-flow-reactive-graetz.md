@@ -14,11 +14,11 @@ process:
   - interfacial-mass-transfer
   - homogeneous-reaction
 
-dimension: axisymmetric
-geometry: tube
+dimension: 2D
+geometry: channel
 interface_motion: static
 reference_type: exact-solution
-numerical_challenge: separating an advective eigenvalue from a reactive shift
+numerical_challenge: keeping a bulk reaction out of the convective flux
 
 quantities_of_interest:
   - sherwood_number
@@ -37,88 +37,86 @@ references:
   - higuera2023
 ---
 
-# MT-010 - Plug-flow reactive Graetz problem
+# MT-010 - Plug-flow reactive channel
 
-## Purpose
+## Problem
 
-The one case in the family with a flow, and the sharpest available separation
-of advection from reaction: a bulk first-order reaction shifts every axial
-decay rate by exactly $k/U$ and must leave the asymptotic Sherwood number
-unchanged. A scheme that leaks reaction into the transverse eigenvalue fails
-visibly.
-
-## Physical Configuration
-
-A circular tube of radius $R$ carries a uniform plug flow $U$. The wall is held
-at $C=0$, the inlet carries $C=C_0$, and the fluid consumes the species at rate
-$k C$.
-
-## Governing Equations
+Plug flow $U\hat{\mathbf{x}}$ between plane walls a distance $W$ apart, both
+held at $C=0$, with a first-order bulk reaction. The full two-dimensional
+equation is solved, with no boundary-layer approximation and no entrance-length
+assumption:
 
 $$
-U \partial_x C
-= \frac{D}{r}\,\partial_r\!\left(r\,\partial_r C\right) - k C ,
+U \partial_x C = D\left(\partial_x^2 C + \partial_y^2 C\right) - k C .
 $$
 
-with axial diffusion neglected, as in the classical Graetz problem.
-
-## Boundary And Initial Conditions
-
 $$
-C(x,R) = 0, \qquad \partial_r C(x,0) = 0, \qquad C(0,r) = C_0 .
+C(x, \pm W/2) = 0 .
 $$
 
-## Material Parameters
+## Parameters
+
+Taking $W=1$ and $D=1$, so that $\mathrm{Pe}=U$ and $\mathrm{Da}=k$.
 
 | Parameter | Symbol | Value |
 |---|---:|---:|
-| tube radius | $R$ | 1 |
-| plug velocity | $U$ | 1 |
+| wall spacing | $W$ | 1 |
 | diffusivity | $D$ | 1 |
-| Damkohler number | $\mathrm{Da} = k R^2/D$ | 0, 1, 4, 16 |
+| Peclet number | $\mathrm{Pe} = UW/D$ | 5 |
+| Damkohler number | $\mathrm{Da} = kW^2/D$ | 0, 1, 10, 100 |
 
-## Reference Solution
+## Reference
 
-Separating variables gives
-$C = \sum_n a_n J_0(\lambda_n r/R)\, e^{-\sigma_n x}$, where $\lambda_n$ are
-the zeros of $J_0$ and
-
-$$
-\sigma_n = \frac{D \lambda_n^2}{U R^2} + \frac{k}{U} .
-$$
-
-The reaction shifts every axial decay rate by the same constant $k/U$, so the
-transverse eigenvalue problem is untouched. The asymptotic diameter-based
-Sherwood number is built from the first eigenvalue alone,
+With $q = \pi/W$, the field
 
 $$
-\mathrm{Sh}_\infty = \lambda_0^2 = 5.7831859629\ldots,
-\qquad \lambda_0 = 2.4048255577\ldots,
+C(x,y) = \cos\!\left(q y\right) e^{-\mu x}
 $$
 
-and is therefore independent of $\mathrm{Da}$.
+is an exact solution of the full two-dimensional problem, where $\mu$ is the
+positive root of
+
+$$
+D\mu^2 + U\mu - \left(k + D q^2\right) = 0,
+\qquad
+\mu = \frac{-U + \sqrt{U^2 + 4D\left(k + Dq^2\right)}}{2D} .
+$$
+
+The reaction enters only through the constant term, so it shifts the axial
+decay rate without touching the transverse structure. The often-quoted shift
+$\mu - \mu(0) = k/U$ is the large-Peclet limit of this root, not its value:
+at $\mathrm{Pe}=5$ the two differ by a factor of about three, and the quadratic
+root is what should be gated.
+
+The Sherwood number built on the transverse profile is unchanged by the
+reaction in the same limit, so its drift with $\mathrm{Da}$ measures how much
+reaction is leaking into the convective flux.
 
 ![MT-010 reference](../figures/MT-010-reference.svg)
 
-## Recommended Numerical Setup
+## Report
 
-Take the velocity as a prescribed analytic field; no momentum solve is needed.
-Measure the decay rate by fitting $\ln \bar{C}(x)$ over the fully developed
-region, downstream of the entrance length.
-
-## Quantities To Report
-
-- $\sigma_0$ at each $\mathrm{Da}$, against $D\lambda_0^2/(UR^2) + k/U$,
-- $\mathrm{Sh}_\infty$ at each $\mathrm{Da}$, which must not move,
-- the transverse profile against $J_0(\lambda_0 r/R)$,
+- $\mu$ at each $\mathrm{Da}$, against the quadratic root,
+- the drift of $\mathrm{Sh}$ with $\mathrm{Da}$, which should be small,
+- the transverse profile against $\cos(qy)$,
 - observed convergence rate.
 
-## Known Difficulties
+## Results
 
-- fitting the decay rate inside the entrance region,
-- retaining axial diffusion while comparing against the boundary-layer form,
-- a reaction term not exactly balanced by the advective operator, which moves
-  $\mathrm{Sh}_\infty$ and is the failure this case detects.
+Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+
+Pe = 5, N = 128 uniform, 16 ranks.
+
+| Da | 0 | 1 | 10 | 100 |
+|---|---|---|---|---|
+| rel. error on mu | 6.3e-4 | 6.2e-4 | 6.5e-4 | 1.1e-3 |
+| Sh | 9.8270 | 9.8250 | 9.8061 | 9.6768 |
+
+The decay rate converges at order about 1.86 and the reaction does not leak
+into the convective flux: Sh drifts 1.5% over four decades of Da.
+
+**Gate not met.** The Sherwood number itself converges at order 1.03, not 2:
+the corner where the wall meets the interface is first order in this solver.
 
 ## References
 

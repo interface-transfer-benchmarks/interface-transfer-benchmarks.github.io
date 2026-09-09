@@ -38,20 +38,10 @@ references:
 
 # MT-001 - Steady reaction-diffusion outside a sphere
 
-## Purpose
-
-Verifies steady transfer from a sphere into a medium that consumes the
-transferred species by a first-order bulk reaction. It is the minimal case in
-which the transfer rate is set by a reaction layer rather than by the domain
-size, and it fixes the Sherwood and Damkohler conventions used throughout the
-`MT` family.
-
-## Physical Configuration
+## Problem
 
 A sphere of radius $R_0$ holds its surface at concentration $C_s$. The
 surrounding medium is quiescent and consumes the species at rate $\nu C$.
-
-## Governing Equations
 
 For $r > R_0$,
 
@@ -59,13 +49,11 @@ $$
 D \nabla^2 C = \nu C .
 $$
 
-## Boundary And Initial Conditions
-
 $$
 C(R_0) = C_s, \qquad C(r \to \infty) = 0 .
 $$
 
-## Material Parameters
+## Parameters
 
 | Parameter | Symbol | Value |
 |---|---:|---:|
@@ -74,7 +62,7 @@ $$
 | surface concentration | $C_s$ | 1 |
 | Damkohler number | $\mathrm{Da}=\nu R_0^2/D$ | 0 to 100 |
 
-## Reference Solution
+## Reference
 
 $$
 \frac{C(r)}{C_s} = \frac{R_0}{r}
@@ -93,26 +81,27 @@ Damkohler number would give $2(1+\phi/2)$ and look like a factor-of-two error.
 
 ![MT-001 reference](../figures/MT-001-reference.svg)
 
-## Recommended Numerical Setup
-
-Use a cubic box of side $L \ge 40 R_0$, or impose the reference profile on the
-outer boundary at smaller $L$. The reaction layer has thickness
-$R_0/\sqrt{\mathrm{Da}}$, so the cell count across it,
-$n/\ell = N R_0 / \sqrt{\mathrm{Da}}$, and not $\mathrm{Da}$ itself, sets the
-error. About four cells per layer are needed for 1% on $\mathrm{Sh}$.
-
-## Quantities To Report
+## Report
 
 - $\mathrm{Sh}$ at each $\mathrm{Da}$ and its relative error,
 - radial concentration profile at $\mathrm{Da} = 1$ and $100$,
 - observed convergence rate under grid refinement,
 - cells per reaction layer at which 1% on $\mathrm{Sh}$ is reached.
 
-## Known Difficulties
+## Results
 
-- truncating the box before the reaction layer is resolved,
-- confusing radius-based and diameter-based groups,
-- at $\mathrm{Da}=0$ the box truncation, not the scheme, limits accuracy.
+Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+
+N = 128 uniform, 8 ranks. `n/l` is cells per reaction layer.
+
+| Da | 0 | 1 | 4 | 10 | 100 | 1000 |
+|---|---|---|---|---|---|---|
+| n/l | inf | 25.6 | 12.8 | 8.1 | 2.6 | 0.8 |
+| rel. error | 4.7e-4 | 7.7e-4 | 1.5e-3 | 2.6e-3 | 1.5e-2 | 9.3e-2 |
+| order | 2.03 | 2.00 | 1.96 | 1.93 | 1.76 | 1.33 |
+
+The error is set by `n/l`, not by Da: second order is retained while the layer
+is resolved and degrades once it is not.
 
 ## References
 

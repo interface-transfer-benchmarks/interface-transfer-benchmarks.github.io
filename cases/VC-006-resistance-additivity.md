@@ -38,33 +38,20 @@ references:
 
 # VC-006 - Resistance additivity across a conjugate interface
 
-## Purpose
-
-An identity rather than a solution. The overall, internal and external transfer
-coefficients of a conjugate sphere are three quantities the solver measures
-independently, and at zero reaction they must satisfy a series-resistance law
-exactly. It closes to machine precision when the discrete definitions of the
-three Sherwood numbers are mutually consistent, and it is the strongest
-available check that they are.
-
-## Physical Configuration
+## Problem
 
 A sphere of radius $R_0$ of phase 1 with diffusivity $D_1$, in a quiescent
 exterior of phase 2 with diffusivity $D_2$, coupled by a Henry partition $k$
 and flux continuity. No reaction anywhere.
 
-## Governing Equations
-
 $$
 \partial_t C_i = D_i \nabla^2 C_i, \qquad i = 1,2 .
 $$
 
-## Boundary And Initial Conditions
-
 At the interface, $C_1 = k C_2$ with continuous flux. The exterior far field is
 fixed, the interior starts uniform.
 
-## Material Parameters
+## Parameters
 
 | Parameter | Symbol | Value |
 |---|---:|---:|
@@ -73,7 +60,7 @@ fixed, the interior starts uniform.
 | partition coefficient | $k$ | 0.5, 1, 2 |
 | box size | $L$ | 4 to 40 |
 
-## Reference Solution
+## Reference
 
 $$
 \frac{1}{\mathrm{Sh}} = \frac{1}{\mathrm{Sh}_i} + \frac{k D^*}{\mathrm{Sh}_e},
@@ -92,24 +79,29 @@ infinite-domain value $\mathrm{Sh}_e = 2$ in a box with $R_0/R_\mathrm{out}
 
 ![VC-006 reference](../figures/VC-006-reference.svg)
 
-## Recommended Numerical Setup
-
-Report the residual at several box sizes together with the measured
-$\mathrm{Sh}_e$, so that the identity is seen to close independently of how far
-the external value sits from 2.
-
-## Quantities To Report
+## Report
 
 - the additivity residual, at each $D^*$ and $k$,
 - the three Sherwood numbers separately,
 - measured $\mathrm{Sh}_e$ against the concentric-shell value at each box size.
 
-## Known Difficulties
+## Results
 
-- substituting $\mathrm{Sh}_e = 2$ instead of measuring it,
-- taking $R_\mathrm{out} = L/2$ for a cubic box,
-- Sherwood numbers defined on different reference concentrations, which breaks
-  the identity while each is individually plausible.
+Measured with the `basilisk-libat` cut-cell solver, 2026-09-09.
+
+k = 1, uniform, 8 ranks. Residual of
+`1/Sh - (1/Sh_i + k D* / Sh_e)`.
+
+| D* | 0.1 | 1 | 10 |
+|---|---|---|---|
+| N = 16 | 0.0e+00 | 0.0e+00 | 0.0e+00 |
+| N = 32 | 2.2e-16 | 0.0e+00 | 0.0e+00 |
+| N = 64 | - | 0.0e+00 | - |
+
+The measured external Sherwood number is 3.793 to 3.979 over `D*` in [0.1, 10]
+and N in [16, 64], against the concentric-shell value 3.685 for this box, that
+is 2.9 to 8.0% above it. The identity closes regardless, which is the point:
+it closes only because `Sh_e` is measured rather than substituted.
 
 ## References
 

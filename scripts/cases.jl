@@ -4,27 +4,6 @@ const REPO = "interface-transfer-benchmarks/interface-transfer-benchmarks.github
 const REPO_BLOB = "https://github.com/$(REPO)/blob/main"
 const REPO_ROOT = normpath(joinpath(@__DIR__, ".."))
 
-const METADATA_FIELDS = [
-    "id",
-    "title",
-    "short_title",
-    "status",
-    "benchmark_class",
-    "physics",
-    "process",
-    "dimension",
-    "geometry",
-    "interface_motion",
-    "reference_type",
-    "numerical_challenge",
-    "quantities_of_interest",
-    "has_exact_solution",
-    "has_reference_data",
-    "reference_data",
-    "figures",
-    "references",
-]
-
 const REQUIRED_FIELDS = [
     "id",
     "title",

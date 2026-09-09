@@ -45,14 +45,7 @@ references:
 
 # PH-005 - Sucking interface problem
 
-## Purpose
-
-This benchmark verifies a planar evaporating interface with Stefan flow. It is
-more demanding than a pure Stefan diffusion problem because the density jump
-creates a velocity field in the liquid, and that flow convects the thermal
-boundary layer that drives phase change.
-
-## Physical Configuration
+## Problem
 
 A vapor layer is attached to the left wall of a one-dimensional domain. The
 vapor and left wall are at saturation temperature. The liquid on the right is
@@ -66,8 +59,6 @@ x = 0                    x = delta(t)                     x = L
 The interface moves toward positive $x$ as liquid evaporates. This benchmark is
 often implemented in a two-dimensional box with a planar interface, but the
 reference solution is one-dimensional.
-
-## Governing Equations
 
 The liquid temperature satisfies
 
@@ -106,8 +97,6 @@ $$
 The interfacial energy balance is embedded in the similarity equation for the
 growth constant $\beta$ given below.
 
-## Boundary And Initial Conditions
-
 Use the infinite-domain analytical solution as the reference:
 
 $$
@@ -127,7 +116,7 @@ $$
 \delta(t_0)=2\beta\sqrt{\alpha_g t_0}.
 $$
 
-## Material Parameters
+## Parameters
 
 Use the water/vapor setup used in Basilisk's sucking-interface example.
 
@@ -151,7 +140,7 @@ $$
 \alpha_g = 2.06285945325973\times10^{-5}\ \mathrm{m^2/s}.
 $$
 
-## Reference Solution
+## Reference
 
 The vapor-layer thickness is
 
@@ -222,8 +211,6 @@ $T_l(x,t)$ for selected times and positions.
 
 ![PH-005 sucking-interface reference](../figures/PH-005-reference.svg)
 
-## Reference Assets
-
 The reference CSV file and SVG figure are generated from:
 
 ```bash
@@ -234,13 +221,7 @@ The CSV table intentionally uses a compact set of verification points. The SVG
 figure uses 401 plotted points for smooth interface-position and velocity
 curves.
 
-## Recommended Numerical Setup
-
-Use $0\le x\le 0.02\ \mathrm{m}$, initialize at $t_0=0.1\ \mathrm{s}$, and
-simulate to $t_\mathrm{end}=1\ \mathrm{s}$. Set the left boundary temperature
-to $T_{sat}$ and the right boundary temperature to $T_{bulk}$.
-
-## Quantities To Report
+## Report
 
 - interface position $\delta_h(t)$,
 - liquid velocity $u_l(t)$ away from the interface,
@@ -248,15 +229,6 @@ to $T_{sat}$ and the right boundary temperature to $T_{bulk}$.
 - liquid temperature profile at $t=0.1$, $0.4$, and $1.0$,
 - Stefan-flow divergence or equivalent mass-source balance,
 - global energy balance.
-
-## Known Difficulties
-
-- the finite-domain boundary must remain far enough from the thermal layer,
-- the initial time shift must match the initialized vapor-layer thickness,
-- the far-field liquid temperature must stay at the prescribed superheat,
-- the vapor layer can become too thin if the benchmark is initialized too early,
-- post-processing should measure the planar layer thickness, not a local noisy
-  interface marker.
 
 ## References
 

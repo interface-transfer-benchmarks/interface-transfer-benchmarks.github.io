@@ -40,17 +40,7 @@ references:
 
 # PH-012 - d2-law evaporating droplet
 
-## Purpose
-
-This benchmark verifies isothermal, mass-transfer-driven evaporation of a
-spherical droplet with Stefan flow in the gas. Unlike PH-008 and PH-010, the
-gas-phase transport is convective-diffusive: the radial blowing velocity
-produced by evaporation stiffens the vapor profile, and the evaporation rate
-depends nonlinearly on the surface mass fraction through the Spalding
-transfer number. It is the canonical validation for evaporating-droplet
-solvers before thermal coupling is added.
-
-## Physical Configuration
+## Problem
 
 A liquid droplet of initial diameter $d_0$ evaporates in a quiescent,
 infinite gas. The vapor mass fraction at the surface is fixed at $Y_s$
@@ -58,8 +48,6 @@ infinite gas. The vapor mass fraction at the surface is fixed at $Y_s$
 Gas density $\rho_g$ and vapor diffusivity $D_g$ are constant; the gas is
 quasi-steady with respect to the slow droplet regression
 ($\rho_g/\rho_l \ll 1$); gravity and liquid internal motion are neglected.
-
-## Governing Equations
 
 Quasi-steady gas phase, $r > R(t)$:
 
@@ -84,7 +72,23 @@ $$
 \rho_l\,\frac{d}{dt}\!\left(\tfrac{4}{3}\pi R^3\right) = -\,\dot m .
 $$
 
-## Reference Solution
+## Parameters
+
+Water-like droplet in air at moderate surface saturation.
+
+| Parameter | Symbol | Value | Unit |
+|---|---:|---:|---|
+| initial diameter | $d_0$ | $1\times10^{-3}$ | m |
+| liquid density | $\rho_l$ | 1000 | kg/m^3 |
+| gas density | $\rho_g$ | 1.0 | kg/m^3 |
+| vapor diffusivity | $D_g$ | $2.5\times10^{-5}$ | m^2/s |
+| surface mass fraction | $Y_s$ | 0.05 | - |
+| far-field mass fraction | $Y_\infty$ | 0 | - |
+| transfer number | $B_M$ | 0.052632 | - |
+| evaporation constant | $K$ | $1.0258\times10^{-8}$ | m^2/s |
+| droplet lifetime | $t_{life}$ | 97.48 | s |
+
+## Reference
 
 The quasi-steady solution gives
 
@@ -116,64 +120,18 @@ $$
 The Stefan (blowing) velocity in the gas is
 $u(r) = \dot m / (4\pi\rho_g r^2)$.
 
-## Material Parameters
-
-Water-like droplet in air at moderate surface saturation.
-
-| Parameter | Symbol | Value | Unit |
-|---|---:|---:|---|
-| initial diameter | $d_0$ | $1\times10^{-3}$ | m |
-| liquid density | $\rho_l$ | 1000 | kg/m^3 |
-| gas density | $\rho_g$ | 1.0 | kg/m^3 |
-| vapor diffusivity | $D_g$ | $2.5\times10^{-5}$ | m^2/s |
-| surface mass fraction | $Y_s$ | 0.05 | - |
-| far-field mass fraction | $Y_\infty$ | 0 | - |
-| transfer number | $B_M$ | 0.052632 | - |
-| evaporation constant | $K$ | $1.0258\times10^{-8}$ | m^2/s |
-| droplet lifetime | $t_{life}$ | 97.48 | s |
-
-## Reference Data
-
-The file `data/PH-012/reference.csv` tabulates $d^2(t)$, $R(t)$, $\dot m(t)$,
-and the vapor mass-fraction profile $Y(r)$ at selected radii.
-
-![PH-012 d2-law reference](../figures/PH-012-reference.svg)
-
-## Reference Assets
-
 Generate the CSV and figure with:
 
 ```bash
 python3 scripts/plot_reference_figures.py PH-012
 ```
 
-## Recommended Numerical Setup
-
-Use a spherically symmetric or axisymmetric domain with outer radius at
-least $25 R_0$ and $Y = Y_\infty$ in the far field. Impose $Y = Y_s$ on the
-interface and resolve the gas velocity produced by the density change so that
-the Stefan convection of vapor is captured; a pure-diffusion solver
-overpredicts the surface gradient by the factor $\ln(1+B_M)/B_M$ inverse.
-Start from the quasi-steady profile at $R = R_0$ to avoid the initial
-diffusive transient, or discard the transient before comparing.
-
-## Quantities To Report
+## Report
 
 - $d^2(t)$, the fitted evaporation constant $K$, and the relative error,
 - instantaneous evaporation rate $\dot m(t)$,
 - vapor mass-fraction profile against the exponential reference,
 - interface-velocity consistency: $\dot R$ vs. $-\dot m /(4\pi\rho_l R^2)$.
-
-## Known Difficulties
-
-- omitting Stefan flow yields $K = 8\rho_g D_g B_M/\rho_l$ instead of the
-  logarithmic law: the two differ by 2.6% here but by large factors at high
-  $B_M$, so a high-$B_M$ variant ($Y_s = 0.5$) is a stronger discriminator,
-- far-field confinement measurably raises $K$ for outer radii below
-  $\sim\!20 R_0$,
-- quasi-steadiness requires $\rho_g/\rho_l \ll 1$; transient gas storage
-  causes early-time deviations from linear $d^2(t)$,
-- interface regression noise on coarse grids contaminates the fitted $K$.
 
 ## References
 
