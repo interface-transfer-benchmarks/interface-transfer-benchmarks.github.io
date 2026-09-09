@@ -1,7 +1,7 @@
-# Phase-Change Numerical Benchmarks
+# Interface Transfer Benchmarks
 
-This repository contains benchmark definitions for phase-change numerical
-methods.
+This repository contains benchmark definitions for numerical methods for
+interfacial heat and mass transfer.
 
 The repository is organized around stable benchmark identifiers:
 

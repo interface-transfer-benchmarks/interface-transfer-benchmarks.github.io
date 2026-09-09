@@ -69,4 +69,4 @@ digitization still pending).
 
 ## Julia Documenter Site
 
-../phase-change-benchmarks.github.io is the home for the documentation site.
+../interface-transfer-benchmarks.github.io is the home for the documentation site.
