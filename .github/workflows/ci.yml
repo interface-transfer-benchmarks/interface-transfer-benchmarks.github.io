@@ -44,10 +44,6 @@ jobs:
 
       - uses: julia-actions/cache@v2
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
       - run: julia --project=docs -e 'using Pkg; Pkg.instantiate()'
 
       - run: julia --project=docs docs/make.jl

@@ -1,6 +1,5 @@
 docs/build/
 docs/Manifest.toml
-docs/node_modules/
 docs/src/generated/
 docs/src/data/
 docs/src/figures/

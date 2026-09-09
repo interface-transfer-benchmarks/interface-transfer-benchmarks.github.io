@@ -4,9 +4,9 @@
     <h1>Interface Transfer Benchmarks</h1>
     <p>Community-maintained benchmark problems for numerical methods for interfacial heat and mass transfer.</p>
     <div class="pcnb-actions">
-      <a class="pcnb-button primary" href="/generated/index">Browse benchmarks</a>
-      <a class="pcnb-button" href="/taxonomy">Read taxonomy</a>
-      <a class="pcnb-button" href="https://github.com/interface-transfer-benchmarks/benchmarks">Benchmark source</a>
+      <a class="pcnb-button primary" href="/generated/">Browse benchmarks</a>
+      <a class="pcnb-button" href="/taxonomy/">Read taxonomy</a>
+      <a class="pcnb-button" href="https://github.com/interface-transfer-benchmarks/interface-transfer-benchmarks.github.io/tree/main/cases">Benchmark source</a>
     </div>
   </div>
   <div class="pcnb-visual">

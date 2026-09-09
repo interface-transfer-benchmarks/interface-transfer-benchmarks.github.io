@@ -80,17 +80,12 @@ function canonical_asset_path(path::AbstractString)
     return normalized
 end
 
-function data_url(path::AbstractString)
-    return REPO_BLOB * "/" * canonical_asset_path(path)
-end
-
-function figure_url(path::AbstractString)
+function asset_url(path::AbstractString)
     return "../../" * canonical_asset_path(path)
 end
 
 function rewrite_relative_links(body::AbstractString)
-    rewritten = replace(body, r"(\]\(|src=\")(?:\.\./|/)*(data/)" => SubstitutionString("\\1$(REPO_BLOB)/\\2"))
-    return replace(rewritten, r"(\]\(|src=\")(?:\.\./|/)*(figures/)" => s"\1../../\2")
+    return replace(body, r"(\]\(|src=\")(?:\.\./|/)*((?:data|figures)/)" => s"\1../../\2")
 end
 
 function rewrite_math(body::AbstractString)
@@ -132,6 +127,9 @@ function copytree(src::AbstractString, dst::AbstractString)
     isdir(dst) && rm(dst; recursive=true, force=true)
     mkpath(dirname(dst))
     cp(src, dst; force=true)
+    for (root, _, files) in walkdir(dst), file in files
+        endswith(lowercase(file), ".md") && rm(joinpath(root, file); force=true)
+    end
 end
 
 function case_record(path::AbstractString)
@@ -162,7 +160,7 @@ function write_case_page(case, output_path::AbstractString)
             println(io, "## Data")
             println(io)
             for file in data_files
-                println(io, "- [", basename(file), "](", data_url(file), ")")
+                println(io, "- [", basename(file), "](", asset_url(file), ")")
             end
         end
 
@@ -173,7 +171,7 @@ function write_case_page(case, output_path::AbstractString)
             println(io)
             for file in figure_files
                 alt = splitext(basename(file))[1]
-                println(io, "![", alt, "](", figure_url(file), ")")
+                println(io, "![", alt, "](", asset_url(file), ")")
             end
         end
 
