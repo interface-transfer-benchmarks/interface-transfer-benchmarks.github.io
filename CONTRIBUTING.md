@@ -7,7 +7,7 @@ We welcome contributions of new phase-change benchmarks, corrections, reference 
 Open an issue using the title:
 
 ```text
-New benchmark proposal: PA-XXX short title
+New benchmark proposal: PH-XXX short title
 ```
 
 The proposal should include:
@@ -39,14 +39,14 @@ It can be marked `ready` only if:
 Use:
 
 ```text
-cases/PA-XXX-short-title.md
+cases/PH-XXX-short-title.md
 ```
 
 Examples:
 
 ```text
-cases/PA-001-planar-one-phase-stefan.md
-cases/PA-002-planar-two-phase-stefan.md
-cases/PA-003-frank-disk.md
-cases/PA-004-frank-sphere.md
+cases/PH-001-planar-one-phase-stefan.md
+cases/PH-002-planar-two-phase-stefan.md
+cases/PH-003-frank-disk.md
+cases/PH-004-frank-sphere.md
 ```

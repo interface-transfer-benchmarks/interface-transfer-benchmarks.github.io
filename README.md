@@ -18,15 +18,17 @@ ghost-fluid, immersed-boundary, enthalpy, and phase-field methods.
 
 ## Identifiers
 
-Following the historical InterfaceTracking collection.
+The prefix is the physics family and is stable. How a case is validated is the
+`reference_type` front-matter field, not part of the identifier.
 
-| Prefix | Meaning |
+| Prefix | Family |
 |---|---|
-| `N` | Purely numerical test-case |
-| `PA` | Compared to an analytical solution |
-| `PN` | Compared to a numerical reference method |
-| `PE` | Compared to an experiment |
-| `PC` | Test of coherence |
+| `PH` | Phase change: Stefan problems, melting, solidification, evaporation, boiling |
+| `MT` | Mass transfer with interfacial reaction |
+| `HT` | Conjugate heat transfer |
+| `VC` | Verification and coherence tests |
+
+Identifiers used before this scheme are mapped in [`aliases.csv`](aliases.csv).
 
 ## Layout
 
@@ -37,6 +39,7 @@ figures/        Reference plots
 scripts/        Case loading, validation, index and site generation
 docs/           Website source
 references.bib  Bibliography
+aliases.csv     Old identifier to new identifier
 ```
 
 ## Build the site

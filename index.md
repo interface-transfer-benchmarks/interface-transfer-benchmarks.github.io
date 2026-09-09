@@ -2,23 +2,23 @@
 
 | ID | Benchmark | Class | Status | Reference |
 |---|---|---|---|---|
-| PA-001 | [Planar one-phase Stefan problem](cases/PA-001-planar-one-phase-stefan.md) | PA | ready | exact-similarity |
-| PA-002 | [Planar two-phase Stefan problem](cases/PA-002-planar-two-phase-stefan.md) | PA | ready | exact-similarity |
-| PA-003 | [Frank disk](cases/PA-003-frank-disk.md) | PA | ready | exact-similarity |
-| PA-004 | [Frank sphere](cases/PA-004-frank-sphere.md) | PA | ready | exact-similarity |
-| PA-005 | [Sucking interface problem](cases/PA-005-sucking-interface.md) | PA | ready | exact-similarity |
-| PA-006 | [Scriven spherical vapor bubble growth](cases/PA-006-scriven-spherical-bubble-growth.md) | PA | ready | exact-similarity |
-| PA-007 | [Static evaporating film](cases/PA-007-static-evaporating-film.md) | PA | ready | asymptotic-solution |
-| PA-008 | [Species-diffusion Stefan problem](cases/PA-008-species-diffusion-stefan.md) | PA | ready | exact-similarity |
-| PA-009 | [Epstein-Plesset steady-radius dissolution](cases/PA-009-epstein-plesset-steady-radius-dissolution.md) | PA | ready | exact-similarity |
-| PA-010 | [Epstein-Plesset dissolving bubble](cases/PA-010-epstein-plesset-dissolving-bubble.md) | PA | ready | semi-analytical-ode |
-| PA-011 | [Binary-alloy solidification (Rubinstein problem)](cases/PA-011-binary-alloy-solidification.md) | PA | ready | exact-similarity |
-| PA-012 | [d2-law evaporating droplet](cases/PA-012-d2-law-droplet-evaporation.md) | PA | ready | quasi-steady-analytical |
-| PA-013 | [Nusselt laminar film condensation](cases/PA-013-nusselt-film-condensation.md) | PA | ready | analytical-boundary-layer |
-| PC-001 | [Constant-speed planar solidification](cases/PC-001-constant-speed-planar-solidification.md) | PC | ready | exact-solution |
-| PC-002 | [Constant-rate dissolving bubble](cases/PC-002-constant-rate-bubble.md) | PC | ready | exact-kinematic |
-| PE-001 | [Gallium melting in a side-heated cavity](cases/PE-001-gallium-melting-cavity.md) | PE | draft | experimental |
-| PN-001 | [Film boiling on a horizontal wall](cases/PN-001-film-boiling-horizontal-wall.md) | PN | ready | numerical-plus-correlation |
+| PH-001 | [Planar one-phase Stefan problem](cases/PH-001-planar-one-phase-stefan.md) | PH | ready | exact-similarity |
+| PH-002 | [Planar two-phase Stefan problem](cases/PH-002-planar-two-phase-stefan.md) | PH | ready | exact-similarity |
+| PH-003 | [Frank disk](cases/PH-003-frank-disk.md) | PH | ready | exact-similarity |
+| PH-004 | [Frank sphere](cases/PH-004-frank-sphere.md) | PH | ready | exact-similarity |
+| PH-005 | [Sucking interface problem](cases/PH-005-sucking-interface.md) | PH | ready | exact-similarity |
+| PH-006 | [Scriven spherical vapor bubble growth](cases/PH-006-scriven-spherical-bubble-growth.md) | PH | ready | exact-similarity |
+| PH-007 | [Static evaporating film](cases/PH-007-static-evaporating-film.md) | PH | ready | asymptotic-solution |
+| PH-008 | [Species-diffusion Stefan problem](cases/PH-008-species-diffusion-stefan.md) | PH | ready | exact-similarity |
+| PH-009 | [Epstein-Plesset steady-radius dissolution](cases/PH-009-epstein-plesset-steady-radius-dissolution.md) | PH | ready | exact-similarity |
+| PH-010 | [Epstein-Plesset dissolving bubble](cases/PH-010-epstein-plesset-dissolving-bubble.md) | PH | ready | semi-analytical-ode |
+| PH-011 | [Binary-alloy solidification (Rubinstein problem)](cases/PH-011-binary-alloy-solidification.md) | PH | ready | exact-similarity |
+| PH-012 | [d2-law evaporating droplet](cases/PH-012-d2-law-droplet-evaporation.md) | PH | ready | quasi-steady-analytical |
+| PH-013 | [Nusselt laminar film condensation](cases/PH-013-nusselt-film-condensation.md) | PH | ready | analytical-boundary-layer |
+| PH-014 | [Film boiling on a horizontal wall](cases/PH-014-film-boiling-horizontal-wall.md) | PH | ready | numerical-plus-correlation |
+| PH-015 | [Gallium melting in a side-heated cavity](cases/PH-015-gallium-melting-cavity.md) | PH | draft | experimental |
+| VC-001 | [Constant-speed planar solidification](cases/VC-001-constant-speed-planar-solidification.md) | VC | ready | exact-solution |
+| VC-002 | [Constant-rate dissolving bubble](cases/VC-002-constant-rate-bubble.md) | VC | ready | exact-kinematic |
 
 Reference data is under `data/<ID>/`, reference plots under `figures/`.
 

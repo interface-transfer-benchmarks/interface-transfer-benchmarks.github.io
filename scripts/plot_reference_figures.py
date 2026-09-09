@@ -45,7 +45,7 @@ def linspace(start: float, stop: float, count: int) -> list[float]:
     return [start + index * step for index in range(count)]
 
 
-def generate_pa001() -> None:
+def generate_ph001() -> None:
     lambda_ = float(
         mp.findroot(
             lambda value: mp.sqrt(mp.pi)
@@ -66,7 +66,7 @@ def generate_pa001() -> None:
             rows.append([time, x_over_s, x, interface_position, temperature])
 
     write_csv(
-        ROOT / "data/PA-001/reference.csv",
+        ROOT / "data/PH-001/reference.csv",
         ["time", "x_over_s", "x", "interface_position", "temperature"],
         rows,
     )
@@ -77,14 +77,14 @@ def generate_pa001() -> None:
     plt.plot(times, positions, color="#1f77b4", linewidth=2.2, label="s(t)")
     plt.legend()
     save_figure(
-        ROOT / "figures/PA-001-reference.svg",
-        "PA-001 one-phase Stefan reference",
+        ROOT / "figures/PH-001-reference.svg",
+        "PH-001 one-phase Stefan reference",
         "time",
         "interface position",
     )
 
 
-def generate_pa002() -> None:
+def generate_ph002() -> None:
     xi = float(
         mp.findroot(
             lambda value: value
@@ -114,7 +114,7 @@ def generate_pa002() -> None:
             rows.append([time, eta, x, interface_position, phase, temperature])
 
     write_csv(
-        ROOT / "data/PA-002/reference.csv",
+        ROOT / "data/PH-002/reference.csv",
         ["time", "eta_x_over_2sqrt_t", "x", "interface_position", "phase", "temperature"],
         rows,
     )
@@ -125,8 +125,8 @@ def generate_pa002() -> None:
     plt.plot(times, positions, color="#d62728", linewidth=2.2, label="s(t)")
     plt.legend()
     save_figure(
-        ROOT / "figures/PA-002-reference.svg",
-        "PA-002 two-phase Stefan reference",
+        ROOT / "figures/PH-002-reference.svg",
+        "PH-002 two-phase Stefan reference",
         "time",
         "interface position",
     )
@@ -231,17 +231,17 @@ def generate_frank_case(
     )
 
 
-def generate_pa003() -> None:
-    generate_frank_case("PA-003", "Frank disk", frank_disk_f, frank_disk_f_prime, "#2ca02c")
+def generate_ph003() -> None:
+    generate_frank_case("PH-003", "Frank disk", frank_disk_f, frank_disk_f_prime, "#2ca02c")
 
 
-def generate_pa004() -> None:
+def generate_ph004() -> None:
     generate_frank_case(
-        "PA-004", "Frank sphere", frank_sphere_f, frank_sphere_f_prime, "#9467bd"
+        "PH-004", "Frank sphere", frank_sphere_f, frank_sphere_f_prime, "#9467bd"
     )
 
 
-def generate_pa005() -> None:
+def generate_ph005() -> None:
     rho_l = 958.4
     rho_g = 0.597
     k_l = 0.679
@@ -309,7 +309,7 @@ def generate_pa005() -> None:
             rows.append([time, x_over_delta, x, delta, velocity, phase, temp])
 
     write_csv(
-        ROOT / "data/PA-005/reference.csv",
+        ROOT / "data/PH-005/reference.csv",
         [
             "time",
             "x_over_delta",
@@ -344,7 +344,7 @@ def generate_pa005() -> None:
         label="u_l(t)",
     )[0]
 
-    axis_position.set_title("PA-005 sucking-interface reference")
+    axis_position.set_title("PH-005 sucking-interface reference")
     axis_position.set_xlabel("time")
     axis_position.set_ylabel("vapor-layer thickness")
     axis_velocity.set_ylabel("liquid velocity")
@@ -355,7 +355,7 @@ def generate_pa005() -> None:
         loc="best",
     )
     figure.tight_layout()
-    figure.savefig(ROOT / "figures/PA-005-reference.svg", format="svg")
+    figure.savefig(ROOT / "figures/PH-005-reference.svg", format="svg")
     plt.close(figure)
 
 
@@ -382,7 +382,7 @@ def scriven_integral(
     return mp.quad(integrand, points)
 
 
-def generate_pa006() -> None:
+def generate_ph006() -> None:
     rho_l = 958.0
     rho_g = 0.59
     k_l = 0.6
@@ -442,7 +442,7 @@ def generate_pa006() -> None:
             )
 
     write_csv(
-        ROOT / "data/PA-006/reference.csv",
+        ROOT / "data/PH-006/reference.csv",
         ["time", "r_over_R", "r", "bubble_radius", "phase", "temperature"],
         rows,
     )
@@ -453,14 +453,14 @@ def generate_pa006() -> None:
     plt.plot(times, radii, color="#e377c2", linewidth=2.2, label="R(t)")
     plt.legend()
     save_figure(
-        ROOT / "figures/PA-006-reference.svg",
-        "PA-006 Scriven spherical bubble reference",
+        ROOT / "figures/PH-006-reference.svg",
+        "PH-006 Scriven spherical bubble reference",
         "time",
         "bubble radius",
     )
 
 
-def generate_pc001() -> None:
+def generate_vc001() -> None:
     speed = 1.0
 
     def interface_position(time: float) -> float:
@@ -479,7 +479,7 @@ def generate_pc001() -> None:
             rows.append([time, x, position, phase, temperature(x, time)])
 
     write_csv(
-        ROOT / "data/PC-001/reference.csv",
+        ROOT / "data/VC-001/reference.csv",
         ["time", "x", "interface_position", "phase", "temperature"],
         rows,
     )
@@ -496,14 +496,14 @@ def generate_pc001() -> None:
         )
     plt.legend()
     save_figure(
-        ROOT / "figures/PC-001-reference.svg",
-        "PC-001 constant-speed solidification reference",
+        ROOT / "figures/VC-001-reference.svg",
+        "VC-001 constant-speed solidification reference",
         "x",
         "temperature",
     )
 
 
-def generate_pa007() -> None:
+def generate_ph007() -> None:
     h0 = 1.0
     domain_height = 10.0
     diffusivity = 1.0
@@ -535,7 +535,7 @@ def generate_pa007() -> None:
         )
 
     write_csv(
-        ROOT / "data/PA-007/reference.csv",
+        ROOT / "data/PH-007/reference.csv",
         [
             "time",
             "quasi_static_thickness",
@@ -552,14 +552,14 @@ def generate_pa007() -> None:
     plt.plot(times, [h_transient(t) for t in times], label="early transient")
     plt.legend()
     save_figure(
-        ROOT / "figures/PA-007-reference.svg",
-        "PA-007 static evaporating film reference",
+        ROOT / "figures/PH-007-reference.svg",
+        "PH-007 static evaporating film reference",
         "time",
         "film thickness",
     )
 
 
-def generate_pc002() -> None:
+def generate_vc002() -> None:
     initial_radius = 1.0
     density_dispersed = 0.001
     mass_transfer_rate = -1.0e-3
@@ -573,7 +573,7 @@ def generate_pc002() -> None:
         rows.append([time, r, math.pi * r * r, 4 * math.pi * r**3 / 3])
 
     write_csv(
-        ROOT / "data/PC-002/reference.csv",
+        ROOT / "data/VC-002/reference.csv",
         ["time", "radius", "area_2d", "volume_3d"],
         rows,
     )
@@ -583,14 +583,14 @@ def generate_pc002() -> None:
     plt.plot(times, [radius(t) for t in times], label="R(t)", color="#7f7f7f")
     plt.legend()
     save_figure(
-        ROOT / "figures/PC-002-reference.svg",
-        "PC-002 constant-rate bubble reference",
+        ROOT / "figures/VC-002-reference.svg",
+        "VC-002 constant-rate bubble reference",
         "time",
         "radius",
     )
 
 
-def generate_pa008() -> None:
+def generate_ph008() -> None:
     diffusivity = 0.1
     henry = 1.2
     c_sigma = 1.0
@@ -611,7 +611,7 @@ def generate_pa008() -> None:
             rows.append([time, ell, eta, distance, concentration(distance, time)])
 
     write_csv(
-        ROOT / "data/PA-008/reference.csv",
+        ROOT / "data/PH-008/reference.csv",
         ["time", "interface_displacement", "eta", "distance_from_interface", "concentration"],
         rows,
     )
@@ -621,14 +621,14 @@ def generate_pa008() -> None:
     plt.plot(times, [displacement(t) for t in times], label="ell(t)", color="#17becf")
     plt.legend()
     save_figure(
-        ROOT / "figures/PA-008-reference.svg",
-        "PA-008 species-diffusion Stefan reference",
+        ROOT / "figures/PH-008-reference.svg",
+        "PH-008 species-diffusion Stefan reference",
         "time",
         "interface displacement",
     )
 
 
-def generate_pa009() -> None:
+def generate_ph009() -> None:
     radius = 0.5
     diffusivity = 1.0 / 0.0526
     c_sigma = 0.2
@@ -648,7 +648,7 @@ def generate_pa009() -> None:
             rows.append([time, r_over_r, r, concentration(r, time)])
 
     write_csv(
-        ROOT / "data/PA-009/reference.csv",
+        ROOT / "data/PH-009/reference.csv",
         ["time", "r_over_R", "r", "concentration"],
         rows,
     )
@@ -664,14 +664,14 @@ def generate_pa009() -> None:
         )
     plt.legend()
     save_figure(
-        ROOT / "figures/PA-009-reference.svg",
-        "PA-009 Epstein-Plesset concentration reference",
+        ROOT / "figures/PH-009-reference.svg",
+        "PH-009 Epstein-Plesset concentration reference",
         "radius",
         "concentration",
     )
 
 
-def generate_pa010() -> None:
+def generate_ph010() -> None:
     radius_0 = 0.5
     diffusivity = 1.0
     beta = 0.2  # (c_sigma - c_inf) / rho_b
@@ -712,7 +712,7 @@ def generate_pa010() -> None:
         rows.append([time, radius_ode, quasi_steady(time)])
 
     write_csv(
-        ROOT / "data/PA-010/reference.csv",
+        ROOT / "data/PH-010/reference.csv",
         ["time", "radius_epstein_plesset", "radius_quasi_steady"],
         rows,
     )
@@ -730,14 +730,14 @@ def generate_pa010() -> None:
     )
     plt.legend()
     save_figure(
-        ROOT / "figures/PA-010-reference.svg",
-        "PA-010 Epstein-Plesset dissolving bubble",
+        ROOT / "figures/PH-010-reference.svg",
+        "PH-010 Epstein-Plesset dissolving bubble",
         "time",
         "bubble radius",
     )
 
 
-def generate_pa011() -> None:
+def generate_ph011() -> None:
     diffusivity = mp.mpf("0.05")
     alpha = mp.mpf("1.0")
     conductivity = mp.mpf("1.0")
@@ -820,7 +820,7 @@ def generate_pa011() -> None:
             rows.append(["profile", time, x, temperature(x, time), concentration(x, time)])
 
     write_csv(
-        ROOT / "data/PA-011/reference.csv",
+        ROOT / "data/PH-011/reference.csv",
         ["record", "time_or_value", "x_or_front", "temperature", "concentration"],
         rows,
     )
@@ -839,13 +839,13 @@ def generate_pa011() -> None:
     axis_c.set_title("concentration, t = 4")
     axis_c.set_xlabel("x")
     axis_c.grid(True, color="0.88", linewidth=0.8)
-    figure.suptitle("PA-011 Rubinstein binary-alloy reference")
+    figure.suptitle("PH-011 Rubinstein binary-alloy reference")
     figure.tight_layout()
-    figure.savefig(ROOT / "figures/PA-011-reference.svg", format="svg")
+    figure.savefig(ROOT / "figures/PH-011-reference.svg", format="svg")
     plt.close(figure)
 
 
-def generate_pa012() -> None:
+def generate_ph012() -> None:
     diameter_0 = 1.0e-3
     rho_liquid = 1000.0
     rho_gas = 1.0
@@ -883,7 +883,7 @@ def generate_pa012() -> None:
         rows.append(["Y_profile", r_over_radius, mass_fraction(r_over_radius)])
 
     write_csv(
-        ROOT / "data/PA-012/reference.csv",
+        ROOT / "data/PH-012/reference.csv",
         ["record", "time_or_r_over_R", "value"],
         rows,
     )
@@ -901,13 +901,13 @@ def generate_pa012() -> None:
     axis_y.set_xlabel("r / R")
     axis_y.set_ylabel("Y")
     axis_y.grid(True, color="0.88", linewidth=0.8)
-    figure.suptitle("PA-012 d2-law reference")
+    figure.suptitle("PH-012 d2-law reference")
     figure.tight_layout()
-    figure.savefig(ROOT / "figures/PA-012-reference.svg", format="svg")
+    figure.savefig(ROOT / "figures/PH-012-reference.svg", format="svg")
     plt.close(figure)
 
 
-def generate_pa013() -> None:
+def generate_ph013() -> None:
     plate_height = 0.1
     delta_t = 10.0
     rho_liquid = 958.4
@@ -959,7 +959,7 @@ def generate_pa013() -> None:
         )
 
     write_csv(
-        ROOT / "data/PA-013/reference.csv",
+        ROOT / "data/PH-013/reference.csv",
         ["record", "x_or_value", "film_thickness", "film_reynolds"],
         rows,
     )
@@ -976,13 +976,13 @@ def generate_pa013() -> None:
     axis_h.set_xlabel("x [m]")
     axis_h.set_ylabel("h [W/(m^2 K)]")
     axis_h.grid(True, color="0.88", linewidth=0.8)
-    figure.suptitle("PA-013 Nusselt film condensation reference")
+    figure.suptitle("PH-013 Nusselt film condensation reference")
     figure.tight_layout()
-    figure.savefig(ROOT / "figures/PA-013-reference.svg", format="svg")
+    figure.savefig(ROOT / "figures/PH-013-reference.svg", format="svg")
     plt.close(figure)
 
 
-def generate_pn001() -> None:
+def generate_ph014() -> None:
     rho_liquid = 200.0
     rho_vapor = 5.0
     mu_vapor = 0.005
@@ -1006,7 +1006,7 @@ def generate_pn001() -> None:
     jakob = cp_vapor * delta_t / h_fg
 
     write_csv(
-        ROOT / "data/PN-001/reference.csv",
+        ROOT / "data/PH-014/reference.csv",
         ["quantity", "value"],
         [
             ["capillary_length_lambda0", lambda_0],
@@ -1038,30 +1038,30 @@ def generate_pn001() -> None:
     plt.axvline(delta_t, color="0.6", linestyle=":", label="benchmark superheat")
     plt.legend()
     save_figure(
-        ROOT / "figures/PN-001-reference.svg",
-        "PN-001 film boiling Berenson anchor",
+        ROOT / "figures/PH-014-reference.svg",
+        "PH-014 film boiling Berenson anchor",
         "wall superheat",
         "mean Nusselt number (lambda0)",
     )
 
 
 GENERATORS = {
-    "PA-001": generate_pa001,
-    "PA-002": generate_pa002,
-    "PA-003": generate_pa003,
-    "PA-004": generate_pa004,
-    "PA-005": generate_pa005,
-    "PA-006": generate_pa006,
-    "PA-007": generate_pa007,
-    "PA-008": generate_pa008,
-    "PA-009": generate_pa009,
-    "PA-010": generate_pa010,
-    "PA-011": generate_pa011,
-    "PA-012": generate_pa012,
-    "PA-013": generate_pa013,
-    "PN-001": generate_pn001,
-    "PC-001": generate_pc001,
-    "PC-002": generate_pc002,
+    "PH-001": generate_ph001,
+    "PH-002": generate_ph002,
+    "PH-003": generate_ph003,
+    "PH-004": generate_ph004,
+    "PH-005": generate_ph005,
+    "PH-006": generate_ph006,
+    "PH-007": generate_ph007,
+    "PH-008": generate_ph008,
+    "PH-009": generate_ph009,
+    "PH-010": generate_ph010,
+    "PH-011": generate_ph011,
+    "PH-012": generate_ph012,
+    "PH-013": generate_ph013,
+    "PH-014": generate_ph014,
+    "VC-001": generate_vc001,
+    "VC-002": generate_vc002,
 }
 
 

@@ -1,10 +1,10 @@
 ---
-id: PA-XXX
+id: PH-XXX
 title: Benchmark title
 short_title: Short title
 status: draft
 
-benchmark_class: PA
+benchmark_class: PH
 
 physics:
   - phase-change
@@ -42,7 +42,7 @@ references:
   - key: AuthorYear
 ---
 
-# PA-XXX - Benchmark title
+# PH-XXX - Benchmark title
 
 ## 1. Purpose
 
@@ -152,13 +152,13 @@ $$
 If reference data are provided, store them under:
 
 ```text
-data/PA-XXX/reference.csv
+data/PH-XXX/reference.csv
 ```
 
 If a reference figure is provided, store it under:
 
 ```text
-figures/PA-XXX-reference.svg
+figures/PH-XXX-reference.svg
 ```
 
 When possible, generate reference CSV files and figures from a script in

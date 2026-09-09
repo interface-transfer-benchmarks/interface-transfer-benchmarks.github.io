@@ -4,9 +4,9 @@
 
 ### Analytical or semi-analytical references
 
-Implemented so far: PA-010 (Epstein-Plesset dissolving bubble), PA-011
-(Rubinstein binary-alloy solidification), PA-012 (d2-law evaporating
-droplet), PA-013 (Nusselt laminar film condensation).
+Implemented so far: PH-010 (Epstein-Plesset dissolving bubble), PH-011
+(Rubinstein binary-alloy solidification), PH-012 (d2-law evaporating
+droplet), PH-013 (Nusselt laminar film condensation).
 
 Remaining candidates (IDs assigned at implementation time):
 
@@ -21,7 +21,7 @@ Remaining candidates (IDs assigned at implementation time):
 
 ### Numerical-reference benchmarks
 
-Implemented so far: PN-001 (film boiling on a horizontal wall).
+Implemented so far: PH-014 (film boiling on a horizontal wall).
 
 - Fixed or deforming vapor bubble growth with full hydrodynamic coupling.
 - Vapor bubble rise with phase change and buoyancy.
@@ -34,7 +34,7 @@ Implemented so far: PN-001 (film boiling on a horizontal wall).
 
 ### Experimental-reference benchmarks
 
-Implemented so far: PE-001 (gallium melting, Gau & Viskanta; melt-front
+Implemented so far: PH-015 (gallium melting, Gau & Viskanta; melt-front
 digitization still pending).
 
 - Bubble detachment from a heated wall.
@@ -56,7 +56,7 @@ digitization still pending).
 
 ### Pending data work
 
-- Digitize the Gau & Viskanta melt-front traces for PE-001 (state the
+- Digitize the Gau & Viskanta melt-front traces for PH-015 (state the
   cross-section used; cross-check against Hannoun et al. converged numerics).
 
 ## Repository Tasks
@@ -65,7 +65,6 @@ digitization still pending).
 - Add a Markdown link checker.
 - Add issue templates for new benchmark proposals and result submissions.
 - Add contribution guidance for submitting solver results.
-- Decide whether benchmark IDs should leave gaps for historical compatibility.
 
 ## Julia Documenter Site
 
