@@ -44,7 +44,7 @@ MT-002's reactive disk, with the surrounding medium in solid-body rotation
 $\mathbf{u} = \Omega\,\hat{\mathbf{e}}_\theta\, r$ about the disk centre.
 
 $$
-\mathbf{u}\cdot\nabla C = D \nabla^2 C - \nu C .
+\mathbf{u}\cdot\nabla C = D \nabla^2 C - k C .
 $$
 
 Because $C$ is a function of $r$ alone and $\mathbf{u}$ is purely azimuthal,

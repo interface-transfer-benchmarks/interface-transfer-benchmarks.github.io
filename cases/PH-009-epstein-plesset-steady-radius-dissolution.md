@@ -41,58 +41,58 @@ references:
 
 ## Problem
 
-A spherical bubble of radius $R$ is held fixed in a liquid with zero initial and
+A spherical bubble of radius $R_0$ is held fixed in a liquid with zero initial and
 far-field dissolved gas concentration. The interfacial concentration is fixed by
 Henry's law.
 
-For $r>R$,
+For $r>R_0$,
 
 $$
-\partial_t c
+\partial_t C
 =
 \frac{1}{r^2}
 \partial_r
 \left(
-r^2D\partial_r c
+r^2D\partial_r C
 \right).
 $$
 
 The conditions are
 
 $$
-c(r,0)=c_{bulk},
+C(r,0)=C_\infty,
 \qquad
-c(R,t)=c_\Sigma,
+C(R_0,t)=C_s,
 \qquad
-c(r,t)\to c_{bulk}\quad r\to\infty.
+C(r,t)\to C_\infty\quad r\to\infty.
 $$
 
 ## Parameters
 
 | Parameter | Symbol |
 |---|---|
-| bubble radius | $R$ |
-| Schmidt number | $Sc$ |
+| bubble radius | $R_0$ |
+| Schmidt number | $\mathrm{Sc}$ |
 | diffusivity | $D$ |
-| Henry coefficient | $He$ |
-| interfacial concentration | $c_\Sigma$ |
-| bulk concentration | $c_{bulk}$ |
-| final time | $t_{end}$ |
+| Henry coefficient | $H$ |
+| interfacial concentration | $C_s$ |
+| bulk concentration | $C_\infty$ |
+| final time | $t_\mathrm{end}$ |
 
 ## Reference
 
 The concentration field is
 
 $$
-c(r,t)
+C(r,t)
 =
-c_{bulk}
+C_\infty
 +
-(c_\Sigma-c_{bulk})
+(C_s-C_\infty)
 \frac{R}{r}
 \operatorname{erfc}
 \left(
-\frac{r-R}{2\sqrt{Dt}}
+\frac{r-R_0}{2\sqrt{Dt}}
 \right).
 $$
 
@@ -102,7 +102,7 @@ problem is
 $$
 \frac{dR}{dt}
 =
-\frac{DM(c_{bulk}-c_\Sigma)}{\rho_d}
+\frac{DM(C_\infty-C_s)}{\rho_d}
 \left[
 \frac{1}{R}
 +

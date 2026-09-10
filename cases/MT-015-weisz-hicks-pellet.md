@@ -64,7 +64,7 @@ with $s = 1$ for a disk and $2$ for a sphere.
 |---|---|
 | Thiele modulus | $\phi$ |
 | Prater number | $\beta = (-\Delta H) D C_s/(\lambda T_s)$ |
-| Arrhenius group | $\gamma = E/(R T_s)$ |
+| Arrhenius group | $\gamma = E/(R_g T_s)$ |
 | geometry factor | $s$ |
 
 ## Reference

@@ -62,21 +62,21 @@ y_\Gamma(x)
 4 + \cos\!\left(\frac{2\pi x}{\lambda_d}\right)
 \right],
 \qquad
-\lambda_d = 2\pi\sqrt{\frac{3\,\sigma}{g\,(\rho_l-\rho_v)}} .
+\lambda_d = 2\pi\sqrt{\frac{3\,\sigma}{g\,(\rho_l-\rho_g)}} .
 $$
 
-The wall is isothermal at $T_{sat}+\Delta T$; the liquid and interface are at
-$T_{sat}$. Side boundaries are periodic; the top is an outflow far from the
+The wall is isothermal at $T_\mathrm{sat}+\Delta T$; the liquid and interface are at
+$T_\mathrm{sat}$. Side boundaries are periodic; the top is an outflow far from the
 film (domain height $\geq 3\lambda_d$).
 
 Incompressible Navier-Stokes in both phases with surface tension and gravity;
-energy equation with the interface held at $T_{sat}$; interfacial mass flux
+energy equation with the interface held at $T_\mathrm{sat}$; interfacial mass flux
 from the conductive jump
 
 $$
 \dot m''
 =
-\frac{\big[\![\,k\,\nabla T\cdot\mathbf n\,]\!\big]}{h_{fg}},
+\frac{\big[\![\,\kappa\,\nabla T\cdot\mathbf n\,]\!\big]}{L},
 $$
 
 which drives the velocity jump $[\![\mathbf u\cdot\mathbf n]\!] =
@@ -93,23 +93,23 @@ run at a saturation temperature of 500 K with a wall at 505 K.
 | Parameter | Symbol |
 |---|---|
 | liquid density | $\rho_l$ |
-| vapor density | $\rho_v$ |
+| vapor density | $\rho_g$ |
 | liquid viscosity | $\mu_l$ |
-| vapor viscosity | $\mu_v$ |
-| liquid conductivity | $k_l$ |
-| vapor conductivity | $k_v$ |
+| vapor viscosity | $\mu_g$ |
+| liquid conductivity | $\kappa_l$ |
+| vapor conductivity | $\kappa_g$ |
 | liquid heat capacity | $c_{p,l}$ |
-| vapor heat capacity | $c_{p,v}$ |
-| latent heat | $h_{fg}$ |
+| vapor heat capacity | $c_{p,g}$ |
+| latent heat | $L$ |
 | surface tension | $\sigma$ |
 | gravity | $g$ |
-| saturation temperature | $T_{sat}$ |
+| saturation temperature | $T_\mathrm{sat}$ |
 | wall superheat | $\Delta T$ |
 
-Derived scales: capillary length $\lambda_0 = \sqrt{\sigma/(g(\rho_l-\rho_v))}$,
+Derived scales: capillary length $\lambda_0 = \sqrt{\sigma/(g(\rho_l-\rho_g))}$,
 most dangerous wavelength $\lambda_d = 2\pi\sqrt3\,\lambda_0$, vapor Jakob
-number $Ja = c_{p,v}\Delta T/h_{fg} = 0.1$, vapor Prandtl number
-$Pr_v = c_{p,v}\mu_v/k_v = 1$.
+number $\mathrm{Ja} = c_{p,g}\Delta T/L = 0.1$, vapor Prandtl number
+$\mathrm{Pr}_g = c_{p,g}\mu_g/\kappa_g = 1$.
 
 ## Reference
 
@@ -117,26 +117,26 @@ The wall Nusselt number, space-averaged over the strip and based on
 $\lambda_0$,
 
 $$
-Nu(t)
+\mathrm{Nu}(t)
 =
 \frac{\lambda_0}{\lambda_d\,\Delta T}
 \int_0^{\lambda_d}
-\left.\frac{\partial T}{\partial y}\right|_{wall} dx ,
+\left.\frac{\partial T}{\partial y}\right|_\mathrm{wall} dx ,
 $$
 
 oscillates with the bubble release cycle around a quasi-periodic mean.
 The Berenson correlation predicts
 
 $$
-\overline{Nu}_{Ber}
+\overline{\mathrm{Nu}}_\mathrm{Ber}
 =
 0.425
 \left[
-\frac{\rho_v\,(\rho_l-\rho_v)\,g\,h_{fg}'\,\lambda_0^{3}}
-     {k_v\,\mu_v\,\Delta T}
+\frac{\rho_g\,(\rho_l-\rho_g)\,g\,L'\,\lambda_0^{3}}
+     {\kappa_g\,\mu_g\,\Delta T}
 \right]^{1/4},
 \qquad
-h_{fg}' = h_{fg} + 0.5\,c_{p,v}\,\Delta T ,
+L' = L + 0.5\,c_{p,g}\,\Delta T ,
 $$
 
 and published grid-converged simulations of this configuration report
@@ -156,7 +156,7 @@ python3 scripts/plot_reference_figures.py PH-014
 
 ## Report
 
-- $Nu(t)$ history and its quasi-periodic time average,
+- $\mathrm{Nu}(t)$ history and its quasi-periodic time average,
 - comparison of the mean against Berenson and against published simulations,
 - bubble release period and interface snapshots over one cycle,
 - vapor volume history and global mass/energy balances.

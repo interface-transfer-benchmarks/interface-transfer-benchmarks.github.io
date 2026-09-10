@@ -48,7 +48,7 @@ $$
 At $r = R_0$,
 
 $$
-\phi^+ = \lambda\,\phi^-,
+\phi^+ = H\,\phi^-,
 \qquad
 K^+\partial_r\phi^+ = K^-\partial_r\phi^- .
 $$
@@ -60,7 +60,7 @@ $$
 | circle radius | $R_0$ |
 | diffusivity, inside | $K^+$ |
 | diffusivity, outside | $K^-$ |
-| Henry ratio | $\lambda$ |
+| Henry ratio | $H$ |
 | initial inner value | $\phi_0$ |
 | final time | $t_f$ |
 
@@ -69,13 +69,13 @@ $$
 With $K = \sqrt{K^+/K^-}$ the solution is a Bessel integral on each side,
 
 $$
-\phi^+(r,t) = \frac{4\phi_0\lambda K^+ (K^-)^2}{\pi^2 R_0}
+\phi^+(r,t) = \frac{4\phi_0H K^+ (K^-)^2}{\pi^2 R_0}
 \int_0^\infty
 \frac{e^{-K^+ u^2 t} J_0(ur) J_1(uR_0)}{u^2\left[\Phi^2 + \Psi^2\right]}\,du ,
 $$
 
 $$
-\phi^-(r,t) = \frac{2\phi_0\lambda K^+\sqrt{K^-}}{\pi}
+\phi^-(r,t) = \frac{2\phi_0H K^+\sqrt{K^-}}{\pi}
 \int_0^\infty
 \frac{e^{-K^+ u^2 t} J_1(uR_0)\left[J_0(Kur)\Phi - Y_0(Kur)\Psi\right]}
 {u\left[\Phi^2 + \Psi^2\right]}\,du ,
@@ -84,11 +84,11 @@ $$
 with
 
 $$
-\Phi = K^+\sqrt{K^-}J_1(R_0u)Y_0(KR_0u) - \lambda K^-\sqrt{K^+}J_0(R_0u)Y_1(KR_0u),
+\Phi = K^+\sqrt{K^-}J_1(R_0u)Y_0(KR_0u) - H K^-\sqrt{K^+}J_0(R_0u)Y_1(KR_0u),
 $$
 
 $$
-\Psi = K^+\sqrt{K^-}J_1(R_0u)J_0(KR_0u) - \lambda K^-\sqrt{K^+}J_0(R_0u)J_1(KR_0u).
+\Psi = K^+\sqrt{K^-}J_1(R_0u)J_0(KR_0u) - H K^-\sqrt{K^+}J_0(R_0u)J_1(KR_0u).
 $$
 
 The closed form **jumps** at $r = R_0$. It must be evaluated per phase, or only
@@ -99,10 +99,10 @@ neither phase, and the error then grows under refinement.
 ## Report
 
 - the interfacial flux and the two interfacial traces,
-- the residual of $\phi^+ - \lambda\phi^-$, which is algebraic and should reach
+- the residual of $\phi^+ - H\phi^-$, which is algebraic and should reach
   zero exactly,
 - the conservation budget,
-- the same flux error across several decades of $\lambda$,
+- the same flux error across several decades of $H$,
 - observed convergence rate.
 
 A time scheme with a Crank-Nicolson half step reads the initial traces through
@@ -114,7 +114,7 @@ round-off.
 
 ### Two-fluid cut-cell method - L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec
 
-Measured 2026-09-09. Uniform grid, N = 8 to 256, 16 MPI ranks, $\lambda = 2$,
+Measured 2026-09-09. Uniform grid, N = 8 to 256, 16 MPI ranks, $H = 2$,
 interfacial flux at $t_f$.
 
 | h | 1 | 0.5 | 0.25 | 0.125 | 0.0625 | 0.03125 |
@@ -125,11 +125,11 @@ interfacial flux at $t_f$.
 Across four decades of the Henry ratio at N = 256 the flux error stays at
 5.5e-4 to 5.7e-4: the jump row does not care how large the jump is.
 
-| lambda | 1 | 2 | 10 | 100 |
+| H | 1 | 2 | 10 | 100 |
 |---|---|---|---|---|
 | rel. error | 5.5e-4 | 5.7e-4 | 5.6e-4 | 5.6e-4 |
 
-The jump row closes at exactly 0.0e+00 at every rung and every $\lambda$, and
+The jump row closes at exactly 0.0e+00 at every rung and every $H$, and
 the conservation budget holds to 3e-13, which tracks the solver tolerance
 rather than the scheme.
 

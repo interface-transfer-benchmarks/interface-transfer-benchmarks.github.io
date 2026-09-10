@@ -59,3 +59,28 @@ horizontal-wall, rectangular-cavity.
 | `analytical-boundary-layer` | Boundary-layer closed form |
 | `numerical-plus-correlation` | Published simulation with a correlation |
 | `experimental` | Measured data |
+
+## Notation
+
+One name per quantity, across every case.
+
+| Quantity | Symbol |
+|---|---|
+| concentration | $C$, at the surface $C_s$, far field $C_\infty$ |
+| temperature | $T$, saturation $T_\mathrm{sat}$, melting $T_m$, far field $T_\infty$ |
+| species diffusivity | $D$ |
+| thermal diffusivity | $\alpha = \kappa/(\rho c_p)$ |
+| thermal conductivity | $\kappa$ |
+| heat capacity | $c_p$ |
+| latent heat | $L$ |
+| reaction rate constant | $k$, at a surface $k_s$ |
+| partition or Henry coefficient | $H$ |
+| wavenumber | $q$ |
+| interface | $\Gamma$ |
+| radius | $R_0$ fixed or initial, $R(t)$ moving |
+| phase subscripts | $l$ liquid, $g$ gas or vapour, $s$ solid |
+
+Dimensionless groups are upright in mathematics, $\mathrm{Sh}$,
+$\mathrm{Da}$, $\mathrm{Pe}$, $\mathrm{Fo}$, $\mathrm{Bi}$,
+$\mathrm{Ste}$, and plain ASCII in the results tables. Multi-letter roman
+subscripts take `\mathrm`, single-letter phase subscripts do not.

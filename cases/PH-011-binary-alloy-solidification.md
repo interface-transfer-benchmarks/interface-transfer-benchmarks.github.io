@@ -50,7 +50,7 @@ $T_\infty$ and solute concentration $C_\infty$. At $t=0$ the wall $x=0$ is
 brought to $T_0$ below the solidus, and a planar solid layer
 $0 < x < s(t)$ grows into the melt. Solute diffuses only in the liquid
 ($D_s = 0$) and is rejected at the front with equilibrium partition
-coefficient $k_p$, so that $C_s^\Gamma = k_p\,C_l^\Gamma$. The interface
+coefficient $H$, so that $C_s^\Gamma = H\,C_l^\Gamma$. The interface
 temperature follows the linear liquidus
 
 $$
@@ -77,9 +77,9 @@ with the interface conditions at $x = s(t)$:
 $$
 T_s = T_l = T_m + m\,C^\Gamma,
 \qquad
-\rho L\,\dot s = k_s\,\partial_x T_s - k_l\,\partial_x T_l,
+\rho L\,\dot s = \kappa_s\,\partial_x T_s - \kappa_l\,\partial_x T_l,
 \qquad
-(1-k_p)\,C^\Gamma\,\dot s = -\,D\,\partial_x C .
+(1-H)\,C^\Gamma\,\dot s = -\,D\,\partial_x C .
 $$
 
 ## Parameters
@@ -93,13 +93,13 @@ relevant and numerically demanding regime.
 |---|---|
 | density | $\rho$ |
 | heat capacity | $c_p$ |
-| conductivities | $k_s = k_l$ |
+| conductivities | $\kappa_s = \kappa_l$ |
 | thermal diffusivities | $\alpha_s = \alpha_l$ |
 | solute diffusivity (liquid) | $D$ |
 | latent heat | $L$ |
 | pure-solvent melting point | $T_m$ |
 | liquidus slope | $m$ |
-| partition coefficient | $k_p$ |
+| partition coefficient | $H$ |
 | initial concentration | $C_\infty$ |
 | initial melt temperature | $T_\infty$ |
 | wall temperature | $T_0$ |
@@ -134,7 +134,7 @@ $$
 C^\Gamma(\lambda)
 =
 \frac{C_\infty}
-{1 - (1-k_p)\,F(\lambda)},
+{1 - (1-H)\,F(\lambda)},
 \qquad
 F(\lambda) = \sqrt{\pi}\,\lambda\,e^{\lambda^2}\operatorname{erfc}(\lambda),
 $$
@@ -145,11 +145,11 @@ for $\lambda$:
 $$
 \rho L\,\lambda\sqrt{D}
 =
-\frac{k_s\,\big(T_\Gamma(\lambda) - T_0\big)\,
+\frac{\kappa_s\,\big(T_\Gamma(\lambda) - T_0\big)\,
       e^{-\lambda^2\varepsilon_s^2}}
      {\sqrt{\pi\alpha_s}\,\operatorname{erf}(\lambda\varepsilon_s)}
 -
-\frac{k_l\,\big(T_\infty - T_\Gamma(\lambda)\big)\,
+\frac{\kappa_l\,\big(T_\infty - T_\Gamma(\lambda)\big)\,
       e^{-\lambda^2\varepsilon_l^2}}
      {\sqrt{\pi\alpha_l}\,\operatorname{erfc}(\lambda\varepsilon_l)},
 \qquad

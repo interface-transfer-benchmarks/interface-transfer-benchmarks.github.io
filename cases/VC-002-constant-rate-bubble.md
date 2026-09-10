@@ -64,7 +64,7 @@ The reference case uses a dissolving bubble, so $\dot m<0$.
 | density ratio | $\rho_c/\rho_d$ |
 | dispersed density | $\rho_d$ |
 | mass-transfer rate | $\dot m$ |
-| final time | $t_{end}$ |
+| final time | $t_\mathrm{end}$ |
 
 ## Reference
 

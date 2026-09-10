@@ -40,29 +40,29 @@ references:
 
 ## Problem
 
-A pellet of radius $R$ holds its surface at $C_s$ and consumes the species
+A pellet of radius $R_0$ holds its surface at $C_s$ and consumes the species
 internally at rate $k C^n$.
 
 $$
-D \nabla^2 C = k\,C^n, \qquad r < R,
+D \nabla^2 C = k\,C^n, \qquad r < R_0,
 $$
 
-with $C(R) = C_s$ and $\partial_r C(0) = 0$.
+with $C(R_0) = C_s$ and $\partial_r C(0) = 0$.
 
 ## Parameters
 
 | Parameter | Symbol |
 |---|---|
-| pellet radius | $R$ |
+| pellet radius | $R_0$ |
 | diffusivity | $D$ |
 | surface concentration | $C_s$ |
-| Thiele modulus | $\phi = R\sqrt{k C_s^{n-1}/D}$ |
+| Thiele modulus | $\phi = R_0\sqrt{k C_s^{n-1}/D}$ |
 | reaction order | $n$ |
 | generalized modulus | $\Phi = \phi\sqrt{(n+1)/2}$ |
 
 ## Reference
 
-In the scaled radius $x = r/R$ and $y = C/C_s$,
+In the scaled radius $x = r/R_0$ and $y = C/C_s$,
 
 $$
 y'' + \frac{s}{x}y' = \phi^2 y^n,

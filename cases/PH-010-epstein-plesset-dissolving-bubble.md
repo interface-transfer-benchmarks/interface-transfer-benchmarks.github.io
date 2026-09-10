@@ -43,30 +43,30 @@ references:
 ## Problem
 
 A gas bubble of initial radius $R_0$ is immersed in an infinite quiescent
-liquid with uniform initial dissolved-gas concentration $c_\infty$ below the
-saturation concentration $c_\Sigma$ imposed at the interface by Henry's law.
+liquid with uniform initial dissolved-gas concentration $C_\infty$ below the
+saturation concentration $C_s$ imposed at the interface by Henry's law.
 The bubble shrinks as gas diffuses into the liquid. Gas-side dynamics,
 surface tension, and liquid convection (including the small radial Stefan
 flow) are neglected, consistent with the Epstein-Plesset model in the dilute
-limit $c_\Sigma/\rho_b \ll 1$.
+limit $C_s/\rho_b \ll 1$.
 
 In the liquid, $r > R(t)$,
 
 $$
-\partial_t c
+\partial_t C
 =
 \frac{D}{r^2}\,
-\partial_r\!\left(r^2 \partial_r c\right),
+\partial_r\!\left(r^2 \partial_r C\right),
 $$
 
 with
 
 $$
-c(r,0)=c_\infty,
+C(r,0)=C_\infty,
 \qquad
-c(R(t),t)=c_\Sigma,
+C(R(t),t)=C_s,
 \qquad
-c(r,t)\to c_\infty \quad (r\to\infty).
+C(r,t)\to C_\infty \quad (r\to\infty).
 $$
 
 The interface recedes according to the solutal Stefan condition
@@ -74,7 +74,7 @@ The interface recedes according to the solutal Stefan condition
 $$
 \rho_b\,\frac{dR}{dt}
 =
-D\,\partial_r c\big|_{r=R^+},
+D\,\partial_r C\big|_{r=R^+},
 $$
 
 with $\rho_b$ the gas density inside the bubble (taken constant).
@@ -87,11 +87,11 @@ The parameters extend the PH-009 fixed-radius setup to a moving interface.
 |---|---|
 | initial radius | $R_0$ |
 | diffusivity | $D$ |
-| interfacial concentration | $c_\Sigma$ |
-| bulk concentration | $c_\infty$ |
+| interfacial concentration | $C_s$ |
+| bulk concentration | $C_\infty$ |
 | bubble gas density | $\rho_b$ |
-| uptake parameter | $\beta = (c_\Sigma-c_\infty)/\rho_b$ |
-| quasi-steady dissolution time | $t_{qs}$ |
+| uptake parameter | $\beta = (C_s-C_\infty)/\rho_b$ |
+| quasi-steady dissolution time | $t_\mathrm{qs}$ |
 
 ## Reference
 
@@ -100,7 +100,7 @@ Epstein and Plesset obtained, in the quasi-frozen-boundary approximation,
 $$
 \frac{dR}{dt}
 =
--\,\frac{D\,(c_\Sigma-c_\infty)}{\rho_b}
+-\,\frac{D\,(C_s-C_\infty)}{\rho_b}
 \left[
 \frac{1}{R}
 +
@@ -113,13 +113,13 @@ precision. Neglecting the transient term $1/\sqrt{\pi D t}$ yields the
 closed-form quasi-steady radius
 
 $$
-R_{qs}(t)
+R_\mathrm{qs}(t)
 =
-\sqrt{R_0^2 - 2\,\frac{D(c_\Sigma-c_\infty)}{\rho_b}\,t},
+\sqrt{R_0^2 - 2\,\frac{D(C_s-C_\infty)}{\rho_b}\,t},
 $$
 
 which bounds the true radius from above and gives the quasi-steady
-dissolution time $t_{qs} = \rho_b R_0^2 / \left(2D(c_\Sigma-c_\infty)\right)$.
+dissolution time $t_\mathrm{qs} = \rho_b R_0^2 / \left(2D(C_s-C_\infty)\right)$.
 
 Generate the CSV and figure with:
 

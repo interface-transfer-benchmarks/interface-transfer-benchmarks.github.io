@@ -36,14 +36,14 @@ references:
 
 ## Problem
 
-The steady field outside a disk of radius $R$ held at $C_s$ is consumed by a
+The steady field outside a disk of radius $R_0$ held at $C_s$ is consumed by a
 rate that is not linear in the concentration.
 
 $$
-D \nabla^2 C = k\,f(C), \qquad r > R,
+D \nabla^2 C = k\,f(C), \qquad r > R_0,
 $$
 
-with $C(R) = C_s$ and the far field imposed on the box. Two families:
+with $C(R_0) = C_s$ and the far field imposed on the box. Two families:
 
 $$
 f(C) = C^n
@@ -58,10 +58,10 @@ attained inside the domain whenever $1/K$ is.
 
 | Parameter | Symbol |
 |---|---|
-| disk radius | $R$ |
+| disk radius | $R_0$ |
 | diffusivity | $D$ |
 | surface concentration | $C_s$ |
-| Damkohler number | $\mathrm{Da} = k R^2/D$ |
+| Damkohler number | $\mathrm{Da} = k R_0^2/D$ |
 | reaction order | $n$ |
 | adsorption constant | $K$ |
 
@@ -73,11 +73,11 @@ problem
 $$
 \frac{1}{r}\frac{d}{dr}\left(r\frac{dC}{dr}\right) = \frac{k}{D} f(C),
 \qquad
-C(R) = C_s ,
+C(R_0) = C_s ,
 $$
 
 integrated on a fine uniform grid with the same far-field datum as the run. At
-$n = 1$ it must reproduce $F = 2\pi R\sqrt{\mathrm{Da}}\,K_1/K_0$, which is what
+$n = 1$ it must reproduce $F = 2\pi R_0\sqrt{\mathrm{Da}}\,K_1/K_0$, which is what
 makes the nonlinear rows mean anything.
 
 Below $n = 1$ the concentration reaches exactly zero at a finite radius and the

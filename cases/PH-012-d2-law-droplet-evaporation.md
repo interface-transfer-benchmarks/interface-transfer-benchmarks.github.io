@@ -86,7 +86,7 @@ Water-like droplet in air at moderate surface saturation.
 | far-field mass fraction | $Y_\infty$ |
 | transfer number | $B_M$ |
 | evaporation constant | $K$ |
-| droplet lifetime | $t_{life}$ |
+| droplet lifetime | $t_\mathrm{life}$ |
 
 ## Reference
 
@@ -104,7 +104,7 @@ Water-like droplet in air at moderate surface saturation.
 | far-field mass fraction | $Y_\infty$ | 0 | - |
 | transfer number | $B_M$ | 0.052632 | - |
 | evaporation constant | $K$ | $1.0258\times10^{-8}$ | m^2/s |
-| droplet lifetime | $t_{life}$ | 97.48 | s |
+| droplet lifetime | $t_\mathrm{life}$ | 97.48 | s |
 
 
 The quasi-steady solution gives
@@ -131,7 +131,7 @@ d^2(t) = d_0^2 - K\,t,
 \qquad
 K = \frac{8\,\rho_g D_g}{\rho_l}\,\ln(1+B_M),
 \qquad
-t_{life} = \frac{d_0^2}{K}.
+t_\mathrm{life} = \frac{d_0^2}{K}.
 $$
 
 The Stefan (blowing) velocity in the gas is

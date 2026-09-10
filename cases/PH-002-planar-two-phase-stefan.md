@@ -69,13 +69,13 @@ In each phase $\Omega_i(t)$, $i\in\{-,+\}$,
 $$
 \rho_i c_{p,i}\partial_t T_i
 =
-\partial_x(k_i\partial_x T_i),
+\partial_x(\kappa_i\partial_x T_i),
 $$
 
 with
 
 $$
-\alpha_i = \frac{k_i}{\rho_i c_{p,i}}.
+\alpha_i = \frac{\kappa_i}{\rho_i c_{p,i}}.
 $$
 
 At the interface,
@@ -89,9 +89,9 @@ With the present normal convention, the Stefan condition is
 $$
 \rho L \frac{ds}{dt}
 =
-k_+\partial_xT_+(s(t)^+,t)
+\kappa_+\partial_xT_+(s(t)^+,t)
 -
-k_-\partial_xT_-(s(t)^-,t).
+\kappa_-\partial_xT_-(s(t)^-,t).
 $$
 
 The analytical solution uses far-field conditions
@@ -119,8 +119,8 @@ $$
 |---|---|
 | density | $\rho$ |
 | heat capacity | $c_p$ |
-| conductivity | $k$ |
-| thermal diffusivity | $\alpha=k/(\rho c_p)$ |
+| conductivity | $\kappa$ |
+| thermal diffusivity | $\alpha=\kappa/(\rho c_p)$ |
 | far-field temperatures | $T_{-\infty}$, $T_{+\infty}$ |
 | melting temperature | $T_m$ |
 | latent heat | $L$ |
@@ -181,14 +181,14 @@ $$
 \rho L\xi
 =
 \frac{
-k_-(T_{-\infty}-T_m)
+\kappa_-(T_{-\infty}-T_m)
 }{
 \sqrt{\pi\alpha_-}\left[1+\operatorname{erf}(\lambda_-)\right]
 }
 \exp(-\lambda_-^2)
 -
 \frac{
-k_+(T_m-T_{+\infty})
+\kappa_+(T_m-T_{+\infty})
 }{
 \sqrt{\pi\alpha_+}\operatorname{erfc}(\lambda_+)
 }

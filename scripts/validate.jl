@@ -5,6 +5,33 @@ function bib_keys(root::AbstractString)
     return Set(m.captures[1] for m in eachmatch(r"^@\w+\{([^,]+),"m, text))
 end
 
+const RETIRED = [
+    r"\\Sigma" => "\\Gamma marks the interface",
+    r"h_\{fg\}|h_\{lg\}" => "L is the latent heat",
+    r"\\rho_v|k_v\b|c_\{p,v\}|\\mu_v" => "the gas phase is subscript g",
+    r"_\{(sat|end|eq|life|qs|wall|bulk)\}" => "a roman subscript takes \\mathrm",
+    r"\\mathrm\{St\}(?!e)" => "the Stefan number is \\mathrm{Ste}",
+    r"D\^\*" => "the diffusivity ratio is D_1/D_2",
+    r"\$He\$" => "the partition coefficient is H",
+]
+
+const GROUPS = r"(?<![A-Za-z\\{])(Sh|Da|Pe|Fo|Bi|Nu|Sc|Ja|Ste|Ra|Pr)(?![A-Za-z}])"
+
+function notation_problems(body::AbstractString)
+    problems = String[]
+    for (pattern, message) in RETIRED
+        occursin(pattern, body) && push!(problems, message)
+    end
+    stripped = replace(body, r"\\mathrm\{[^}]*\}" => "")
+    for m in eachmatch(r"\$\$(.*?)\$\$|\$([^\$\n]+)\$"s, stripped)
+        math = something(m.captures[1], m.captures[2])
+        for g in eachmatch(GROUPS, math)
+            push!(problems, "$(g.captures[1]) is a dimensionless group and takes \\mathrm")
+        end
+    end
+    return unique(problems)
+end
+
 function validate(root::AbstractString = REPO_ROOT)
     errors = String[]
     bibkeys = bib_keys(root)
@@ -43,6 +70,10 @@ function validate(root::AbstractString = REPO_ROOT)
 
         occursin("cases/$(case.filename)", index_text) ||
             push!(errors, "$rel: not listed in index.md")
+
+        for problem in notation_problems(case.body)
+            push!(errors, "$rel: notation, $problem")
+        end
     end
 
     if !isempty(errors)

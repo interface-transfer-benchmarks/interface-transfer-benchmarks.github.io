@@ -41,12 +41,12 @@ references:
 ## Problem
 
 A disk of radius $R_0$ at concentration $C_s$ in a quiescent plane that
-consumes the species at rate $\nu C$.
+consumes the species at rate $k C$.
 
 For $r > R_0$,
 
 $$
-D \nabla^2 C = \nu C .
+D \nabla^2 C = k C .
 $$
 
 $$
@@ -60,7 +60,7 @@ $$
 | disk radius | $R_0$ |
 | diffusivity | $D$ |
 | surface concentration | $C_s$ |
-| Damkohler number | $\mathrm{Da}=\nu R_0^2/D$ |
+| Damkohler number | $\mathrm{Da}=k R_0^2/D$ |
 
 ## Reference
 

@@ -67,7 +67,7 @@ $T = T_m$ with the Stefan condition
 $$
 \rho L\,V_\Gamma
 =
-\big[\![\,k\,\nabla T\cdot\mathbf n\,]\!\big].
+\big[\![\,\kappa\,\nabla T\cdot\mathbf n\,]\!\big].
 $$
 
 Density change on melting and solid motion are neglected.
@@ -80,15 +80,15 @@ Gallium properties as used in the enthalpy-porosity literature:
 |---|---|
 | density | $\rho$ |
 | viscosity | $\mu$ |
-| conductivity | $k$ |
+| conductivity | $\kappa$ |
 | heat capacity | $c_p$ |
 | latent heat | $L$ |
 | thermal expansion | $\beta$ |
 | gravity | $g$ |
 
 The commonly quoted dimensionless groups for this configuration are
-$Pr \approx 0.0216$, $Ste = c_p (T_h - T_m)/L \approx 0.039$, and
-$Ra = g\beta(T_h - T_m)H^3 \rho^2 c_p/(\mu k) \approx 6\times10^{5}$
+$\mathrm{Pr} \approx 0.0216$, $\mathrm{Ste} = c_p (T_h - T_m)/L \approx 0.039$, and
+$\mathrm{Ra} = g\beta(T_h - T_m)H^3 \rho^2 c_p/(\mu \kappa) \approx 6\times10^{5}$
 (Boussinesq in the melt only).
 
 ## Reference
@@ -101,15 +101,15 @@ Gallium properties as used in the enthalpy-porosity literature:
 |---|---:|---:|---|
 | density | $\rho$ | 6093 | kg/m^3 |
 | viscosity | $\mu$ | $1.81\times10^{-3}$ | Pa s |
-| conductivity | $k$ | 32 | W/(m K) |
+| conductivity | $\kappa$ | 32 | W/(m K) |
 | heat capacity | $c_p$ | 381.5 | J/(kg K) |
 | latent heat | $L$ | $80\,160$ | J/kg |
 | thermal expansion | $\beta$ | $1.2\times10^{-4}$ | 1/K |
 | gravity | $g$ | 9.81 | m/s^2 |
 
 The commonly quoted dimensionless groups for this configuration are
-$Pr \approx 0.0216$, $Ste = c_p (T_h - T_m)/L \approx 0.039$, and
-$Ra = g\beta(T_h - T_m)H^3 \rho^2 c_p/(\mu k) \approx 6\times10^{5}$
+$\mathrm{Pr} \approx 0.0216$, $\mathrm{Ste} = c_p (T_h - T_m)/L \approx 0.039$, and
+$\mathrm{Ra} = g\beta(T_h - T_m)H^3 \rho^2 c_p/(\mu \kappa) \approx 6\times10^{5}$
 (Boussinesq in the melt only).
 
 

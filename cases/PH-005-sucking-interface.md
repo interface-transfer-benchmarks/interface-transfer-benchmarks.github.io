@@ -78,7 +78,7 @@ $$
 The interface temperature is fixed:
 
 $$
-T_l(\delta(t),t)=T_{sat}.
+T_l(\delta(t),t)=T_\mathrm{sat}.
 $$
 
 The mass flux produces different phase and interface velocities. For a planar
@@ -100,14 +100,14 @@ growth constant $\beta$ given below.
 Use the infinite-domain analytical solution as the reference:
 
 $$
-T_l(x,t)\to T_{bulk}
+T_l(x,t)\to T_\infty
 \qquad \text{as } x\to\infty.
 $$
 
 At the left wall and in the vapor layer,
 
 $$
-T_g=T_{sat}.
+T_g=T_\mathrm{sat}.
 $$
 
 For a finite-domain simulation, initialize at $t_0>0$ from the exact solution:
@@ -122,13 +122,13 @@ $$
 |---|---|
 | liquid density | $\rho_l$ |
 | vapor density | $\rho_g$ |
-| liquid conductivity | $k_l$ |
-| vapor conductivity | $k_g$ |
+| liquid conductivity | $\kappa_l$ |
+| vapor conductivity | $\kappa_g$ |
 | liquid heat capacity | $c_{p,l}$ |
 | vapor heat capacity | $c_{p,g}$ |
-| latent heat | $h_{lg}$ |
-| saturation temperature | $T_{sat}$ |
-| bulk liquid temperature | $T_{bulk}$ |
+| latent heat | $L$ |
+| saturation temperature | $T_\mathrm{sat}$ |
+| bulk liquid temperature | $T_\infty$ |
 
 The corresponding thermal diffusivities are
 
@@ -148,13 +148,13 @@ Use the water/vapor setup used in Basilisk's sucking-interface example.
 |---|---:|---:|---|
 | liquid density | $\rho_l$ | 958.4 | kg/m^3 |
 | vapor density | $\rho_g$ | 0.597 | kg/m^3 |
-| liquid conductivity | $k_l$ | 0.679 | W/(m K) |
-| vapor conductivity | $k_g$ | 0.025 | W/(m K) |
+| liquid conductivity | $\kappa_l$ | 0.679 | W/(m K) |
+| vapor conductivity | $\kappa_g$ | 0.025 | W/(m K) |
 | liquid heat capacity | $c_{p,l}$ | 4216 | J/(kg K) |
 | vapor heat capacity | $c_{p,g}$ | 2030 | J/(kg K) |
-| latent heat | $h_{lg}$ | $2.26\times10^6$ | J/kg |
-| saturation temperature | $T_{sat}$ | 373.15 | K |
-| bulk liquid temperature | $T_{bulk}$ | 378.15 | K |
+| latent heat | $L$ | $2.26\times10^6$ | J/kg |
+| saturation temperature | $T_\mathrm{sat}$ | 373.15 | K |
+| bulk liquid temperature | $T_\infty$ | 378.15 | K |
 
 The corresponding thermal diffusivities are
 
@@ -177,12 +177,12 @@ $$
 \beta
 -
 \frac{
-(T_{bulk}-T_{sat})c_{p,g}k_l\sqrt{\alpha_g}
+(T_\infty-T_\mathrm{sat})c_{p,g}\kappa_l\sqrt{\alpha_g}
 \exp\left(
 -\beta^2\frac{\rho_g^2\alpha_g}{\rho_l^2\alpha_l}
 \right)
 }{
-h_{lg}k_g\sqrt{\pi\alpha_l}
+Lk_g\sqrt{\pi\alpha_l}
 \operatorname{erfc}
 \left(
 \beta\frac{\rho_g\sqrt{\alpha_g}}{\rho_l\sqrt{\alpha_l}}
@@ -202,9 +202,9 @@ The liquid temperature is
 $$
 T_l(x,t)
 =
-T_{bulk}
+T_\infty
 -
-\frac{T_{bulk}-T_{sat}}
+\frac{T_\infty-T_\mathrm{sat}}
 {
 \operatorname{erfc}
 \left(

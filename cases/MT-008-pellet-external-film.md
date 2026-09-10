@@ -46,25 +46,25 @@ MT-007's pellet, with the surface concentration no longer imposed: an external
 film of mass-transfer coefficient $k_g$ separates the surface from a bulk at
 $C_b$.
 
-For $r < R$,
+For $r < R_0$,
 
 $$
 D \nabla^2 C = k C .
 $$
 
 $$
-k_g\left(C_b - C(R)\right) = D\,\partial_r C(R), \qquad \partial_r C(0) = 0 .
+k_g\left(C_b - C(R_0)\right) = D\,\partial_r C(R_0), \qquad \partial_r C(0) = 0 .
 $$
 
 ## Parameters
 
 | Parameter | Symbol |
 |---|---|
-| pellet radius | $R$ |
+| pellet radius | $R_0$ |
 | diffusivity | $D$ |
 | bulk concentration | $C_b$ |
-| Thiele modulus | $\phi = R\sqrt{k/D}$ |
-| Biot number | $\mathrm{Bi} = k_g R/D$ |
+| Thiele modulus | $\phi = R_0\sqrt{k/D}$ |
+| Biot number | $\mathrm{Bi} = k_g R_0/D$ |
 
 ## Reference
 

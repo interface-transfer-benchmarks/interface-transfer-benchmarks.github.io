@@ -80,7 +80,7 @@ The liquid radial velocity comes from phase expansion and is included in the
 Scriven similarity solution. At the interface,
 
 $$
-T_l(R(t),t)=T_{sat}.
+T_l(R(t),t)=T_\mathrm{sat}.
 $$
 
 The heat flux at the interface balances latent and sensible energy needed to
@@ -90,7 +90,7 @@ given below.
 In the infinite-domain reference solution,
 
 $$
-T_l(r,t)\to T_{bulk}
+T_l(r,t)\to T_\infty
 \qquad \text{as } r\to\infty.
 $$
 
@@ -110,14 +110,14 @@ Scriven example.
 |---|---|
 | liquid density | $\rho_l$ |
 | vapor density | $\rho_g$ |
-| liquid conductivity | $k_l$ |
-| vapor conductivity | $k_g$ |
+| liquid conductivity | $\kappa_l$ |
+| vapor conductivity | $\kappa_g$ |
 | liquid heat capacity | $c_{p,l}$ |
 | vapor heat capacity | $c_{p,g}$ |
-| latent heat | $h_{lg}$ |
-| saturation temperature | $T_{sat}$ |
+| latent heat | $L$ |
+| saturation temperature | $T_\mathrm{sat}$ |
 | Jakob number | $\mathrm{Ja}$ |
-| bulk liquid temperature | $T_{bulk}$ |
+| bulk liquid temperature | $T_\infty$ |
 
 The liquid thermal diffusivity is
 
@@ -136,14 +136,14 @@ Scriven example.
 |---|---:|---:|---|
 | liquid density | $\rho_l$ | 958 | kg/m^3 |
 | vapor density | $\rho_g$ | 0.59 | kg/m^3 |
-| liquid conductivity | $k_l$ | 0.6 | W/(m K) |
-| vapor conductivity | $k_g$ | 0.026 | W/(m K) |
+| liquid conductivity | $\kappa_l$ | 0.6 | W/(m K) |
+| vapor conductivity | $\kappa_g$ | 0.026 | W/(m K) |
 | liquid heat capacity | $c_{p,l}$ | 4216 | J/(kg K) |
 | vapor heat capacity | $c_{p,g}$ | 2034 | J/(kg K) |
-| latent heat | $h_{lg}$ | $2.257\times10^6$ | J/kg |
-| saturation temperature | $T_{sat}$ | 373 | K |
+| latent heat | $L$ | $2.257\times10^6$ | J/kg |
+| saturation temperature | $T_\mathrm{sat}$ | 373 | K |
 | Jakob number | $\mathrm{Ja}$ | 3 | - |
-| bulk liquid temperature | $T_{bulk}$ | 373.989096611774 | K |
+| bulk liquid temperature | $T_\infty$ | 373.989096611774 | K |
 
 The liquid thermal diffusivity is
 
@@ -162,11 +162,11 @@ The growth constant $\beta$ solves
 
 $$
 \frac{
-\rho_l c_{p,l}(T_{bulk}-T_{sat})
+\rho_l c_{p,l}(T_\infty-T_\mathrm{sat})
 }{
 \rho_g
 \left[
-h_{lg}+(c_{p,l}-c_{p,g})(T_{bulk}-T_{sat})
+L+(c_{p,l}-c_{p,g})(T_\infty-T_\mathrm{sat})
 \right]
 }
 =
@@ -194,13 +194,13 @@ The radial liquid temperature profile is
 $$
 T_l(r,t)
 =
-T_{bulk}
+T_\infty
 -
 2\beta^2
 \frac{
 \rho_g
 \left[
-h_{lg}+(c_{p,l}-c_{p,g})(T_{bulk}-T_{sat})
+L+(c_{p,l}-c_{p,g})(T_\infty-T_\mathrm{sat})
 \right]
 }{
 \rho_l c_{p,l}
@@ -217,7 +217,7 @@ h_{lg}+(c_{p,l}-c_{p,g})(T_{bulk}-T_{sat})
 \right]\,dx.
 $$
 
-Inside the bubble, use $T_g=T_{sat}$.
+Inside the bubble, use $T_g=T_\mathrm{sat}$.
 
 The file `data/PH-006/reference.csv` tabulates $R(t)$ and $T_l(r,t)$ for
 selected times and radii.

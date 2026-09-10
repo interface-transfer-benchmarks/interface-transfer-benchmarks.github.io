@@ -39,27 +39,27 @@ references:
 
 ## Problem
 
-A spherical drop of radius $R$, initially uniform at $C_0$, with its surface
+A spherical drop of radius $R_0$, initially uniform at $C_0$, with its surface
 held at $C=0$. There is no flow inside or outside.
 
-For $r<R$,
+For $r<R_0$,
 
 $$
 \partial_t C = \frac{D}{r^2}\,\partial_r\!\left(r^2 \partial_r C\right).
 $$
 
 $$
-C(R,t) = 0, \qquad C(r,0) = C_0, \qquad \partial_r C(0,t)=0 .
+C(R_0,t) = 0, \qquad C(r,0) = C_0, \qquad \partial_r C(0,t)=0 .
 $$
 
 ## Parameters
 
 | Parameter | Symbol |
 |---|---|
-| drop radius | $R$ |
+| drop radius | $R_0$ |
 | diffusivity | $D$ |
 | initial concentration | $C_0$ |
-| Fourier number | $\mathrm{Fo}=Dt/R^2$ |
+| Fourier number | $\mathrm{Fo}=Dt/R_0^2$ |
 
 ## Reference
 

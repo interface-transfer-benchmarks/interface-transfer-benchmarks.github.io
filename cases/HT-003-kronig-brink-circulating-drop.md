@@ -45,7 +45,7 @@ prescribed steady velocity field in the creeping-flow limit
 $\mathrm{Re}\to 0$, at large internal Peclet number. No momentum solve is
 needed.
 
-For $r<R$,
+For $r<R_0$,
 
 $$
 \partial_t C + \mathbf{u}\cdot\nabla C = D \nabla^2 C ,
@@ -55,14 +55,14 @@ with $\mathbf{u}$ the Hadamard interior field, whose streamlines are the
 Hill spherical vortex.
 
 $$
-C(R,t) = 0, \qquad C(r,0) = C_0 .
+C(R_0,t) = 0, \qquad C(r,0) = C_0 .
 $$
 
 ## Parameters
 
 | Parameter | Symbol |
 |---|---|
-| drop radius | $R$ |
+| drop radius | $R_0$ |
 | diffusivity | $D$ |
 | initial concentration | $C_0$ |
 | internal Peclet number | $\mathrm{Pe}$ |

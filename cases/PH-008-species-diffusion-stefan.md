@@ -46,25 +46,25 @@ The concentration at the interface is fixed by Henry's law.
 The liquid concentration satisfies
 
 $$
-\partial_t c = D\partial_{yy}c.
+\partial_t C = D\partial_{yy}c.
 $$
 
 The interface displacement is
 
 $$
-\ell(t)=\frac{2}{He}\sqrt{\frac{Dt}{\pi}}.
+\ell(t)=\frac{2}{H}\sqrt{\frac{Dt}{\pi}}.
 $$
 
 The concentration field is
 
 $$
-c(y,t)
+C(y,t)
 =
-c_\Sigma
+C_s
 \left[
 1-\operatorname{erf}
 \left(
-\frac{y-y_\Sigma(t)}{2\sqrt{Dt}}
+\frac{y-y_\Gamma(t)}{2\sqrt{Dt}}
 \right)
 \right].
 $$
@@ -73,11 +73,11 @@ $$
 
 | Parameter | Symbol |
 |---|---|
-| Schmidt number | $Sc$ |
+| Schmidt number | $\mathrm{Sc}$ |
 | diffusivity | $D$ |
-| Henry coefficient | $He$ |
-| interface concentration scale | $c_\Sigma$ |
-| final time | $t_{end}$ |
+| Henry coefficient | $H$ |
+| interface concentration scale | $C_s$ |
+| final time | $t_\mathrm{end}$ |
 
 ## Reference
 

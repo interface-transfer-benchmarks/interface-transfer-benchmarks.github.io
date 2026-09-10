@@ -44,21 +44,21 @@ $h(t)<y<L$. The concentration is fixed at the interface and at the top boundary.
 
 ```text
 y = 0                 y = h(t)                     y = L
-wall | liquid film | evaporating interface | vapor | c = c_inf
+wall | liquid film | evaporating interface | vapor | C = C_inf
 ```
 
 In the vapor phase,
 
 $$
-\partial_t c = D\partial_{yy}c.
+\partial_t C = D\partial_{yy}c.
 $$
 
 The quasi-static concentration profile is
 
 $$
-c(y,t)
+C(y,t)
 =
-c_s-\frac{c_s-c_\infty}{L-h(t)}(y-h(t)).
+C_s-\frac{C_s-C_\infty}{L-h(t)}(y-h(t)).
 $$
 
 The film recession speed is approximated by
@@ -68,7 +68,7 @@ $$
 \approx
 -\mu\frac{D}{L},
 \qquad
-\mu=\frac{c_s-c_\infty}{\rho}.
+\mu=\frac{C_s-C_\infty}{\rho}.
 $$
 
 ## Parameters
@@ -78,8 +78,8 @@ $$
 | domain height | $L$ |
 | initial film thickness | $h_0$ |
 | diffusivity | $D$ |
-| interfacial concentration | $c_s$ |
-| far concentration | $c_\infty$ |
+| interfacial concentration | $C_s$ |
+| far concentration | $C_\infty$ |
 | concentration-density ratio | $\mu$ |
 
 ## Reference
@@ -87,7 +87,7 @@ $$
 The open-box quasi-static model is
 
 $$
-h_{qs}(t)=h_0-\mu\frac{D}{L-h_0}t.
+h_\mathrm{qs}(t)=h_0-\mu\frac{D}{L-h_0}t.
 $$
 
 The early transient half-space approximation is

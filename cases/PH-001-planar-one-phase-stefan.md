@@ -56,7 +56,7 @@ phase-change temperature and does not solve a heat equation.
 In the liquid phase, $0 < x < s(t)$,
 
 $$
-\rho c_p \partial_t T = \partial_x(k \partial_x T).
+\rho c_p \partial_t T = \partial_x(\kappa \partial_x T).
 $$
 
 At the moving interface,
@@ -70,7 +70,7 @@ The Stefan condition is
 $$
 \rho L \frac{ds}{dt}
 =
--k \partial_x T(s(t)^-,t).
+-\kappa \partial_x T(s(t)^-,t).
 $$
 
 This sign convention assumes that the liquid occupies $0 < x < s(t)$ and that
@@ -103,8 +103,8 @@ reference solution to avoid the singular gradient at $t=0$.
 |---|---|
 | density | $\rho$ |
 | heat capacity | $c_p$ |
-| thermal conductivity | $k$ |
-| thermal diffusivity | $\alpha=k/(\rho c_p)$ |
+| thermal conductivity | $\kappa$ |
+| thermal diffusivity | $\alpha=\kappa/(\rho c_p)$ |
 | melting temperature | $T_m$ |
 | hot-wall temperature | $T_h$ |
 | Stefan number | $\mathrm{Ste}=c_p(T_h-T_m)/L$ |

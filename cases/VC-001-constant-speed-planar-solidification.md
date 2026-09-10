@@ -80,9 +80,9 @@ implementation.
 | Parameter | Symbol |
 |---|---|
 | interface speed | $V$ |
-| equilibrium temperature | $T_{eq}$ |
+| equilibrium temperature | $T_\mathrm{eq}$ |
 | initial time shift | $t_0$ |
-| final time | $t_{end}$ |
+| final time | $t_\mathrm{end}$ |
 
 ## Reference
 

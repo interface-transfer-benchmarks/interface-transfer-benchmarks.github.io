@@ -40,12 +40,12 @@ references:
 
 ## Problem
 
-MT-003's sphere in a medium that also consumes the species at rate $\nu C$.
+MT-003's sphere in a medium that also consumes the species at rate $k C$.
 
 For $r > R_0$,
 
 $$
-\partial_t C = D \nabla^2 C - \nu C .
+\partial_t C = D \nabla^2 C - k C .
 $$
 
 $$
@@ -59,7 +59,7 @@ $$
 | sphere radius | $R_0$ |
 | diffusivity | $D$ |
 | surface concentration | $C_s$ |
-| Damkohler number | $\mathrm{Da}=\nu R_0^2/D$ |
+| Damkohler number | $\mathrm{Da}=k R_0^2/D$ |
 | Fourier number | $\mathrm{Fo}=Dt/R_0^2$ |
 
 ## Reference
@@ -85,8 +85,8 @@ $$
 $$
 
 This follows from the Laplace transform of $u=rC$: with
-$\hat u = (R_0/s)\exp(-q(r-R_0))$ and $q=\sqrt{(s+\nu)/D}$, the surface
-gradient gives $\hat{\mathrm{Sh}} = 2 + (2R_0/\sqrt{D})\sqrt{s+\nu}/s$, whose
+$\hat u = (R_0/s)\exp(-q(r-R_0))$ and $q=\sqrt{(s+k)/D}$, the surface
+gradient gives $\hat{\mathrm{Sh}} = 2 + (2R_0/\sqrt{D})\sqrt{s+k}/s$, whose
 inverse is the expression above. MT-001 is the limit
 $\mathrm{Fo}\to\infty$ and MT-003 the limit $\mathrm{Da}\to 0$.
 

@@ -54,7 +54,7 @@ $$
 and at $x=L_1$,
 
 $$
-C_1 = k\,C_2, \qquad D_1 \partial_x C_1 = D_2 \partial_x C_2 .
+C_1 = H\,C_2, \qquad D_1 \partial_x C_1 = D_2 \partial_x C_2 .
 $$
 
 ## Parameters
@@ -63,7 +63,7 @@ $$
 |---|---|
 | slab thicknesses | $L_1$, $L_2$ |
 | diffusivities | $D_1$, $D_2$ |
-| partition coefficient | $k$ |
+| partition coefficient | $H$ |
 | face values | $C_a$, $C_b$ |
 
 ## Reference
@@ -71,7 +71,7 @@ $$
 The flux is constant through both slabs,
 
 $$
-J = \frac{C_a - k\,C_b}{L_1/D_1 + k L_2/D_2},
+J = \frac{C_a - H\,C_b}{L_1/D_1 + H L_2/D_2},
 $$
 
 the profile is piecewise linear, and the interfacial values are
@@ -79,7 +79,7 @@ the profile is piecewise linear, and the interfacial values are
 $$
 C_1(L_1) = C_a - J\,\frac{L_1}{D_1},
 \qquad
-C_2(L_1) = \frac{1}{k}\left(C_a - J\,\frac{L_1}{D_1}\right).
+C_2(L_1) = \frac{1}{H}\left(C_a - J\,\frac{L_1}{D_1}\right).
 $$
 
 The denominator is the sum of the two resistances, with the partition
@@ -92,7 +92,7 @@ composite wall.
 
 ## Report
 
-- $J$ against the closed form, at each $k$ and diffusivity ratio,
+- $J$ against the closed form, at each $H$ and diffusivity ratio,
 - the residual of $C_1 - kC_2$ at the interface,
 - the flux measured on each side, which must agree,
 - observed convergence rate.

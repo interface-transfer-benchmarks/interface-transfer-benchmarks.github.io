@@ -37,21 +37,21 @@ references:
 ## Problem
 
 A sphere of radius $R_0$ holds gas with diffusivity $D_g$, surrounded by liquid
-with diffusivity $D_l$. The gas starts uniform at $c_{g0}$, the liquid at zero,
+with diffusivity $D_l$. The gas starts uniform at $C_{g0}$, the liquid at zero,
 and the bubble does not move.
 
 $$
-\partial_t c_g = D_g\nabla^2 c_g,
+\partial_t C_g = D_g\nabla^2 C_g,
 \qquad
-\partial_t c_l = D_l\nabla^2 c_l .
+\partial_t C_l = D_l\nabla^2 C_l .
 $$
 
 At $r = R_0$,
 
 $$
-\frac{c_l}{c_g} = \alpha,
+\frac{C_l}{C_g} = H,
 \qquad
-D_g\partial_r c_g = D_l\partial_r c_l .
+D_g\partial_r C_g = D_l\partial_r C_l .
 $$
 
 ## Parameters
@@ -61,24 +61,24 @@ $$
 | bubble radius | $R_0$ |
 | diffusivity, gas | $D_g$ |
 | diffusivity, liquid | $D_l$ |
-| Henry coefficient | $\alpha$ |
-| initial gas value | $c_{g0}$ |
+| Henry coefficient | $H$ |
+| initial gas value | $C_{g0}$ |
 
 ## Reference
 
 In Laplace space, with $\ell_i = \sqrt{s/D_i}$,
 
 $$
-\tilde{c}_g = \frac{c_{g0}}{s}\left(1 - \frac{2\sinh(\ell_g r)}{\zeta r}\right),
+\tilde{C}_g = \frac{C_{g0}}{s}\left(1 - \frac{2\sinh(\ell_g r)}{\zeta r}\right),
 \qquad
-\tilde{c}_l = \frac{\xi\,c_{g0}\,e^{-\ell_l r}}{s\,\zeta\,r} ,
+\tilde{C}_l = \frac{\xi\,C_{g0}\,e^{-\ell_l r}}{s\,\zeta\,r} ,
 $$
 
 $$
 \xi = \frac{2D_g\left(\ell_g R_0\cosh(\ell_g R_0) - \sinh(\ell_g R_0)\right)}
 {D_l e^{-\ell_l R_0}\left(1 + \ell_l R_0\right)},
 \qquad
-\zeta = \frac{\xi e^{-\ell_l R_0}}{\alpha R_0} + \frac{2\sinh(\ell_g R_0)}{R_0} ,
+\zeta = \frac{\xi e^{-\ell_l R_0}}{H R_0} + \frac{2\sinh(\ell_g R_0)}{R_0} ,
 $$
 
 inverted by a keyhole contour on the branch cut. This is the three-dimensional

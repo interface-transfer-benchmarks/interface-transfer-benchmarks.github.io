@@ -40,32 +40,32 @@ references:
 
 ## Problem
 
-A cylindrical pellet of radius $R$ holds its surface at $C_s$ and consumes the
+A cylindrical pellet of radius $R_0$ holds its surface at $C_s$ and consumes the
 species internally at rate $k C$.
 
-For $r < R$,
+For $r < R_0$,
 
 $$
 D \nabla^2 C = k C .
 $$
 
 $$
-C(R) = C_s, \qquad \partial_r C(0) = 0 .
+C(R_0) = C_s, \qquad \partial_r C(0) = 0 .
 $$
 
 ## Parameters
 
 | Parameter | Symbol |
 |---|---|
-| pellet radius | $R$ |
+| pellet radius | $R_0$ |
 | diffusivity | $D$ |
 | surface concentration | $C_s$ |
-| Thiele modulus | $\phi = R\sqrt{k/D}$ |
+| Thiele modulus | $\phi = R_0\sqrt{k/D}$ |
 
 ## Reference
 
 $$
-\frac{C(r)}{C_s} = \frac{I_0(\phi r/R)}{I_0(\phi)},
+\frac{C(r)}{C_s} = \frac{I_0(\phi r/R_0)}{I_0(\phi)},
 \qquad
 \eta = \frac{2 I_1(\phi)}{\phi I_0(\phi)} .
 $$

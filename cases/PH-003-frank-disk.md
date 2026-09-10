@@ -89,11 +89,11 @@ $$
 and
 
 $$
-\frac{dR}{dt}=\mathrm{St}\,\partial_rT(R(t)^+,t).
+\frac{dR}{dt}=\mathrm{Ste}\,\partial_rT(R(t)^+,t).
 $$
 
 The recommended benchmark uses the same sign convention as recent Frank-disk
-validation tests: $\mathrm{St}<0$ and $T_\infty<0$ produce outward growth.
+validation tests: $\mathrm{Ste}<0$ and $T_\infty<0$ produce outward growth.
 
 The infinite-domain reference satisfies
 
@@ -116,7 +116,7 @@ Use the exact radial temperature outside the disk and $T=0$ inside it.
 |---|---|
 | thermal diffusivity | $\alpha$ |
 | phase-change temperature | $T_m$ |
-| Stefan coefficient | $\mathrm{St}$ |
+| Stefan coefficient | $\mathrm{Ste}$ |
 | similarity radius | $S_0$ |
 | initial time | $t_0$ |
 | final time | $t_\mathrm{end}$ |
@@ -167,7 +167,7 @@ $$
 T_\infty
 =
 \frac{S_0F(S_0)}
-{-2\mathrm{St}F'(S_0)},
+{-2\mathrm{Ste}F'(S_0)},
 $$
 
 with

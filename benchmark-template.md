@@ -53,6 +53,8 @@ $$
 \partial_t u = \nabla\cdot(k \nabla u).
 $$
 
+Use the symbols of the [notation table](taxonomy.md#notation).
+
 ## Parameters
 
 | Parameter | Symbol | Value |

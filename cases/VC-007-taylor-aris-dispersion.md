@@ -57,13 +57,13 @@ with $\partial_y C = 0$ at both walls and $C(x, y, 0) = \cos(kx)$.
 | channel width | $W$ |
 | mean velocity | $\bar{u}$ |
 | diffusivity | $D$ |
-| axial wavenumber | $k$ |
+| axial wavenumber | $q$ |
 | Peclet number | $\mathrm{Pe} = \bar{u}W/D$ |
 
 ## Reference
 
 Once the cross-channel profile has relaxed, the mode decays at $D_\mathrm{eff}
-k^2$ with
+q^2$ with
 
 $$
 \frac{D_\mathrm{eff}}{D} = 1 + \frac{\mathrm{Pe}^2}{210}

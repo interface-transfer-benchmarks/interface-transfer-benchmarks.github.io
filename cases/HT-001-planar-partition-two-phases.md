@@ -41,7 +41,7 @@ references:
 
 Phase 1 occupies $x<0$ with diffusivity $D_1$ and initial value $1$; phase 2
 occupies $x>0$ with diffusivity $D_2$ and initial value $0$. The same equations
-describe conjugate heat transfer with $D$ a thermal diffusivity and $k$ the
+describe conjugate heat transfer with $D$ a thermal diffusivity and $H$ the
 ratio of the equilibrium values.
 
 $$
@@ -51,7 +51,7 @@ $$
 At $x=0$,
 
 $$
-C_1 = k\, C_2, \qquad
+C_1 = H\, C_2, \qquad
 D_1 \partial_x C_1 = D_2 \partial_x C_2 ,
 $$
 
@@ -63,20 +63,20 @@ with $C_1(x,0)=1$ for $x<0$ and $C_2(x,0)=0$ for $x>0$.
 |---|---|
 | diffusivity, phase 1 | $D_1$ |
 | diffusivity, phase 2 | $D_2$ |
-| partition coefficient | $k$ |
+| partition coefficient | $H$ |
 
 ## Reference
 
 The interfacial values are constant in time,
 
 $$
-C_1^s = \frac{k\sqrt{D_1}}{\sqrt{D_2} + k\sqrt{D_1}},
+C_1^s = \frac{H\sqrt{D_1}}{\sqrt{D_2} + H\sqrt{D_1}},
 \qquad
-C_2^s = \frac{\sqrt{D_1}}{\sqrt{D_2} + k\sqrt{D_1}},
+C_2^s = \frac{\sqrt{D_1}}{\sqrt{D_2} + H\sqrt{D_1}},
 $$
 
 and the profiles are complementary error functions on each side. At equal
-diffusivities these reduce to the familiar pair $k/(1+k)$ and $1/(1+k)$; that
+diffusivities these reduce to the familiar pair $H/(1+H)$ and $1/(1+H)$; that
 reduced form is wrong by $\sqrt{D_1/D_2}$ otherwise, which is the trap this
 case exists to catch.
 
@@ -99,11 +99,11 @@ runs agree to every printed digit. Relative error on $C_1^s$ at N = 64.
 
 Partition sweep at $D_1 = D_2$:
 
-| k | 0.1 | 1 | 2 | 10 | 100 |
+| H | 0.1 | 1 | 2 | 10 | 100 |
 |---|---|---|---|---|---|
 | rel. error | 7.2e-6 | 4.0e-6 | 2.7e-6 | 7.3e-7 | 7.9e-8 |
 
-Diffusivity sweep at k = 2:
+Diffusivity sweep at H = 2:
 
 | D1/D2 | 0.01 | 0.1 | 1 | 10 | 100 |
 |---|---|---|---|---|---|

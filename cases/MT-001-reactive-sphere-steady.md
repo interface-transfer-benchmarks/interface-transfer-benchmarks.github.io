@@ -41,12 +41,12 @@ references:
 ## Problem
 
 A sphere of radius $R_0$ holds its surface at concentration $C_s$. The
-surrounding medium is quiescent and consumes the species at rate $\nu C$.
+surrounding medium is quiescent and consumes the species at rate $k C$.
 
 For $r > R_0$,
 
 $$
-D \nabla^2 C = \nu C .
+D \nabla^2 C = k C .
 $$
 
 $$
@@ -60,7 +60,7 @@ $$
 | sphere radius | $R_0$ |
 | diffusivity | $D$ |
 | surface concentration | $C_s$ |
-| Damkohler number | $\mathrm{Da}=\nu R_0^2/D$ |
+| Damkohler number | $\mathrm{Da}=k R_0^2/D$ |
 
 ## Reference
 
