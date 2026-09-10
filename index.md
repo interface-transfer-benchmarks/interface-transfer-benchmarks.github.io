@@ -6,6 +6,9 @@
 | HT-002 | [Newman internal transient in a stagnant drop](cases/HT-002-newman-stagnant-drop.md) | interfacial-mass-transfer | 3D sphere | series-solution | the long-time eigenvalue of the interior field | ready |
 | HT-003 | [Kronig-Brink circulating drop](cases/HT-003-kronig-brink-circulating-drop.md) | interfacial-mass-transfer | axisymmetric sphere | series-solution | internal circulation transported without numerical diffusion | ready |
 | HT-004 | [Steady composite slab with an interfacial partition](cases/HT-004-composite-slab-partition.md) | interfacial-partition | 1D planar | exact-solution | a steady flux carried unchanged through a discontinuous interface | ready |
+| HT-005 | [Unsteady Henry jump across a circle](cases/HT-005-unsteady-henry-circle.md) | interfacial-partition | 2D disk | exact-solution | a discontinuous initial field carried across a curved interface | ready |
+| HT-006 | [Annulus with a temperature-dependent conductivity](cases/HT-006-kirchhoff-annulus.md) | interfacial-partition | 2D annulus | exact-solution | a nonlinear conductivity linearised by a transform the discretisation does not know about | ready |
+| HT-007 | [Static bubble with a Henry jump](cases/HT-007-static-bubble-henry-sphere.md) | interfacial-partition | 3D sphere | exact-solution | a diffusivity contrast across a curved interface in three dimensions | ready |
 | MT-001 | [Steady reaction-diffusion outside a sphere](cases/MT-001-reactive-sphere-steady.md) | interfacial-mass-transfer, homogeneous-reaction | 3D sphere | exact-solution | resolving the reaction layer of thickness R0/sqrt(Da) | ready |
 | MT-002 | [Steady reactive uptake outside a disk](cases/MT-002-reactive-disk-steady.md) | interfacial-mass-transfer, homogeneous-reaction | 2D disk | exact-solution | logarithmic far field that is only regularised by reaction | ready |
 | MT-003 | [Unsteady diffusion to a sphere](cases/MT-003-unsteady-sphere-diffusion.md) | interfacial-mass-transfer | 3D sphere | exact-solution | the singular initial flux and its long-time approach to Sh = 2 | ready |
@@ -16,6 +19,11 @@
 | MT-008 | [Catalyst pellet with an external film](cases/MT-008-pellet-external-film.md) | catalysis, homogeneous-reaction | 3D sphere | exact-solution | a Robin condition on the interior field with a finite Biot number | ready |
 | MT-009 | [Reactive absorption into a droplet](cases/MT-009-reactive-absorption-droplet.md) | absorption, homogeneous-reaction | 2D disk | exact-solution | a Henry jump and an interior reaction solved together | ready |
 | MT-010 | [Plug-flow reactive Graetz problem](cases/MT-010-plug-flow-reactive-graetz.md) | interfacial-mass-transfer, homogeneous-reaction | 2D channel | exact-solution | keeping a bulk reaction out of the convective flux | ready |
+| MT-011 | [Reactive Graetz problem with a reacting wall](cases/MT-011-graetz-robin-wall.md) | interfacial-mass-transfer, heterogeneous-reaction | 2D channel | series-solution | a Robin wall condition on an interface that reaches the domain boundary | ready |
+| MT-012 | [Leveque entrance region in a channel](cases/MT-012-leveque-entrance.md) | interfacial-mass-transfer | 2D channel | asymptotic-solution | a boundary layer whose thickness is set by the distance from the entrance | ready |
+| MT-013 | [Nonlinear kinetics outside a disk](cases/MT-013-nonlinear-kinetics-disk.md) | interfacial-mass-transfer, homogeneous-reaction | 2D disk | semi-analytical-ode | a rate that is not proportional to the concentration, and a free boundary when the order is below one | ready |
+| MT-014 | [n-th order pellet and the generalized Thiele modulus](cases/MT-014-order-n-pellet.md) | catalysis, homogeneous-reaction | 2D disk | semi-analytical-ode | an interior reaction layer with a dead core once the order and the modulus are large enough | ready |
+| MT-015 | [Non-isothermal pellet, Weisz-Hicks](cases/MT-015-weisz-hicks-pellet.md) | catalysis, homogeneous-reaction | 2D disk | semi-analytical-ode | an effectiveness factor above one, and a branch that ends at a turning point | ready |
 | PH-001 | [Planar one-phase Stefan problem](cases/PH-001-planar-one-phase-stefan.md) | melting, solidification | 1D planar | exact-similarity | one-sided gradient and latent-heat balance | ready |
 | PH-002 | [Planar two-phase Stefan problem](cases/PH-002-planar-two-phase-stefan.md) | melting, solidification | 1D planar | exact-similarity | two-sided heat-flux jump | ready |
 | PH-003 | [Frank disk](cases/PH-003-frank-disk.md) | solidification | 2D disk | exact-similarity | curvature, isotropy, and area conservation | ready |
@@ -37,6 +45,7 @@
 | VC-004 | [Sheared Gaussian in a linear shear flow](cases/VC-004-sheared-gaussian.md) | transport-verification | 2D periodic-box | exact-solution | the advection-diffusion cross term, which neither pure limit exposes | ready |
 | VC-005 | [Rotation invariance of the uptake by a reactive disk](cases/VC-005-rotation-invariance-reactive-disk.md) | transport-verification, homogeneous-reaction | 2D disk | exact-solution | a flow that must not change an answer it cannot physically change | ready |
 | VC-006 | [Resistance additivity across a conjugate interface](cases/VC-006-resistance-additivity.md) | transport-verification, interfacial-partition | 3D sphere | exact-identity | three separately measured transfer coefficients that must compose | ready |
+| VC-007 | [Taylor-Aris dispersion in a plane channel](cases/VC-007-taylor-aris-dispersion.md) | transport-verification | 2D channel | exact-solution | an effective transport coefficient, not a flux, measured from a decay rate | ready |
 
 Reference data is under `data/<ID>/`, reference plots under `figures/`.
 

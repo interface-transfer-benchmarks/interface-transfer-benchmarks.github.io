@@ -42,7 +42,7 @@ hydrodynamic-coupling, thermo-solutal-coupling.
 ## Geometry and dimension
 
 `1D`, `2D`, `2D/axisymmetric`, `axisymmetric`, `3D`, over planar, planar-film,
-disk, sphere, circle-sphere, channel, periodic-box, vertical-plate,
+annulus, disk, sphere, circle-sphere, channel, periodic-box, vertical-plate,
 horizontal-wall, rectangular-cavity.
 
 ## Reference type

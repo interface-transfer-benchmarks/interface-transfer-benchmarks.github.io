@@ -1595,6 +1595,234 @@ def generate_vc006() -> None:
     )
 
 
+def _rk4(f, x, state, step):
+    k1 = f(x, state)
+    k2 = f(x + step / 2, [s + step / 2 * d for s, d in zip(state, k1)])
+    k3 = f(x + step / 2, [s + step / 2 * d for s, d in zip(state, k2)])
+    k4 = f(x + step, [s + step * d for s, d in zip(state, k3)])
+    return [
+        s + step / 6 * (a + 2 * b + 2 * c + d)
+        for s, a, b, c, d in zip(state, k1, k2, k3, k4)
+    ]
+
+
+def graetz_robin(damkohler: float, peclet: float, steps: int = 1200):
+    half = 0.5
+    ks = damkohler
+    velocity = lambda y: 1.5 * peclet * (1.0 - (y / half) ** 2)
+
+    def profile(mu):
+        step = half / steps
+        state = [1.0, 0.0]
+        values = [1.0]
+        f = lambda y, s: [s[1], -(mu * mu + mu * velocity(y)) * s[0]]
+        for index in range(steps):
+            state = _rk4(f, index * step, state, step)
+            values.append(state[0])
+        return state, values
+
+    def residual(mu):
+        state, _ = profile(mu)
+        return state[1] + ks * state[0]
+
+    low, high = 1e-6, 1.0
+    while residual(low) * residual(high) > 0 and high < 1e4:
+        high *= 1.6
+    for _ in range(60):
+        mid = 0.5 * (low + high)
+        if residual(mid) * residual(low) > 0:
+            low = mid
+        else:
+            high = mid
+    mu = 0.5 * (low + high)
+
+    state, values = profile(mu)
+    step = half / steps
+    weighted = 0.0
+    weight = 0.0
+    for index in range(steps):
+        y0, y1 = index * step, (index + 1) * step
+        weighted += 0.5 * (velocity(y0) * values[index] + velocity(y1) * values[index + 1]) * step
+        weight += 0.5 * (velocity(y0) + velocity(y1)) * step
+    bulk = weighted / weight
+    wall = values[-1]
+    return mu, 2.0 * ks * wall / (bulk - wall)
+
+
+def generate_mt011() -> None:
+    peclet = 5.0
+    sweep = [10.0 ** (-1 + 5 * index / 24.0) for index in range(25)]
+    rows = [[damkohler, *graetz_robin(damkohler, peclet)] for damkohler in sweep]
+    write_csv(ROOT / "data/MT-011/reference.csv", ["wall_damkohler", "decay_rate", "sherwood"], rows)
+
+    plt.figure(figsize=(7.2, 4.3))
+    plt.plot(sweep, [row[2] for row in rows], linewidth=2.2, label="Sh(Da_w) at Pe = 5")
+    plt.axhline(8.2353, linestyle="--", color="0.5", linewidth=1.4, label="8.2353, constant flux")
+    plt.axhline(7.5407, linestyle=":", color="0.5", linewidth=1.4, label="7.5407, constant wall value")
+    plt.xscale("log")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/MT-011-reference.svg",
+        "MT-011 reactive Graetz, Robin wall",
+        "Da_w",
+        "Sh",
+    )
+
+
+def generate_mt012() -> None:
+    peclet = 300.0
+    prefactor = 2.0 / float(mp.gamma(mp.mpf(4) / 3)) * (2 * peclet / 3.0) ** (1.0 / 3.0)
+    sweep = [0.02 * 1.06**index for index in range(60)]
+    rows = [[x, prefactor * x ** (-1.0 / 3.0)] for x in sweep]
+    write_csv(ROOT / "data/MT-012/reference.csv", ["x_over_width", "sherwood"], rows)
+
+    plt.figure(figsize=(7.2, 4.3))
+    plt.plot(sweep, [row[1] for row in rows], linewidth=2.2, label="Sh(x) at Pe = 300")
+    plt.xscale("log")
+    plt.yscale("log")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/MT-012-reference.svg",
+        "MT-012 Leveque entrance region",
+        "x / W",
+        "Sh",
+    )
+
+
+def pellet_bvp(phi: float, geometry: int, rate, steps: int = 1200):
+    step = 1.0 / steps
+
+    def march(centre):
+        source = phi * phi * rate(centre)
+        x = step
+        state = [centre + source * x * x / (2 * (geometry + 1)), source * x / (geometry + 1)]
+        f = lambda x, s: [s[1], phi * phi * rate(min(max(s[0], 0.0), 4.0)) - geometry * s[1] / x]
+        for index in range(1, steps):
+            state = _rk4(f, index * step, state, step)
+            if state[0] > 4.0:
+                return [4.0, state[1]]
+        return state
+
+    return march
+
+
+def pellet_effectiveness(phi: float, geometry: int, rate, steps: int = 1200) -> float:
+    march = pellet_bvp(phi, geometry, rate, steps)
+    gap = lambda centre: march(centre)[0] - 1.0
+    grid = [10.0 ** (-12 * index / 100.0) for index in range(101)]
+    previous, previous_gap = grid[0], gap(grid[0])
+    for centre in grid[1:]:
+        current_gap = gap(centre)
+        if previous_gap * current_gap < 0:
+            low, high = centre, previous
+            for _ in range(60):
+                mid = math.sqrt(low * high)
+                if gap(mid) * current_gap > 0:
+                    low = mid
+                else:
+                    high = mid
+            state = march(math.sqrt(low * high))
+            return (geometry + 1) * state[1] / (phi * phi)
+        previous, previous_gap = centre, current_gap
+    return float("nan")
+
+
+def generate_mt014() -> None:
+    orders = [1.0, 2.0, 3.0]
+    sweep = [0.2 * 1.2**index for index in range(25)]
+    rows = [
+        [phi, order, pellet_effectiveness(phi, 1, lambda value, n=order: value**n)]
+        for order in orders
+        for phi in sweep
+    ]
+    write_csv(ROOT / "data/MT-014/reference.csv", ["thiele", "order", "effectiveness"], rows)
+
+    plt.figure(figsize=(7.2, 4.3))
+    for order in orders:
+        series = [row[2] for row in rows if row[1] == order]
+        plt.plot(sweep, series, linewidth=2.2, label=f"n = {order:g}")
+    plt.xscale("log")
+    plt.yscale("log")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/MT-014-reference.svg",
+        "MT-014 n-th order pellet",
+        "phi",
+        "eta",
+    )
+
+
+def weisz_hicks_rate(prater: float, arrhenius: float):
+    return lambda value: value * math.exp(
+        arrhenius * prater * (1 - value) / (1 + prater * (1 - value))
+    )
+
+
+def generate_mt015() -> None:
+    prater, arrhenius = 0.6, 20.0
+    rate = weisz_hicks_rate(prater, arrhenius)
+    sweep = [0.05 * 1.09**index for index in range(26)]
+    rows = [
+        [phi, geometry, pellet_effectiveness(phi, geometry, rate)]
+        for geometry in (1, 2)
+        for phi in sweep
+    ]
+    write_csv(ROOT / "data/MT-015/reference.csv", ["thiele", "geometry_factor", "effectiveness"], rows)
+
+    plt.figure(figsize=(7.2, 4.3))
+    for geometry, label in ((1, "disk"), (2, "sphere")):
+        series = [row[2] for row in rows if row[1] == geometry]
+        plt.plot(sweep, series, linewidth=2.2, label=label)
+    plt.axhline(1.0, linestyle="--", color="0.5", linewidth=1.4, label="eta = 1")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/MT-015-reference.svg",
+        "MT-015 non-isothermal pellet, lower branch",
+        "phi",
+        "eta",
+    )
+
+
+def generate_ht006() -> None:
+    betas = [0.0, 0.5, 2.0, 10.0, 50.0]
+    rows = [[beta, 1 + beta / 2] for beta in betas]
+    write_csv(ROOT / "data/HT-006/reference.csv", ["beta", "flux_ratio"], rows)
+
+    span = linspace(0.0, 1.0, CURVE_POINTS)
+    plt.figure(figsize=(7.2, 4.3))
+    for beta in betas:
+        potential = [(1 + beta / 2) * (1 - s) for s in span]
+        if beta == 0.0:
+            values = potential
+        else:
+            values = [(math.sqrt(1 + 2 * beta * value) - 1) / beta for value in potential]
+        plt.plot(span, values, linewidth=2.2, label=f"beta = {beta:g}")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/HT-006-reference.svg",
+        "HT-006 annulus with a temperature-dependent conductivity",
+        "ln(r/R_in) / ln(R_out/R_in)",
+        "T",
+    )
+
+
+def generate_vc007() -> None:
+    sweep = linspace(0.0, 20.0, CURVE_POINTS)
+    rows = [[peclet, 1 + peclet * peclet / 210.0] for peclet in sweep]
+    write_csv(ROOT / "data/VC-007/reference.csv", ["peclet", "effective_diffusivity"], rows)
+
+    plt.figure(figsize=(7.2, 4.3))
+    plt.plot(sweep, [row[1] for row in rows], linewidth=2.2, label="1 + Pe^2 / 210")
+    plt.legend()
+    save_figure(
+        ROOT / "figures/VC-007-reference.svg",
+        "VC-007 Taylor-Aris dispersion",
+        "Pe",
+        "D_eff / D",
+    )
+
+
+
 GENERATORS = {
     "PH-001": generate_ph001,
     "PH-002": generate_ph002,
@@ -1630,6 +1858,12 @@ GENERATORS = {
     "VC-004": generate_vc004,
     "VC-005": generate_vc005,
     "VC-006": generate_vc006,
+    "MT-011": generate_mt011,
+    "MT-012": generate_mt012,
+    "MT-014": generate_mt014,
+    "MT-015": generate_mt015,
+    "HT-006": generate_ht006,
+    "VC-007": generate_vc007,
 }
 
 

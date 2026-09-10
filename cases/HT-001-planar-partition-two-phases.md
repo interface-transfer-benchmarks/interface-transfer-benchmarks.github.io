@@ -90,6 +90,35 @@ case exists to catch.
 - profiles on both sides,
 - observed convergence rate.
 
+## Results
+
+### Two-fluid cut-cell method - L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec
+
+Measured 2026-09-09. Uniform grid, N = 8 to 64, serial and 4 MPI ranks; the two
+runs agree to every printed digit. Relative error on $C_1^s$ at N = 64.
+
+Partition sweep at $D_1 = D_2$:
+
+| k | 0.1 | 1 | 2 | 10 | 100 |
+|---|---|---|---|---|---|
+| rel. error | 7.2e-6 | 4.0e-6 | 2.7e-6 | 7.3e-7 | 7.9e-8 |
+
+Diffusivity sweep at k = 2:
+
+| D1/D2 | 0.01 | 0.1 | 1 | 10 | 100 |
+|---|---|---|---|---|---|
+| rel. error | 7.7e-3 | 3.5e-4 | 2.7e-6 | 3.2e-5 | 6.6e-4 |
+
+No observed order is quoted: at $D_1 = D_2$ the discrete problem is symmetric
+enough to land on the reference, and the order estimate is then a ratio of two
+values at round-off.
+
+![HT-001 convergence](../results/two-fluid-cut-cell/HT-001-convergence.png)
+
+![HT-001 observable](../results/two-fluid-cut-cell/HT-001-sh.png)
+
+![HT-001 diffusivity sweep](../results/two-fluid-cut-cell/HT-001-diffusivity.png)
+
 ## References
 
 @Crank1975
