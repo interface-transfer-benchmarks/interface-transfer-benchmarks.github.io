@@ -3,8 +3,7 @@
 In the spirit of the historical
 [interface-tracking test-case collections](http://test.interface.free.fr/).
 
-Every case declares the facets below in its YAML front matter. They are the
-single source of truth for the benchmark index.
+Every case declares the facets below in its file.
 
 ## Benchmark class
 
@@ -60,10 +59,3 @@ horizontal-wall, rectangular-cavity.
 | `analytical-boundary-layer` | Boundary-layer closed form |
 | `numerical-plus-correlation` | Published simulation with a correlation |
 | `experimental` | Measured data |
-
-## Numerical challenge
-
-One sentence per case naming what the benchmark is meant to break: reaction
-layers, jump and Robin conditions, Stefan flow, large density ratio, curvature
-and isotropy, mass and latent-heat conservation, thin boundary layers,
-fresh and dead cells, numerical diffusion, topology change.
