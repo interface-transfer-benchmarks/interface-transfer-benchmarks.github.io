@@ -19,7 +19,6 @@ makedocs(;
     repo = Remotes.GitHub("interface-transfer-benchmarks", "interface-transfer-benchmarks.github.io"),
     format = Documenter.HTML(;
         canonical = "https://interface-transfer-benchmarks.github.io",
-        assets = ["assets/style.css"],
         prettyurls = true,
         inventory_version = "1",
         edit_link = nothing,
