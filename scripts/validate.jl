@@ -15,6 +15,12 @@ const RETIRED = [
     r"\$He\$" => "the partition coefficient is H",
 ]
 
+const INLINE_ASSET = r"!\[[^\]]*\]\(\.\./((?:data|figures|results)/[^)\s]+)\)"
+
+function inline_assets(body::AbstractString)
+    return [String(m.captures[1]) for m in eachmatch(INLINE_ASSET, body)]
+end
+
 const GROUPS = r"(?<![A-Za-z\\{])(Sh|Da|Pe|Fo|Bi|Nu|Sc|Ja|Ste|Ra|Pr)(?![A-Za-z}])"
 
 function notation_problems(body::AbstractString)
@@ -70,6 +76,11 @@ function validate(root::AbstractString = REPO_ROOT)
 
         occursin("cases/$(case.filename)", index_text) ||
             push!(errors, "$rel: not listed in index.md")
+
+        for asset in inline_assets(case.body)
+            isfile(joinpath(root, asset)) ||
+                push!(errors, "$rel: image does not exist: $asset")
+        end
 
         for problem in notation_problems(case.body)
             push!(errors, "$rel: notation, $problem")

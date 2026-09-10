@@ -11,3 +11,4 @@ carries the reference data used to plot it.
 - [Taxonomy](taxonomy.md)
 - [References](generated/references.md)
 - [Case sources](https://github.com/interface-transfer-benchmarks/interface-transfer-benchmarks.github.io/tree/main/cases)
+- [Submitting results](https://github.com/interface-transfer-benchmarks/interface-transfer-benchmarks.github.io/blob/main/CONTRIBUTING.md)
