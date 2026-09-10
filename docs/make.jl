@@ -8,11 +8,15 @@ generate_cases()
 
 generated_cases_dir = joinpath(@__DIR__, "src", "generated", "cases")
 
-case_pages = sort([
-    joinpath("generated", "cases", basename(path))
-    for path in readdir(generated_cases_dir; join=true)
-    if endswith(path, ".md")
-])
+const FAMILIES = ["PH" => "Phase change", "MT" => "Mass transfer", "HT" => "Conjugate transfer", "VC" => "Verification"]
+
+case_files = sort([basename(path) for path in readdir(generated_cases_dir) if endswith(path, ".md")])
+
+case_sections = [
+    name => [joinpath("generated", "cases", file) for file in case_files if startswith(file, prefix)]
+    for (prefix, name) in FAMILIES
+]
+case_sections = [section for section in case_sections if !isempty(section.second)]
 
 makedocs(;
     sitename = "Interface Transfer Benchmarks",
@@ -27,7 +31,7 @@ makedocs(;
         "Home" => "index.md",
         "Benchmark index" => "generated/index.md",
         "Taxonomy" => "taxonomy.md",
-        "Cases" => case_pages,
+        "Cases" => case_sections,
         "References" => "generated/references.md",
     ],
 )

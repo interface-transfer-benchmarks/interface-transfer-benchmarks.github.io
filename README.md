@@ -6,9 +6,9 @@ for interfacial heat and mass transfer.
 Site: https://interface-transfer-benchmarks.github.io/
 
 Each benchmark is one Markdown file in `cases/` with a stable identifier.
-Its YAML front matter is the single source of truth: [`index.md`](index.md)
-and the coverage table in [`taxonomy.md`](taxonomy.md) are generated from it
-by `scripts/generate_index.jl`, and `scripts/validate.jl` gates it in CI.
+Its YAML front matter is the single source of truth: [`index.md`](index.md) is
+generated from it by `scripts/generate_index.jl`, and `scripts/validate.jl`
+gates it in CI.
 
 ## Goals
 

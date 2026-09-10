@@ -35,9 +35,9 @@ jobs:
 
       - run: julia --project=docs scripts/generate_index.jl
 
-      - name: Check index.md and taxonomy.md are in sync
+      - name: Check index.md is in sync
         run: |
-          git diff --exit-code -- index.md taxonomy.md \
+          git diff --exit-code -- index.md \
             || { echo "::error::Run scripts/generate_index.jl and commit."; exit 1; }
 
       - uses: actions/setup-python@v5

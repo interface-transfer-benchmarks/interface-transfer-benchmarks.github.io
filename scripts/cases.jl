@@ -72,6 +72,13 @@ function table_cell(value)
     return replace(render_value(value), "|" => "\\|", "\n" => " ")
 end
 
+function geometry_cell(metadata)
+    return strip(string(
+        table_cell(getmeta(metadata, "dimension", "")), " ",
+        table_cell(getmeta(metadata, "geometry", "")),
+    ))
+end
+
 function case_record(path::AbstractString)
     metadata, body = frontmatter(read(path, String), path)
     id = string(getmeta(metadata, "id", splitext(basename(path))[1]))

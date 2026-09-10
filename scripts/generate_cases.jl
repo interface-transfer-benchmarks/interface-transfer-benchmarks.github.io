@@ -137,22 +137,19 @@ function generate_cases(root::AbstractString = REPO_ROOT)
     open(joinpath(generated_dir, "index.md"), "w") do io
         println(io, "# Benchmark index")
         println(io)
-        println(io, "| ID | Title | Class | Status | Dimension | Geometry |")
-        println(io, "|---|---|---|---|---|---|")
+        println(io, "| ID | Benchmark | Process | Geometry | Reference | Challenge | Status |")
+        println(io, "|---|---|---|---|---|---|---|")
         for case in cases
             metadata = case.metadata
-            class = getmeta(metadata, "benchmark_class", "")
-            status = getmeta(metadata, "status", "")
-            dimension = getmeta(metadata, "dimension", "")
-            geometry = getmeta(metadata, "geometry", "")
             println(
                 io,
                 "| [", table_cell(case.id), "](cases/", case.filename, ") | ",
                 table_cell(case.title), " | ",
-                table_cell(class), " | ",
-                table_cell(status), " | ",
-                table_cell(dimension), " | ",
-                table_cell(geometry), " |",
+                table_cell(getmeta(metadata, "process", "")), " | ",
+                geometry_cell(metadata), " | ",
+                table_cell(getmeta(metadata, "reference_type", "")), " | ",
+                table_cell(getmeta(metadata, "numerical_challenge", "")), " | ",
+                table_cell(getmeta(metadata, "status", "")), " |",
             )
         end
     end
