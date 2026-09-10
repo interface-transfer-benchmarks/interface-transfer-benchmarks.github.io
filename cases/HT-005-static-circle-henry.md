@@ -1,7 +1,7 @@
 ---
 id: HT-005
-title: Unsteady Henry jump across a circle
-short_title: Unsteady Henry circle
+title: Static circle with a Henry jump
+short_title: Static circle
 status: ready
 benchmark_class: HT
 
@@ -33,24 +33,24 @@ references:
   - Crank1975
 ---
 
-# HT-005 - Unsteady Henry jump across a circle
+# HT-005 - Static circle with a Henry jump
 
 ## Problem
 
-A circle of radius $R_0$ separates two phases with diffusivities $K^+$ inside
-and $K^-$ outside. The inner field starts at $\phi_0$, the outer at zero, and
-the box carries homogeneous Neumann conditions.
+A circle of radius $R_0$ separates two phases with diffusivities $D_1$ inside
+and $D_2$ outside. The inner field starts at $C_0$, the outer at zero, and the
+box carries homogeneous Neumann conditions. The circle does not move.
 
 $$
-\partial_t \phi^{\pm} = K^{\pm}\nabla^2\phi^{\pm} .
+\partial_t C_i = D_i\nabla^2 C_i, \qquad i = 1, 2 .
 $$
 
 At $r = R_0$,
 
 $$
-\phi^+ = H\,\phi^-,
+C_1 = H\,C_2,
 \qquad
-K^+\partial_r\phi^+ = K^-\partial_r\phi^- .
+D_1\partial_r C_1 = D_2\partial_r C_2 .
 $$
 
 ## Parameters
@@ -58,37 +58,41 @@ $$
 | Parameter | Symbol |
 |---|---|
 | circle radius | $R_0$ |
-| diffusivity, inside | $K^+$ |
-| diffusivity, outside | $K^-$ |
-| Henry ratio | $H$ |
-| initial inner value | $\phi_0$ |
-| final time | $t_f$ |
+| diffusivity, inside | $D_1$ |
+| diffusivity, outside | $D_2$ |
+| partition coefficient | $H$ |
+| initial inner value | $C_0$ |
+| final time | $t_\mathrm{end}$ |
 
 ## Reference
 
-With $K = \sqrt{K^+/K^-}$ the solution is a Bessel integral on each side,
+With $\varepsilon = \sqrt{D_1/D_2}$ the solution is a Bessel integral on each
+side,
 
 $$
-\phi^+(r,t) = \frac{4\phi_0H K^+ (K^-)^2}{\pi^2 R_0}
+C_1(r,t) = \frac{4C_0 H D_1 D_2^2}{\pi^2 R_0}
 \int_0^\infty
-\frac{e^{-K^+ u^2 t} J_0(ur) J_1(uR_0)}{u^2\left[\Phi^2 + \Psi^2\right]}\,du ,
+\frac{e^{-D_1 u^2 t} J_0(ur) J_1(uR_0)}{u^2\left[\Phi^2 + \Psi^2\right]}\,du ,
 $$
 
 $$
-\phi^-(r,t) = \frac{2\phi_0H K^+\sqrt{K^-}}{\pi}
+C_2(r,t) = \frac{2C_0 H D_1\sqrt{D_2}}{\pi}
 \int_0^\infty
-\frac{e^{-K^+ u^2 t} J_1(uR_0)\left[J_0(Kur)\Phi - Y_0(Kur)\Psi\right]}
+\frac{e^{-D_1 u^2 t} J_1(uR_0)
+\left[J_0(\varepsilon ur)\Phi - Y_0(\varepsilon ur)\Psi\right]}
 {u\left[\Phi^2 + \Psi^2\right]}\,du ,
 $$
 
 with
 
 $$
-\Phi = K^+\sqrt{K^-}J_1(R_0u)Y_0(KR_0u) - H K^-\sqrt{K^+}J_0(R_0u)Y_1(KR_0u),
+\Phi = D_1\sqrt{D_2}\,J_1(R_0u)Y_0(\varepsilon R_0u)
+     - H D_2\sqrt{D_1}\,J_0(R_0u)Y_1(\varepsilon R_0u),
 $$
 
 $$
-\Psi = K^+\sqrt{K^-}J_1(R_0u)J_0(KR_0u) - H K^-\sqrt{K^+}J_0(R_0u)J_1(KR_0u).
+\Psi = D_1\sqrt{D_2}\,J_1(R_0u)J_0(\varepsilon R_0u)
+     - H D_2\sqrt{D_1}\,J_0(R_0u)J_1(\varepsilon R_0u).
 $$
 
 The closed form **jumps** at $r = R_0$. It must be evaluated per phase, or only
@@ -99,8 +103,8 @@ neither phase, and the error then grows under refinement.
 ## Report
 
 - the interfacial flux and the two interfacial traces,
-- the residual of $\phi^+ - H\phi^-$, which is algebraic and should reach
-  zero exactly,
+- the residual of $C_1 - H C_2$, which is algebraic and should reach zero
+  exactly,
 - the conservation budget,
 - the same flux error across several decades of $H$,
 - observed convergence rate.

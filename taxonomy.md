@@ -73,6 +73,7 @@ One name per quantity, across every case.
 | thermal conductivity | $\kappa$ |
 | heat capacity | $c_p$ |
 | latent heat | $L$ |
+| Thiele modulus | $\phi$ |
 | reaction rate constant | $k$, at a surface $k_s$ |
 | partition or Henry coefficient | $H$ |
 | wavenumber | $q$ |
