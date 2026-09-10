@@ -1,7 +1,8 @@
 # Interface Transfer Benchmarks
 
 Benchmark problems for numerical methods for interfacial heat and mass transfer,
-in the spirit of the historical interface-tracking test-case collections.
+in the spirit of the historical
+[interface-tracking test-case collections](http://test.interface.free.fr/).
 
 Each case states the problem, the reference solution and what to report, and
 carries the reference data used to plot it.
