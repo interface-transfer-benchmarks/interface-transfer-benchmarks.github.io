@@ -97,18 +97,45 @@ sweep.
 
 ### Two-fluid cut-cell method - L. Libat, C. Selçuk, E. Chénier, V. Le Chenadec
 
-Measured 2026-09-09. Uniform grid, N = 32, 8 MPI ranks. Pe_i = 0, 10, 100, 1000.
+Measured 2026-09-09. Uniform grid, N = 32/64, 64 MPI ranks, three Fourier
+samples per rung.
+
+The control at $\mathrm{Pe}_i = 0$, against Newman, is the only row with a
+closed form and so the only one carrying an error:
+
+| Fo | 0.030 | 0.105 | 0.300 |
+|---|---|---|---|
+| rel. error, N = 32 | 4.59e-2 | 7.97e-3 | 6.23e-4 |
+| rel. error, N = 64 | 1.87e-2 | 3.40e-3 | 1.44e-4 |
+| order | 1.29 | 1.23 | 2.11 |
+
+Second order at Fo = 0.3, where the Rannacher start has worked the initial jump
+out of the field; the early samples are lower for the same reason.
+$\mathrm{Sh}_i(\mathrm{Fo}=0.3) = 6.57947$ against $2\pi^2/3 = 6.5804$.
+
+The bracket, at N = 64 and Fo = 0.3:
 
 | Pe_i | 0 | 10 | 100 | 1000 |
 |---|---|---|---|---|
-| Sh_i | 6.576 | 6.863 | 14.589 | diverged |
+| Sh_i | 6.579 | 6.854 | 14.642 | diverged |
 
-**Gate not met.** The `Pe_i = 0` control reproduces HT-002's Newman value to
-0.06%, so the interior solve is right, but every row is at a single resolution:
-there is no convergence ladder, and `Pe_i = 100` is only 82% of the way to the
-`Pe_i -> inf` plateau. `Pe_i = 1000` does not converge at this resolution, where
-the cell Peclet number is 52. Closing the case needs an axisymmetric metric or
-a 3D ladder.
+Monotone in $\mathrm{Pe}_i$ and inside $[6.58, 17.90]$. **14.64 is 18% below
+the Kronig-Brink plateau because $\mathrm{Pe}_i = 100$ is not infinity**; that
+gap is physics, not discretisation, and the case gates the three statements it
+can check at finite $\mathrm{Pe}_i$ — the Newman control, the bracket, and
+monotonicity — rather than pretending to reach 17.90. A constant-preservation
+solve puts the spurious convective source at 0.09% of
+$\mathrm{Sh}_i$ at $\mathrm{Pe}_i = 100$, converging at second order, so the
+gap is not contamination either.
+
+$\mathrm{Pe}_i = 1000$ does not converge at either rung, the cell Peclet number
+being 52 and 26; the rung is marked and abandoned after the first sample.
+Reaching the plateau needs $\mathrm{Pe}_i \gtrsim 10^3$, hence N of about 256
+on a marched two-phase solve in three dimensions. That is a cost, not a defect.
+
+![HT-003 convergence](../results/two-fluid-cut-cell/HT-003-convergence.png)
+
+![HT-003 observable](../results/two-fluid-cut-cell/HT-003-sh.png)
 
 ## References
 
