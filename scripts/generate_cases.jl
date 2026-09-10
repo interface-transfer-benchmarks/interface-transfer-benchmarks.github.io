@@ -1,4 +1,5 @@
 include(joinpath(@__DIR__, "cases.jl"))
+include(joinpath(@__DIR__, "references.jl"))
 
 function canonical_asset_path(path::AbstractString)
     normalized = replace(path, "\\" => "/")
@@ -49,8 +50,20 @@ function strip_title(body::AbstractString)
     return replace(body, r"^\s*#\s[^\n]*\n+" => ""; count = 1)
 end
 
-function rewrite_body(body::AbstractString)
-    return rewrite_math(rewrite_relative_links(strip_title(body)))
+function citation_link(key::AbstractString, entries)
+    haskey(entries, key) || return "@" * key
+    return "[" * citation_label(entries[key]) * "](../references.md#" * key * ")"
+end
+
+function rewrite_citations(body::AbstractString, entries)
+    body = replace(body, r"^@([A-Za-z][\w.:-]*)[ \t]*$"m =>
+        m -> "- " * citation_link(strip(m)[2:end], entries))
+    return replace(body, r"(?<![\w`])@([A-Za-z][\w.:-]*)" =>
+        m -> citation_link(m[2:end], entries))
+end
+
+function rewrite_body(body::AbstractString, entries)
+    return rewrite_math(rewrite_citations(rewrite_relative_links(strip_title(body)), entries))
 end
 
 function copytree(src::AbstractString, dst::AbstractString)
@@ -70,7 +83,7 @@ function case_record(path::AbstractString)
     return (; path, filename = basename(path), metadata, body, id, title)
 end
 
-function write_case_page(case, output_path::AbstractString)
+function write_case_page(case, output_path::AbstractString, entries)
     metadata = case.metadata
     open(output_path, "w") do io
         println(io, "# ", case.title)
@@ -93,7 +106,7 @@ function write_case_page(case, output_path::AbstractString)
         end
 
         println(io)
-        print(io, rewrite_body(case.body))
+        print(io, rewrite_body(case.body, entries))
         endswith(case.body, "\n") || println(io)
     end
 end
@@ -115,6 +128,9 @@ function generate_cases(root::AbstractString = REPO_ROOT)
 
     taxonomy = joinpath(repo_root, "taxonomy.md")
     isfile(taxonomy) && cp(taxonomy, joinpath(docs_src, "taxonomy.md"); force=true)
+
+    entries, order = parse_bib(joinpath(repo_root, "references.bib"))
+    write_references_page(entries, order, joinpath(generated_dir, "references.md"))
 
     cases = load_cases(root)
 
@@ -142,7 +158,7 @@ function generate_cases(root::AbstractString = REPO_ROOT)
     end
 
     for case in cases
-        write_case_page(case, joinpath(generated_cases_dir, case.filename))
+        write_case_page(case, joinpath(generated_cases_dir, case.filename), entries)
     end
 
     return cases

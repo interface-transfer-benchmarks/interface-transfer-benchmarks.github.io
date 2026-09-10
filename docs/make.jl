@@ -29,5 +29,6 @@ makedocs(;
         "Benchmark index" => "generated/index.md",
         "Taxonomy" => "taxonomy.md",
         "Cases" => case_pages,
+        "References" => "generated/references.md",
     ],
 )
