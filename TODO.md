@@ -2,13 +2,26 @@
 
 ## Benchmark Candidates
 
-### Analytical or semi-analytical references
+Numbers are assigned at implementation time, from the position the facets give
+the case in the difficulty order.
 
-Implemented so far: PH-010 (Epstein-Plesset dissolving bubble), PH-011
-(Rubinstein binary-alloy solidification), PH-012 (d2-law evaporating
-droplet), PH-013 (Nusselt laminar film condensation).
+### Fixed interface
 
-Remaining candidates (IDs assigned at implementation time):
+- Unsteady Henry jump across a circle, two-phase Bessel-integral reference.
+- Static bubble with a Henry jump in 3D, Laplace-inversion reference.
+- Second-order and n-th order kinetics outside a disk, independent BVP reference.
+- Non-isothermal pellet with multiplicity and an S-shaped effectiveness curve.
+- Leveque entrance region for a reactive wall.
+- Curvature computation on static circle and sphere interfaces.
+- Sharp-interface jump condition on an oblique interface.
+
+### Prescribed interface
+
+- Global energy-balance closure for a translating interface.
+- Phase volume conservation under a prescribed moving interface.
+- Fresh-cell and dead-cell consistency near a prescribed front.
+
+### Free interface, closed-form or reduced reference
 
 - Stefan problem with kinetic undercooling.
 - Stefan problem with Gibbs-Thomson curvature correction.
@@ -18,33 +31,19 @@ Remaining candidates (IDs assigned at implementation time):
 - Mullins-Sekerka dispersion relation for a perturbed planar front.
 - Landau ablation problem with imposed surface heat flux.
 - High-transfer-number d2-law variant (Y_s = 0.5).
+- Latent-heat conservation under grid refinement.
+- Stationary interface with equal heat fluxes on both sides.
 
-### Mass and conjugate transfer candidates
-
-- Unsteady Henry jump across a circle, two-phase Bessel-integral reference.
-- Static bubble with a Henry jump in 3D, Laplace-inversion reference.
-- Second-order and n-th order kinetics outside a disk, independent BVP reference.
-- Non-isothermal pellet with multiplicity and an S-shaped effectiveness curve.
-- Leveque entrance region for a reactive wall.
-
-### Numerical-reference benchmarks
-
-Implemented so far: PH-014 (film boiling on a horizontal wall).
+### Free interface, data reference
 
 - Fixed or deforming vapor bubble growth with full hydrodynamic coupling.
 - Vapor bubble rise with phase change and buoyancy.
 - Melting in a square cavity with natural convection.
-- Freezing/melting around a cold or hot cylinder.
+- Freezing and melting around a cold or hot cylinder.
 - Dendritic solidification with anisotropic surface energy.
 - Two bubbles or droplets with phase-change-driven interaction.
-- Two-front collision or bubble coalescence topology-change benchmark.
+- Two-front collision or bubble coalescence topology change.
 - Thin-film evaporation with a moving contact line.
-
-### Experimental-reference benchmarks
-
-Implemented so far: PH-015 (gallium melting, Gau & Viskanta; melt-front
-digitization still pending).
-
 - Bubble detachment from a heated wall.
 - Pool boiling single-bubble growth cycle.
 - Freezing of water around a cooled cylinder.
@@ -52,28 +51,13 @@ digitization still pending).
 - Leidenfrost droplet lifetime or vapor-film thickness.
 - Condensation film on a vertical plate.
 
-### Coherence and numerical-method tests
+## Pending Data Work
 
-- PC-003 - Global energy-balance closure for a translating interface.
-- PC-004 - Latent-heat conservation under grid refinement.
-- PC-005 - Stationary interface with equal heat fluxes on both sides.
-- PC-006 - Curvature computation on static circle/sphere interfaces.
-- PC-007 - Phase volume conservation for a prescribed moving interface.
-- PC-008 - Fresh-cell/dead-cell consistency near a moving front.
-- PC-009 - Sharp-interface jump condition test on an oblique interface.
-
-### Pending data work
-
-- Digitize the Gau & Viskanta melt-front traces for PH-015 (state the
+- Digitize the Gau & Viskanta melt-front traces for B-036 (state the
   cross-section used; cross-check against Hannoun et al. converged numerics).
 
 ## Repository Tasks
 
 - Add a BibTeX lint/check step.
 - Add a Markdown link checker.
-- Add issue templates for new benchmark proposals and result submissions.
-- Add contribution guidance for submitting solver results.
-
-## Julia Documenter Site
-
-../interface-transfer-benchmarks.github.io is the home for the documentation site.
+- Add a facet-vocabulary check to `scripts/validate.jl`.

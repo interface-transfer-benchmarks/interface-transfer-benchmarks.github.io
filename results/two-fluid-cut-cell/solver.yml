@@ -1,0 +1,9 @@
+name: Two-fluid cut-cell method
+authors:
+  - L. Libat
+  - C. Selçuk
+  - E. Chénier
+  - V. Le Chenadec
+code: basilisk-libat
+references:
+  - libat2025st

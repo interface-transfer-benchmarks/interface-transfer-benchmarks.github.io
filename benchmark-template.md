@@ -1,37 +1,29 @@
 ---
-id: PH-XXX
+id: B-XXX
 title: Benchmark title
 short_title: Short title
 status: draft
 
-benchmark_class: PH
-
-physics:
-  - phase-change
-  - heat-diffusion
-
 process:
   - melting
-
+interface_motion: free
+interface_condition:
+  - dirichlet
+  - stefan
+domains: 1
+domain: half-space
 dimension: 1D
-geometry: planar
+equations:
+  - heat-diffusion
 
-interface_motion: moving
-interface_representation:
-  - front-tracking
-  - level-set
-  - VOF
-  - phase-field
-  - enthalpy
-  - cut-cell
+reference: closed-form
+reference_note: what the reference is and how it is evaluated
+numerical_challenge: the one difficulty this case targets
 
 quantities_of_interest:
   - interface_position
   - temperature_profile
-  - phase_volume
   - energy_error
-
-has_exact_solution: true
 has_reference_data: false
 
 maintainers:
@@ -39,10 +31,10 @@ maintainers:
     affiliation: Your Lab
 
 references:
-  - key: AuthorYear
+  - AuthorYear
 ---
 
-# PH-XXX - Benchmark title
+# B-XXX - Benchmark title
 
 ## Problem
 
@@ -53,7 +45,8 @@ $$
 \partial_t u = \nabla\cdot(k \nabla u).
 $$
 
-Use the symbols of the [notation table](taxonomy.md#notation).
+Use the symbols of the [notation table](taxonomy.md#notation), and the facet
+vocabularies of [`taxonomy.md`](taxonomy.md) in the front matter.
 
 ## Parameters
 
@@ -66,7 +59,7 @@ Use the symbols of the [notation table](taxonomy.md#notation).
 
 The closed form, series, or reference dataset, with the conventions stated.
 
-![PH-XXX reference](../figures/PH-XXX-reference.svg)
+![B-XXX reference](../figures/B-XXX-reference.svg)
 
 ## Report
 

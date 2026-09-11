@@ -1,5 +1,6 @@
 include(joinpath(@__DIR__, "cases.jl"))
 include(joinpath(@__DIR__, "references.jl"))
+include(joinpath(@__DIR__, "results.jl"))
 
 function canonical_asset_path(path::AbstractString)
     normalized = replace(path, "\\" => "/")
@@ -10,6 +11,18 @@ end
 
 function asset_url(path::AbstractString)
     return "../../" * canonical_asset_path(path)
+end
+
+function result_figure_url(case_id::AbstractString)
+    directory = joinpath(REPO_ROOT, "figures", "results")
+    isdir(directory) || return Tuple{String,String}[]
+    names = sort([name for name in readdir(directory)
+                  if startswith(name, case_id * "-") && endswith(name, ".svg")])
+    # the observable first, then the convergence: the figure that says what the
+    # case measures before the one that says how fast it converges
+    order = name -> (endswith(name, "-sh.svg") ? 0 : 1, name)
+    return [(splitext(name)[1], asset_url(joinpath("figures", "results", name)))
+            for name in sort(names; by = order)]
 end
 
 function rewrite_relative_links(body::AbstractString)
@@ -89,11 +102,13 @@ function write_case_page(case, output_path::AbstractString, entries)
         println(io, "# ", case.title)
         println(io)
         facets = [
-            table_cell(getmeta(metadata, "benchmark_class", "")),
-            table_cell(getmeta(metadata, "dimension", "")),
-            table_cell(getmeta(metadata, "geometry", "")),
-            table_cell(getmeta(metadata, "interface_motion", "")),
-            table_cell(getmeta(metadata, "reference_type", "")),
+            table_cell(getmeta(metadata, "process", "")),
+            string(table_cell(getmeta(metadata, "interface_motion", "")), " interface"),
+            table_cell(getmeta(metadata, "interface_condition", "")),
+            domains_cell(metadata),
+            geometry_cell(metadata),
+            table_cell(getmeta(metadata, "equations", "")),
+            table_cell(getmeta(metadata, "reference", "")),
             table_cell(getmeta(metadata, "status", "")),
         ]
         println(io, "`", join(filter(!isempty, facets), "` · `"), "`")
@@ -106,7 +121,16 @@ function write_case_page(case, output_path::AbstractString, entries)
         end
 
         println(io)
-        print(io, rewrite_body(case.body, entries))
+        body = rewrite_body(case.body, entries)
+        marker = findlast("\n## References\n", body)
+        if marker === nothing
+            print(io, body)
+            write_results_section(io, case.id, result_figure_url)
+        else
+            print(io, body[1:first(marker)])
+            write_results_section(io, case.id, result_figure_url)
+            print(io, body[first(marker)+1:end])
+        end
         endswith(case.body, "\n") || println(io)
     end
 end
@@ -130,15 +154,27 @@ function generate_cases(root::AbstractString = REPO_ROOT)
     isfile(taxonomy) && cp(taxonomy, joinpath(docs_src, "taxonomy.md"); force=true)
 
     entries, order = parse_bib(joinpath(repo_root, "references.bib"))
-    write_references_page(entries, order, joinpath(generated_dir, "references.md"))
 
     cases = load_cases(root)
+    cited = Set{String}()
+    for case in cases
+        union!(cited, as_list(getmeta(case.metadata, "references", "")))
+        for m in eachmatch(r"(?<![\w`])@([A-Za-z][\w.:-]*)", case.body)
+            push!(cited, String(m.captures[1]))
+        end
+    end
+    for entry in readdir(joinpath(repo_root, "results"); join=true)
+        manifest = joinpath(entry, "solver.yml")
+        isfile(manifest) || continue
+        union!(cited, as_list(getmeta(YAML.load_file(manifest), "references", "")))
+    end
+    write_references_page(entries, order, joinpath(generated_dir, "references.md"), cited)
 
     open(joinpath(generated_dir, "index.md"), "w") do io
         println(io, "# Benchmark index")
         println(io)
-        println(io, "| ID | Benchmark | Process | Geometry | Reference | Challenge | Status |")
-        println(io, "|---|---|---|---|---|---|---|")
+        println(io, "| ID | Benchmark | Process | Motion | Interface | Domains | Domain | Equations | Reference | Status |")
+        println(io, "|---|---|---|---|---|---|---|---|---|---|")
         for case in cases
             metadata = case.metadata
             println(
@@ -146,9 +182,12 @@ function generate_cases(root::AbstractString = REPO_ROOT)
                 "| [", table_cell(case.id), "](cases/", case.filename, ") | ",
                 table_cell(case.title), " | ",
                 table_cell(getmeta(metadata, "process", "")), " | ",
+                table_cell(getmeta(metadata, "interface_motion", "")), " | ",
+                table_cell(getmeta(metadata, "interface_condition", "")), " | ",
+                domains_cell(metadata), " | ",
                 geometry_cell(metadata), " | ",
-                table_cell(getmeta(metadata, "reference_type", "")), " | ",
-                table_cell(getmeta(metadata, "numerical_challenge", "")), " | ",
+                table_cell(getmeta(metadata, "equations", "")), " | ",
+                table_cell(getmeta(metadata, "reference", "")), " | ",
                 table_cell(getmeta(metadata, "status", "")), " |",
             )
         end

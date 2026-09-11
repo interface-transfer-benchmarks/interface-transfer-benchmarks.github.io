@@ -4,19 +4,27 @@ repo_root = normpath(joinpath(@__DIR__, ".."))
 
 include(joinpath(repo_root, "scripts", "generate_cases.jl"))
 
-generate_cases()
+cases = generate_cases()
 
-generated_cases_dir = joinpath(@__DIR__, "src", "generated", "cases")
-
-const FAMILIES = ["PH" => "Phase change", "MT" => "Mass transfer", "HT" => "Conjugate transfer", "VC" => "Verification"]
-
-case_files = sort([basename(path) for path in readdir(generated_cases_dir) if endswith(path, ".md")])
+const MOTIONS = [
+    "fixed" => "Fixed interface",
+    "prescribed" => "Prescribed interface",
+    "free" => "Free interface",
+]
 
 case_sections = [
-    name => [joinpath("generated", "cases", file) for file in case_files if startswith(file, prefix)]
-    for (prefix, name) in FAMILIES
+    name => [
+        joinpath("generated", "cases", case.filename) for case in cases
+        if string(getmeta(case.metadata, "interface_motion", "")) == motion
+    ]
+    for (motion, name) in MOTIONS
 ]
 case_sections = [section for section in case_sections if !isempty(section.second)]
+
+let listed = sum(length(section.second) for section in case_sections)
+    listed == length(cases) ||
+        error("$(length(cases) - listed) case(s) missing from the sidebar; check interface_motion")
+end
 
 makedocs(;
     sitename = "Interface Transfer Benchmarks",

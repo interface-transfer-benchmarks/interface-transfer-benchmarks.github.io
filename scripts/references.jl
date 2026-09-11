@@ -121,13 +121,17 @@ function format_entry_html(entry::Dict{String,String})
     return join(parts, ". ") * "."
 end
 
-function write_references_page(entries, order, output_path::AbstractString)
+function write_references_page(entries, order, output_path::AbstractString, cited = nothing)
+    # references.bib may hold entries no case cites any more: a benchmark that
+    # was retired takes its citations with it. Listing them puts a reference on
+    # the site for a case that is not there.
+    keys = cited === nothing ? order : [key for key in order if key in cited]
     open(output_path, "w") do io
         println(io, "# References")
         println(io)
         println(io, "````@raw html")
         println(io, "<ul>")
-        for key in sort(order; by = k -> lowercase(k))
+        for key in sort(keys; by = k -> lowercase(k))
             println(io, "<li id=\"", key, "\">", format_entry_html(entries[key]), "</li>")
         end
         println(io, "</ul>")

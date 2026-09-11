@@ -18,6 +18,11 @@ import mpmath as mp
 ROOT = Path(__file__).resolve().parents[1]
 CURVE_POINTS = 401
 
+# figures/ is generated and is not in the repository, so a fresh clone has no
+# such directory and a bare savefig() raises FileNotFoundError.
+FIGURES = ROOT / "figures"
+FIGURES.mkdir(parents=True, exist_ok=True)
+
 
 def write_csv(path: Path, header: list[str], rows: list[list[object]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -45,7 +50,7 @@ def linspace(start: float, stop: float, count: int) -> list[float]:
     return [start + index * step for index in range(count)]
 
 
-def generate_ph001() -> None:
+def generate_b028() -> None:
     lambda_ = float(
         mp.findroot(
             lambda value: mp.sqrt(mp.pi)
@@ -66,7 +71,7 @@ def generate_ph001() -> None:
             rows.append([time, x_over_s, x, interface_position, temperature])
 
     write_csv(
-        ROOT / "data/PH-001/reference.csv",
+        ROOT / "data/B-028/reference.csv",
         ["time", "x_over_s", "x", "interface_position", "temperature"],
         rows,
     )
@@ -77,14 +82,14 @@ def generate_ph001() -> None:
     plt.plot(times, positions, color="#1f77b4", linewidth=2.2, label="s(t)")
     plt.legend()
     save_figure(
-        ROOT / "figures/PH-001-reference.svg",
-        "PH-001 one-phase Stefan reference",
+        ROOT / "figures/B-028-reference.svg",
+        "B-028 one-phase Stefan reference",
         "time",
         "interface position",
     )
 
 
-def generate_ph002() -> None:
+def generate_b034() -> None:
     xi = float(
         mp.findroot(
             lambda value: value
@@ -114,7 +119,7 @@ def generate_ph002() -> None:
             rows.append([time, eta, x, interface_position, phase, temperature])
 
     write_csv(
-        ROOT / "data/PH-002/reference.csv",
+        ROOT / "data/B-034/reference.csv",
         ["time", "eta_x_over_2sqrt_t", "x", "interface_position", "phase", "temperature"],
         rows,
     )
@@ -125,8 +130,8 @@ def generate_ph002() -> None:
     plt.plot(times, positions, color="#d62728", linewidth=2.2, label="s(t)")
     plt.legend()
     save_figure(
-        ROOT / "figures/PH-002-reference.svg",
-        "PH-002 two-phase Stefan reference",
+        ROOT / "figures/B-034-reference.svg",
+        "B-034 two-phase Stefan reference",
         "time",
         "interface position",
     )
@@ -231,17 +236,17 @@ def generate_frank_case(
     )
 
 
-def generate_ph003() -> None:
-    generate_frank_case("PH-003", "Frank disk", frank_disk_f, frank_disk_f_prime, "#2ca02c")
+def generate_b029() -> None:
+    generate_frank_case("B-029", "Frank disk", frank_disk_f, frank_disk_f_prime, "#2ca02c")
 
 
-def generate_ph004() -> None:
+def generate_b030() -> None:
     generate_frank_case(
-        "PH-004", "Frank sphere", frank_sphere_f, frank_sphere_f_prime, "#9467bd"
+        "B-030", "Frank sphere", frank_sphere_f, frank_sphere_f_prime, "#9467bd"
     )
 
 
-def generate_ph005() -> None:
+def generate_b038() -> None:
     rho_l = 958.4
     rho_g = 0.597
     k_l = 0.679
@@ -309,7 +314,7 @@ def generate_ph005() -> None:
             rows.append([time, x_over_delta, x, delta, velocity, phase, temp])
 
     write_csv(
-        ROOT / "data/PH-005/reference.csv",
+        ROOT / "data/B-038/reference.csv",
         [
             "time",
             "x_over_delta",
@@ -344,7 +349,7 @@ def generate_ph005() -> None:
         label="u_l(t)",
     )[0]
 
-    axis_position.set_title("PH-005 sucking-interface reference")
+    axis_position.set_title("B-038 sucking-interface reference")
     axis_position.set_xlabel("time")
     axis_position.set_ylabel("vapor-layer thickness")
     axis_velocity.set_ylabel("liquid velocity")
@@ -355,7 +360,7 @@ def generate_ph005() -> None:
         loc="best",
     )
     figure.tight_layout()
-    figure.savefig(ROOT / "figures/PH-005-reference.svg", format="svg")
+    figure.savefig(ROOT / "figures/B-038-reference.svg", format="svg")
     plt.close(figure)
 
 
@@ -382,7 +387,7 @@ def scriven_integral(
     return mp.quad(integrand, points)
 
 
-def generate_ph006() -> None:
+def generate_b039() -> None:
     rho_l = 958.0
     rho_g = 0.59
     k_l = 0.6
@@ -442,7 +447,7 @@ def generate_ph006() -> None:
             )
 
     write_csv(
-        ROOT / "data/PH-006/reference.csv",
+        ROOT / "data/B-039/reference.csv",
         ["time", "r_over_R", "r", "bubble_radius", "phase", "temperature"],
         rows,
     )
@@ -453,14 +458,14 @@ def generate_ph006() -> None:
     plt.plot(times, radii, color="#e377c2", linewidth=2.2, label="R(t)")
     plt.legend()
     save_figure(
-        ROOT / "figures/PH-006-reference.svg",
-        "PH-006 Scriven spherical bubble reference",
+        ROOT / "figures/B-039-reference.svg",
+        "B-039 Scriven spherical bubble reference",
         "time",
         "bubble radius",
     )
 
 
-def generate_vc001() -> None:
+def generate_b026() -> None:
     speed = 1.0
 
     def interface_position(time: float) -> float:
@@ -479,7 +484,7 @@ def generate_vc001() -> None:
             rows.append([time, x, position, phase, temperature(x, time)])
 
     write_csv(
-        ROOT / "data/VC-001/reference.csv",
+        ROOT / "data/B-026/reference.csv",
         ["time", "x", "interface_position", "phase", "temperature"],
         rows,
     )
@@ -496,14 +501,14 @@ def generate_vc001() -> None:
         )
     plt.legend()
     save_figure(
-        ROOT / "figures/VC-001-reference.svg",
-        "VC-001 constant-speed solidification reference",
+        ROOT / "figures/B-026-reference.svg",
+        "B-026 constant-speed solidification reference",
         "x",
         "temperature",
     )
 
 
-def generate_ph007() -> None:
+def generate_b031() -> None:
     h0 = 1.0
     domain_height = 10.0
     diffusivity = 1.0
@@ -535,7 +540,7 @@ def generate_ph007() -> None:
         )
 
     write_csv(
-        ROOT / "data/PH-007/reference.csv",
+        ROOT / "data/B-031/reference.csv",
         [
             "time",
             "quasi_static_thickness",
@@ -552,14 +557,14 @@ def generate_ph007() -> None:
     plt.plot(times, [h_transient(t) for t in times], label="early transient")
     plt.legend()
     save_figure(
-        ROOT / "figures/PH-007-reference.svg",
-        "PH-007 static evaporating film reference",
+        ROOT / "figures/B-031-reference.svg",
+        "B-031 static evaporating film reference",
         "time",
         "film thickness",
     )
 
 
-def generate_vc002() -> None:
+def generate_b027() -> None:
     initial_radius = 1.0
     density_dispersed = 0.001
     mass_transfer_rate = -1.0e-3
@@ -573,7 +578,7 @@ def generate_vc002() -> None:
         rows.append([time, r, math.pi * r * r, 4 * math.pi * r**3 / 3])
 
     write_csv(
-        ROOT / "data/VC-002/reference.csv",
+        ROOT / "data/B-027/reference.csv",
         ["time", "radius", "area_2d", "volume_3d"],
         rows,
     )
@@ -583,14 +588,14 @@ def generate_vc002() -> None:
     plt.plot(times, [radius(t) for t in times], label="R(t)", color="#7f7f7f")
     plt.legend()
     save_figure(
-        ROOT / "figures/VC-002-reference.svg",
-        "VC-002 constant-rate bubble reference",
+        ROOT / "figures/B-027-reference.svg",
+        "B-027 constant-rate bubble reference",
         "time",
         "radius",
     )
 
 
-def generate_ph008() -> None:
+def generate_b032() -> None:
     diffusivity = 0.1
     henry = 1.2
     c_sigma = 1.0
@@ -611,7 +616,7 @@ def generate_ph008() -> None:
             rows.append([time, ell, eta, distance, concentration(distance, time)])
 
     write_csv(
-        ROOT / "data/PH-008/reference.csv",
+        ROOT / "data/B-032/reference.csv",
         ["time", "interface_displacement", "eta", "distance_from_interface", "concentration"],
         rows,
     )
@@ -621,14 +626,14 @@ def generate_ph008() -> None:
     plt.plot(times, [displacement(t) for t in times], label="ell(t)", color="#17becf")
     plt.legend()
     save_figure(
-        ROOT / "figures/PH-008-reference.svg",
-        "PH-008 species-diffusion Stefan reference",
+        ROOT / "figures/B-032-reference.svg",
+        "B-032 species-diffusion Stefan reference",
         "time",
         "interface displacement",
     )
 
 
-def generate_ph009() -> None:
+def generate_b004() -> None:
     radius = 0.5
     diffusivity = 1.0 / 0.0526
     c_sigma = 0.2
@@ -648,7 +653,7 @@ def generate_ph009() -> None:
             rows.append([time, r_over_r, r, concentration(r, time)])
 
     write_csv(
-        ROOT / "data/PH-009/reference.csv",
+        ROOT / "data/B-019/reference.csv",
         ["time", "r_over_R", "r", "concentration"],
         rows,
     )
@@ -664,14 +669,14 @@ def generate_ph009() -> None:
         )
     plt.legend()
     save_figure(
-        ROOT / "figures/PH-009-reference.svg",
-        "PH-009 Epstein-Plesset concentration reference",
+        ROOT / "figures/B-019-reference.svg",
+        "B-019 Epstein-Plesset concentration reference",
         "radius",
         "concentration",
     )
 
 
-def generate_ph010() -> None:
+def generate_b033() -> None:
     radius_0 = 0.5
     diffusivity = 1.0
     beta = 0.2  # (c_sigma - c_inf) / rho_b
@@ -712,7 +717,7 @@ def generate_ph010() -> None:
         rows.append([time, radius_ode, quasi_steady(time)])
 
     write_csv(
-        ROOT / "data/PH-010/reference.csv",
+        ROOT / "data/B-033/reference.csv",
         ["time", "radius_epstein_plesset", "radius_quasi_steady"],
         rows,
     )
@@ -730,14 +735,14 @@ def generate_ph010() -> None:
     )
     plt.legend()
     save_figure(
-        ROOT / "figures/PH-010-reference.svg",
-        "PH-010 Epstein-Plesset dissolving bubble",
+        ROOT / "figures/B-033-reference.svg",
+        "B-033 Epstein-Plesset dissolving bubble",
         "time",
         "bubble radius",
     )
 
 
-def generate_ph011() -> None:
+def generate_b035() -> None:
     diffusivity = mp.mpf("0.05")
     alpha = mp.mpf("1.0")
     conductivity = mp.mpf("1.0")
@@ -820,7 +825,7 @@ def generate_ph011() -> None:
             rows.append(["profile", time, x, temperature(x, time), concentration(x, time)])
 
     write_csv(
-        ROOT / "data/PH-011/reference.csv",
+        ROOT / "data/B-037/reference.csv",
         ["record", "time_or_value", "x_or_front", "temperature", "concentration"],
         rows,
     )
@@ -839,13 +844,13 @@ def generate_ph011() -> None:
     axis_c.set_title("concentration, t = 4")
     axis_c.set_xlabel("x")
     axis_c.grid(True, color="0.88", linewidth=0.8)
-    figure.suptitle("PH-011 Rubinstein binary-alloy reference")
+    figure.suptitle("B-037 Rubinstein binary-alloy reference")
     figure.tight_layout()
-    figure.savefig(ROOT / "figures/PH-011-reference.svg", format="svg")
+    figure.savefig(ROOT / "figures/B-037-reference.svg", format="svg")
     plt.close(figure)
 
 
-def generate_ph012() -> None:
+def generate_b040() -> None:
     diameter_0 = 1.0e-3
     rho_liquid = 1000.0
     rho_gas = 1.0
@@ -883,7 +888,7 @@ def generate_ph012() -> None:
         rows.append(["Y_profile", r_over_radius, mass_fraction(r_over_radius)])
 
     write_csv(
-        ROOT / "data/PH-012/reference.csv",
+        ROOT / "data/B-040/reference.csv",
         ["record", "time_or_r_over_R", "value"],
         rows,
     )
@@ -901,13 +906,13 @@ def generate_ph012() -> None:
     axis_y.set_xlabel("r / R")
     axis_y.set_ylabel("Y")
     axis_y.grid(True, color="0.88", linewidth=0.8)
-    figure.suptitle("PH-012 d2-law reference")
+    figure.suptitle("B-040 d2-law reference")
     figure.tight_layout()
-    figure.savefig(ROOT / "figures/PH-012-reference.svg", format="svg")
+    figure.savefig(ROOT / "figures/B-040-reference.svg", format="svg")
     plt.close(figure)
 
 
-def generate_ph013() -> None:
+def generate_b036() -> None:
     plate_height = 0.1
     delta_t = 10.0
     rho_liquid = 958.4
@@ -959,7 +964,7 @@ def generate_ph013() -> None:
         )
 
     write_csv(
-        ROOT / "data/PH-013/reference.csv",
+        ROOT / "data/B-035/reference.csv",
         ["record", "x_or_value", "film_thickness", "film_reynolds"],
         rows,
     )
@@ -976,13 +981,13 @@ def generate_ph013() -> None:
     axis_h.set_xlabel("x [m]")
     axis_h.set_ylabel("h [W/(m^2 K)]")
     axis_h.grid(True, color="0.88", linewidth=0.8)
-    figure.suptitle("PH-013 Nusselt film condensation reference")
+    figure.suptitle("B-035 Nusselt film condensation reference")
     figure.tight_layout()
-    figure.savefig(ROOT / "figures/PH-013-reference.svg", format="svg")
+    figure.savefig(ROOT / "figures/B-035-reference.svg", format="svg")
     plt.close(figure)
 
 
-def generate_ph014() -> None:
+def generate_b041() -> None:
     rho_liquid = 200.0
     rho_vapor = 5.0
     mu_vapor = 0.005
@@ -1006,7 +1011,7 @@ def generate_ph014() -> None:
     jakob = cp_vapor * delta_t / h_fg
 
     write_csv(
-        ROOT / "data/PH-014/reference.csv",
+        ROOT / "data/B-041/reference.csv",
         ["quantity", "value"],
         [
             ["capillary_length_lambda0", lambda_0],
@@ -1038,18 +1043,18 @@ def generate_ph014() -> None:
     plt.axvline(delta_t, color="0.6", linestyle=":", label="benchmark superheat")
     plt.legend()
     save_figure(
-        ROOT / "figures/PH-014-reference.svg",
-        "PH-014 film boiling Berenson anchor",
+        ROOT / "figures/B-041-reference.svg",
+        "B-041 film boiling Berenson anchor",
         "wall superheat",
         "mean Nusselt number (lambda0)",
     )
 
 
 
-def generate_mt001() -> None:
+def generate_b005() -> None:
     da_values = [0.0, 0.25, 1.0, 4.0, 16.0, 100.0]
     rows = [[da, 2 * (1 + math.sqrt(da))] for da in da_values]
-    write_csv(ROOT / "data/MT-001/reference.csv", ["damkohler", "sherwood"], rows)
+    write_csv(ROOT / "data/B-004/reference.csv", ["damkohler", "sherwood"], rows)
 
     radii = linspace(1.0, 6.0, CURVE_POINTS)
     plt.figure(figsize=(7.2, 4.3))
@@ -1058,21 +1063,21 @@ def generate_mt001() -> None:
         plt.plot(radii, profile, linewidth=2.0, label=f"Da = {da:g}")
     plt.legend()
     save_figure(
-        ROOT / "figures/MT-001-reference.svg",
-        "MT-001 reaction-diffusion outside a sphere",
+        ROOT / "figures/B-004-reference.svg",
+        "B-004 reaction-diffusion outside a sphere",
         "r / R0",
         "C / Cs",
     )
 
 
-def generate_mt002() -> None:
+def generate_b006() -> None:
     da_values = [0.25, 1.0, 4.0, 16.0, 64.0, 100.0]
     rows = []
     for da in da_values:
         m = mp.sqrt(da)
         flux = 2 * mp.pi * m * mp.besselk(1, m) / mp.besselk(0, m)
         rows.append([da, float(flux)])
-    write_csv(ROOT / "data/MT-002/reference.csv", ["damkohler", "uptake"], rows)
+    write_csv(ROOT / "data/B-005/reference.csv", ["damkohler", "uptake"], rows)
 
     sweep = [0.05 * 1.15**index for index in range(60)]
     fluxes = [
@@ -1084,17 +1089,17 @@ def generate_mt002() -> None:
     plt.xscale("log")
     plt.legend()
     save_figure(
-        ROOT / "figures/MT-002-reference.svg",
-        "MT-002 reactive uptake outside a disk",
+        ROOT / "figures/B-005-reference.svg",
+        "B-005 reactive uptake outside a disk",
         "Da",
         "F / (D Cs)",
     )
 
 
-def generate_mt003() -> None:
+def generate_b003() -> None:
     fo_values = [0.001, 0.01, 0.1, 1.0, 10.0]
     rows = [[fo, 2 + 2 / math.sqrt(math.pi * fo)] for fo in fo_values]
-    write_csv(ROOT / "data/MT-003/reference.csv", ["fourier", "sherwood"], rows)
+    write_csv(ROOT / "data/B-003/reference.csv", ["fourier", "sherwood"], rows)
 
     sweep = [0.001 * 1.2**index for index in range(55)]
     plt.figure(figsize=(7.2, 4.3))
@@ -1110,8 +1115,8 @@ def generate_mt003() -> None:
     plt.yscale("log")
     plt.legend()
     save_figure(
-        ROOT / "figures/MT-003-reference.svg",
-        "MT-003 unsteady diffusion to a sphere",
+        ROOT / "figures/B-003-reference.svg",
+        "B-003 unsteady diffusion to a sphere",
         "Fo",
         "Sh",
     )
@@ -1128,12 +1133,12 @@ def mt004_sherwood(fourier: float, damkohler: float) -> float:
     )
 
 
-def generate_mt004() -> None:
+def generate_b007() -> None:
     rows = []
     for da in [0.0, 1.0, 10.0]:
         for fo in [0.001, 0.01, 0.1, 1.0, 10.0]:
             rows.append([da, fo, mt004_sherwood(fo, da)])
-    write_csv(ROOT / "data/MT-004/reference.csv", ["damkohler", "fourier", "sherwood"], rows)
+    write_csv(ROOT / "data/B-006/reference.csv", ["damkohler", "fourier", "sherwood"], rows)
 
     sweep = [0.001 * 1.2**index for index in range(55)]
     plt.figure(figsize=(7.2, 4.3))
@@ -1149,18 +1154,18 @@ def generate_mt004() -> None:
     plt.yscale("log")
     plt.legend()
     save_figure(
-        ROOT / "figures/MT-004-reference.svg",
-        "MT-004 unsteady reaction-diffusion outside a sphere",
+        ROOT / "figures/B-006-reference.svg",
+        "B-006 unsteady reaction-diffusion outside a sphere",
         "Fo",
         "Sh",
     )
 
 
-def generate_mt005() -> None:
+def generate_b017() -> None:
     das = [0.01, 0.1, 1.0, 10.0, 100.0]
     rows = [[da, 1 / (1 + da), 2 * da / (1 + da)] for da in das]
     write_csv(
-        ROOT / "data/MT-005/reference.csv",
+        ROOT / "data/B-016/reference.csv",
         ["surface_damkohler", "surface_concentration", "sherwood"],
         rows,
     )
@@ -1173,8 +1178,8 @@ def generate_mt005() -> None:
     plt.xscale("log")
     plt.legend()
     save_figure(
-        ROOT / "figures/MT-005-reference.svg",
-        "MT-005 first-order surface kinetics on a sphere",
+        ROOT / "figures/B-016-reference.svg",
+        "B-016 first-order surface kinetics on a sphere",
         "Da_s",
         "Sh_ov, Cs / Cinf",
     )
@@ -1189,10 +1194,10 @@ def pellet_sphere_eta(phi: float) -> float:
     return float(3 * (phi / mp.tanh(phi) - 1) / phi**2)
 
 
-def generate_mt006() -> None:
+def generate_b008() -> None:
     phis = [0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 20.0]
     rows = [[phi, pellet_cylinder_eta(phi)] for phi in phis]
-    write_csv(ROOT / "data/MT-006/reference.csv", ["thiele", "effectiveness"], rows)
+    write_csv(ROOT / "data/B-007/reference.csv", ["thiele", "effectiveness"], rows)
 
     sweep = [0.05 * 1.15**index for index in range(60)]
     plt.figure(figsize=(7.2, 4.3))
@@ -1202,17 +1207,17 @@ def generate_mt006() -> None:
     plt.yscale("log")
     plt.legend()
     save_figure(
-        ROOT / "figures/MT-006-reference.svg",
-        "MT-006 isothermal pellet, cylinder",
+        ROOT / "figures/B-007-reference.svg",
+        "B-007 isothermal pellet, cylinder",
         "phi",
         "eta",
     )
 
 
-def generate_mt007() -> None:
+def generate_b009() -> None:
     phis = [0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 20.0]
     rows = [[phi, pellet_sphere_eta(phi)] for phi in phis]
-    write_csv(ROOT / "data/MT-007/reference.csv", ["thiele", "effectiveness"], rows)
+    write_csv(ROOT / "data/B-008/reference.csv", ["thiele", "effectiveness"], rows)
 
     sweep = [0.05 * 1.15**index for index in range(60)]
     plt.figure(figsize=(7.2, 4.3))
@@ -1222,14 +1227,14 @@ def generate_mt007() -> None:
     plt.yscale("log")
     plt.legend()
     save_figure(
-        ROOT / "figures/MT-007-reference.svg",
-        "MT-007 isothermal pellet, sphere",
+        ROOT / "figures/B-008-reference.svg",
+        "B-008 isothermal pellet, sphere",
         "phi",
         "eta",
     )
 
 
-def generate_mt008() -> None:
+def generate_b018() -> None:
     rows = []
     for biot in [0.1, 1.0, 10.0, 100.0]:
         for phi in [0.1, 1.0, 5.0, 20.0]:
@@ -1238,7 +1243,7 @@ def generate_mt008() -> None:
             surface = float(1 / (1 + (phi / mp.tanh(phi) - 1) / biot))
             rows.append([biot, phi, surface, eta_ov])
     write_csv(
-        ROOT / "data/MT-008/reference.csv",
+        ROOT / "data/B-017/reference.csv",
         ["biot", "thiele", "surface_concentration", "effectiveness_overall"],
         rows,
     )
@@ -1256,8 +1261,8 @@ def generate_mt008() -> None:
     plt.yscale("log")
     plt.legend()
     save_figure(
-        ROOT / "figures/MT-008-reference.svg",
-        "MT-008 pellet with an external film",
+        ROOT / "figures/B-017-reference.svg",
+        "B-017 pellet with an external film",
         "phi",
         "eta_ov",
     )
@@ -1268,12 +1273,12 @@ def mt009_uptake(damkohler: float, henry: float) -> float:
     return float(2 * mp.pi * henry * q * mp.besseli(1, q) / mp.besseli(0, q))
 
 
-def generate_mt009() -> None:
+def generate_b025() -> None:
     rows = []
     for henry in [1.0, 2.0, 4.0]:
         for da in [0.25, 1.0, 4.0, 16.0, 64.0]:
             rows.append([henry, da, mt009_uptake(da, henry)])
-    write_csv(ROOT / "data/MT-009/reference.csv", ["henry", "damkohler", "uptake"], rows)
+    write_csv(ROOT / "data/B-025/reference.csv", ["henry", "damkohler", "uptake"], rows)
 
     sweep = [0.1 * 1.15**index for index in range(50)]
     plt.figure(figsize=(7.2, 4.3))
@@ -1283,8 +1288,8 @@ def generate_mt009() -> None:
     plt.yscale("log")
     plt.legend()
     save_figure(
-        ROOT / "figures/MT-009-reference.svg",
-        "MT-009 reactive absorption into a droplet",
+        ROOT / "figures/B-025-reference.svg",
+        "B-025 reactive absorption into a droplet",
         "Da",
         "F / D1",
     )
@@ -1294,14 +1299,14 @@ def mt010_decay(peclet: float, damkohler: float) -> float:
     return (-peclet + math.sqrt(peclet**2 + 4 * (damkohler + math.pi**2))) / 2
 
 
-def generate_mt010() -> None:
+def generate_b015() -> None:
     peclet = 5.0
     rows = []
     for da in [0.0, 1.0, 10.0, 100.0]:
         mu = mt010_decay(peclet, da)
         rows.append([da, mu, mu - mt010_decay(peclet, 0.0), da / peclet])
     write_csv(
-        ROOT / "data/MT-010/reference.csv",
+        ROOT / "data/B-014/reference.csv",
         ["damkohler", "decay_rate", "decay_shift", "large_peclet_limit"],
         rows,
     )
@@ -1325,9 +1330,9 @@ def generate_mt010() -> None:
     axes[1].set_xlabel("y / W")
     axes[1].set_ylabel("cos(q y)")
     axes[1].grid(True, color="0.88", linewidth=0.8)
-    figure.suptitle("MT-010 plug-flow reactive channel")
+    figure.suptitle("B-014 plug-flow reactive channel")
     figure.tight_layout()
-    figure.savefig(ROOT / "figures/MT-010-reference.svg", format="svg")
+    figure.savefig(ROOT / "figures/B-014-reference.svg", format="svg")
     plt.close(figure)
 
 
@@ -1336,14 +1341,14 @@ def ht001_interface_values(henry: float, ratio: float) -> tuple[float, float]:
     return henry / denominator, 1.0 / denominator
 
 
-def generate_ht001() -> None:
+def generate_b020() -> None:
     rows = []
     for ratio in [0.1, 1.0, 10.0]:
         for henry in [0.5, 1.0, 2.0, 5.0]:
             first, second = ht001_interface_values(henry, ratio)
             rows.append([ratio, henry, first, second])
     write_csv(
-        ROOT / "data/HT-001/reference.csv",
+        ROOT / "data/B-020/reference.csv",
         ["diffusivity_ratio", "henry", "interface_value_phase1", "interface_value_phase2"],
         rows,
     )
@@ -1360,8 +1365,8 @@ def generate_ht001() -> None:
     plt.xscale("log")
     plt.legend()
     save_figure(
-        ROOT / "figures/HT-001-reference.svg",
-        "HT-001 planar partition between two half-spaces",
+        ROOT / "figures/B-020-reference.svg",
+        "B-020 planar partition between two half-spaces",
         "k",
         "C1 at the interface",
     )
@@ -1374,11 +1379,11 @@ def newman_mean(fourier: float, terms: int = 200) -> float:
     return float(6 / mp.pi**2 * total)
 
 
-def generate_ht002() -> None:
+def generate_b001() -> None:
     fos = [0.001, 0.01, 0.05, 0.1, 0.2, 0.5, 1.0]
     rows = [[fo, newman_mean(fo)] for fo in fos]
     rows.append(["sherwood_asymptote", float(2 * mp.pi**2 / 3)])
-    write_csv(ROOT / "data/HT-002/reference.csv", ["fourier", "mean_concentration"], rows)
+    write_csv(ROOT / "data/B-001/reference.csv", ["fourier", "mean_concentration"], rows)
 
     sweep = [0.001 * 1.15**index for index in range(55)]
     figure, axes = plt.subplots(1, 2, figsize=(9.6, 4.0))
@@ -1399,13 +1404,13 @@ def generate_ht002() -> None:
     axes[1].set_ylim(0, 20)
     axes[1].grid(True, color="0.88", linewidth=0.8)
     axes[1].legend()
-    figure.suptitle("HT-002 Newman internal transient in a stagnant drop")
+    figure.suptitle("B-001 Newman internal transient in a stagnant drop")
     figure.tight_layout()
-    figure.savefig(ROOT / "figures/HT-002-reference.svg", format="svg")
+    figure.savefig(ROOT / "figures/B-001-reference.svg", format="svg")
     plt.close(figure)
 
 
-def generate_ht003() -> None:
+def generate_b012() -> None:
     eigenvalue = 1.678
     sherwood = 32 * eigenvalue / 3
     rows = [
@@ -1414,7 +1419,7 @@ def generate_ht003() -> None:
         ["decay_rate_over_D_per_d2", 64 * eigenvalue],
         ["newman_asymptote", float(2 * mp.pi**2 / 3)],
     ]
-    write_csv(ROOT / "data/HT-003/reference.csv", ["quantity", "value"], rows)
+    write_csv(ROOT / "data/B-011/reference.csv", ["quantity", "value"], rows)
 
     times = linspace(0.0, 0.08, CURVE_POINTS)
     plt.figure(figsize=(7.2, 4.3))
@@ -1433,8 +1438,8 @@ def generate_ht003() -> None:
     plt.yscale("log")
     plt.legend()
     save_figure(
-        ROOT / "figures/HT-003-reference.svg",
-        "HT-003 Kronig-Brink circulating drop",
+        ROOT / "figures/B-011-reference.svg",
+        "B-011 Kronig-Brink circulating drop",
         "Fo",
         "mean C / C0",
     )
@@ -1444,14 +1449,14 @@ def ht004_flux(henry: float, ratio: float) -> float:
     return 1.0 / (1.0 + henry / ratio)
 
 
-def generate_ht004() -> None:
+def generate_b021() -> None:
     rows = []
     for ratio in [0.1, 1.0, 10.0]:
         for henry in [0.5, 1.0, 2.0, 5.0]:
             flux = ht004_flux(henry, ratio)
             rows.append([ratio, henry, flux, 1.0 - flux, (1.0 - flux) / henry])
     write_csv(
-        ROOT / "data/HT-004/reference.csv",
+        ROOT / "data/B-021/reference.csv",
         ["diffusivity_ratio", "henry", "flux", "interface_value_phase1", "interface_value_phase2"],
         rows,
     )
@@ -1463,44 +1468,13 @@ def generate_ht004() -> None:
     plt.xscale("log")
     plt.legend()
     save_figure(
-        ROOT / "figures/HT-004-reference.svg",
-        "HT-004 steady composite slab with an interfacial partition",
+        ROOT / "figures/B-021-reference.svg",
+        "B-021 steady composite slab with an interfacial partition",
         "k",
         "J L1 / (D1 Ca)",
     )
 
 
-
-def generate_vc003() -> None:
-    sigma0, diffusivity, speed = 0.05, 1e-4, 1.0
-    rows = []
-    for time in [0.0, 0.1, 0.25, 0.5, 1.0]:
-        variance = sigma0**2 + 2 * diffusivity * time
-        rows.append([time, variance, 1 / (2 * math.pi * variance), speed * time])
-    write_csv(
-        ROOT / "data/VC-003/reference.csv",
-        ["time", "variance", "peak_amplitude", "centroid_x"],
-        rows,
-    )
-
-    times = linspace(0.0, 1.0, CURVE_POINTS)
-    figure, axes = plt.subplots(1, 2, figsize=(9.6, 4.0))
-    axes[0].plot(
-        times,
-        [1 / (2 * math.pi * (sigma0**2 + 2 * diffusivity * t)) for t in times],
-        linewidth=2.2,
-    )
-    axes[0].set_xlabel("t")
-    axes[0].set_ylabel("peak amplitude")
-    axes[0].grid(True, color="0.88", linewidth=0.8)
-    axes[1].plot(times, [speed * t for t in times], linewidth=2.2)
-    axes[1].set_xlabel("t")
-    axes[1].set_ylabel("centroid x")
-    axes[1].grid(True, color="0.88", linewidth=0.8)
-    figure.suptitle("VC-003 advected Gaussian in a uniform flow")
-    figure.tight_layout()
-    figure.savefig(ROOT / "figures/VC-003-reference.svg", format="svg")
-    plt.close(figure)
 
 
 def vc004_moments(time: float, sigma0: float, diffusivity: float, shear: float):
@@ -1514,49 +1488,15 @@ def vc004_moments(time: float, sigma0: float, diffusivity: float, shear: float):
     return xx, yy, xy
 
 
-def generate_vc004() -> None:
-    sigma0, diffusivity, shear = 0.05, 1e-3, 1.0
-    rows = []
-    for time in [0.0, 0.25, 0.5, 1.0, 2.0]:
-        xx, yy, xy = vc004_moments(time, sigma0, diffusivity, shear)
-        dispersion = 2 * shear**2 * diffusivity * time**3 / 3
-        rows.append([time, xx, yy, xy, dispersion])
-    write_csv(
-        ROOT / "data/VC-004/reference.csv",
-        ["time", "sigma_xx", "sigma_yy", "sigma_xy", "shear_dispersion_term"],
-        rows,
-    )
 
-    times = linspace(0.0, 2.0, CURVE_POINTS)
-    plt.figure(figsize=(7.2, 4.3))
-    plt.plot(times, [vc004_moments(t, sigma0, diffusivity, shear)[0] for t in times], linewidth=2.2, label="sigma_xx")
-    plt.plot(times, [vc004_moments(t, sigma0, diffusivity, shear)[1] for t in times], linewidth=2.2, label="sigma_yy")
-    plt.plot(times, [vc004_moments(t, sigma0, diffusivity, shear)[2] for t in times], linewidth=2.2, label="sigma_xy")
-    plt.plot(
-        times,
-        [2 * shear**2 * diffusivity * t**3 / 3 for t in times],
-        "--",
-        color="0.4",
-        linewidth=1.8,
-        label="(2/3) D gamma^2 t^3",
-    )
-    plt.legend()
-    save_figure(
-        ROOT / "figures/VC-004-reference.svg",
-        "VC-004 sheared Gaussian in a linear shear flow",
-        "t",
-        "second moments",
-    )
-
-
-def generate_vc005() -> None:
+def generate_b016() -> None:
     rows = []
     for da in [1.0, 16.0, 100.0]:
         m = mp.sqrt(da)
         flux = float(2 * mp.pi * m * mp.besselk(1, m) / mp.besselk(0, m))
         for omega in [0.0, 1.0, 10.0, 100.0]:
             rows.append([da, omega, flux])
-    write_csv(ROOT / "data/VC-005/reference.csv", ["damkohler", "rotation_rate", "uptake"], rows)
+    write_csv(ROOT / "data/B-015/reference.csv", ["damkohler", "rotation_rate", "uptake"], rows)
 
     omegas = linspace(0.0, 100.0, CURVE_POINTS)
     plt.figure(figsize=(7.2, 4.3))
@@ -1566,20 +1506,20 @@ def generate_vc005() -> None:
         plt.plot(omegas, [flux for _ in omegas], linewidth=2.2, label=f"Da = {da:g}")
     plt.legend()
     save_figure(
-        ROOT / "figures/VC-005-reference.svg",
-        "VC-005 rotation invariance of the uptake by a reactive disk",
+        ROOT / "figures/B-015-reference.svg",
+        "B-015 rotation invariance of the uptake by a reactive disk",
         "Omega",
         "F / (D Cs)",
     )
 
 
-def generate_vc006() -> None:
+def generate_b024() -> None:
     rows = [["additivity_residual_target", 0.0]]
     for outer in [2.0, 5.0, 10.0, 20.0, 50.0]:
         rows.append([f"shell_sherwood_Rout_over_R0_{outer:g}", 2 / (1 - 1 / outer)])
     rows.append(["shell_sherwood_infinite", 2.0])
     rows.append(["equal_volume_radius_over_box_side", (3 / (4 * math.pi)) ** (1 / 3)])
-    write_csv(ROOT / "data/VC-006/reference.csv", ["quantity", "value"], rows)
+    write_csv(ROOT / "data/B-024/reference.csv", ["quantity", "value"], rows)
 
     ratios = linspace(1.5, 50.0, CURVE_POINTS)
     plt.figure(figsize=(7.2, 4.3))
@@ -1588,8 +1528,8 @@ def generate_vc006() -> None:
     plt.xscale("log")
     plt.legend()
     save_figure(
-        ROOT / "figures/VC-006-reference.svg",
-        "VC-006 external Sherwood number in a finite domain",
+        ROOT / "figures/B-024-reference.svg",
+        "B-024 external Sherwood number in a finite domain",
         "Rout / R0",
         "Sh_e",
     )
@@ -1649,11 +1589,11 @@ def graetz_robin(damkohler: float, peclet: float, steps: int = 1200):
     return mu, 2.0 * ks * wall / (bulk - wall)
 
 
-def generate_mt011() -> None:
+def generate_b019() -> None:
     peclet = 5.0
     sweep = [10.0 ** (-1 + 5 * index / 24.0) for index in range(25)]
     rows = [[damkohler, *graetz_robin(damkohler, peclet)] for damkohler in sweep]
-    write_csv(ROOT / "data/MT-011/reference.csv", ["wall_damkohler", "decay_rate", "sherwood"], rows)
+    write_csv(ROOT / "data/B-018/reference.csv", ["wall_damkohler", "decay_rate", "sherwood"], rows)
 
     plt.figure(figsize=(7.2, 4.3))
     plt.plot(sweep, [row[2] for row in rows], linewidth=2.2, label="Sh(Da_w) at Pe = 5")
@@ -1662,19 +1602,19 @@ def generate_mt011() -> None:
     plt.xscale("log")
     plt.legend()
     save_figure(
-        ROOT / "figures/MT-011-reference.svg",
-        "MT-011 reactive Graetz, Robin wall",
+        ROOT / "figures/B-018-reference.svg",
+        "B-018 reactive Graetz, Robin wall",
         "Da_w",
         "Sh",
     )
 
 
-def generate_mt012() -> None:
+def generate_b013() -> None:
     peclet = 300.0
     prefactor = 2.0 / float(mp.gamma(mp.mpf(4) / 3)) * (2 * peclet / 3.0) ** (1.0 / 3.0)
     sweep = [0.02 * 1.06**index for index in range(60)]
     rows = [[x, prefactor * x ** (-1.0 / 3.0)] for x in sweep]
-    write_csv(ROOT / "data/MT-012/reference.csv", ["x_over_width", "sherwood"], rows)
+    write_csv(ROOT / "data/B-012/reference.csv", ["x_over_width", "sherwood"], rows)
 
     plt.figure(figsize=(7.2, 4.3))
     plt.plot(sweep, [row[1] for row in rows], linewidth=2.2, label="Sh(x) at Pe = 300")
@@ -1682,8 +1622,8 @@ def generate_mt012() -> None:
     plt.yscale("log")
     plt.legend()
     save_figure(
-        ROOT / "figures/MT-012-reference.svg",
-        "MT-012 Leveque entrance region",
+        ROOT / "figures/B-012-reference.svg",
+        "B-012 Leveque entrance region",
         "x / W",
         "Sh",
     )
@@ -1727,7 +1667,7 @@ def pellet_effectiveness(phi: float, geometry: int, rate, steps: int = 1200) -> 
     return float("nan")
 
 
-def generate_mt014() -> None:
+def generate_b011() -> None:
     orders = [1.0, 2.0, 3.0]
     sweep = [0.2 * 1.2**index for index in range(25)]
     rows = [
@@ -1735,7 +1675,7 @@ def generate_mt014() -> None:
         for order in orders
         for phi in sweep
     ]
-    write_csv(ROOT / "data/MT-014/reference.csv", ["thiele", "order", "effectiveness"], rows)
+    write_csv(ROOT / "data/B-010/reference.csv", ["thiele", "order", "effectiveness"], rows)
 
     plt.figure(figsize=(7.2, 4.3))
     for order in orders:
@@ -1745,8 +1685,8 @@ def generate_mt014() -> None:
     plt.yscale("log")
     plt.legend()
     save_figure(
-        ROOT / "figures/MT-014-reference.svg",
-        "MT-014 n-th order pellet",
+        ROOT / "figures/B-010-reference.svg",
+        "B-010 n-th order pellet",
         "phi",
         "eta",
     )
@@ -1758,7 +1698,7 @@ def weisz_hicks_rate(prater: float, arrhenius: float):
     )
 
 
-def generate_mt015() -> None:
+def generate_b014() -> None:
     prater, arrhenius = 0.6, 20.0
     rate = weisz_hicks_rate(prater, arrhenius)
     sweep = [0.05 * 1.09**index for index in range(26)]
@@ -1767,7 +1707,7 @@ def generate_mt015() -> None:
         for geometry in (1, 2)
         for phi in sweep
     ]
-    write_csv(ROOT / "data/MT-015/reference.csv", ["thiele", "geometry_factor", "effectiveness"], rows)
+    write_csv(ROOT / "data/B-013/reference.csv", ["thiele", "geometry_factor", "effectiveness"], rows)
 
     plt.figure(figsize=(7.2, 4.3))
     for geometry, label in ((1, "disk"), (2, "sphere")):
@@ -1776,17 +1716,17 @@ def generate_mt015() -> None:
     plt.axhline(1.0, linestyle="--", color="0.5", linewidth=1.4, label="eta = 1")
     plt.legend()
     save_figure(
-        ROOT / "figures/MT-015-reference.svg",
-        "MT-015 non-isothermal pellet, lower branch",
+        ROOT / "figures/B-013-reference.svg",
+        "B-013 non-isothermal pellet, lower branch",
         "phi",
         "eta",
     )
 
 
-def generate_ht006() -> None:
+def generate_b002() -> None:
     betas = [0.0, 0.5, 2.0, 10.0, 50.0]
     rows = [[beta, 1 + beta / 2] for beta in betas]
-    write_csv(ROOT / "data/HT-006/reference.csv", ["beta", "flux_ratio"], rows)
+    write_csv(ROOT / "data/B-002/reference.csv", ["beta", "flux_ratio"], rows)
 
     span = linspace(0.0, 1.0, CURVE_POINTS)
     plt.figure(figsize=(7.2, 4.3))
@@ -1799,71 +1739,52 @@ def generate_ht006() -> None:
         plt.plot(span, values, linewidth=2.2, label=f"beta = {beta:g}")
     plt.legend()
     save_figure(
-        ROOT / "figures/HT-006-reference.svg",
-        "HT-006 annulus with a temperature-dependent conductivity",
+        ROOT / "figures/B-002-reference.svg",
+        "B-002 annulus with a temperature-dependent conductivity",
         "ln(r/R_in) / ln(R_out/R_in)",
         "T",
     )
 
 
-def generate_vc007() -> None:
-    sweep = linspace(0.0, 20.0, CURVE_POINTS)
-    rows = [[peclet, 1 + peclet * peclet / 210.0] for peclet in sweep]
-    write_csv(ROOT / "data/VC-007/reference.csv", ["peclet", "effective_diffusivity"], rows)
-
-    plt.figure(figsize=(7.2, 4.3))
-    plt.plot(sweep, [row[1] for row in rows], linewidth=2.2, label="1 + Pe^2 / 210")
-    plt.legend()
-    save_figure(
-        ROOT / "figures/VC-007-reference.svg",
-        "VC-007 Taylor-Aris dispersion",
-        "Pe",
-        "D_eff / D",
-    )
-
-
 
 GENERATORS = {
-    "PH-001": generate_ph001,
-    "PH-002": generate_ph002,
-    "PH-003": generate_ph003,
-    "PH-004": generate_ph004,
-    "PH-005": generate_ph005,
-    "PH-006": generate_ph006,
-    "PH-007": generate_ph007,
-    "PH-008": generate_ph008,
-    "PH-009": generate_ph009,
-    "PH-010": generate_ph010,
-    "PH-011": generate_ph011,
-    "PH-012": generate_ph012,
-    "PH-013": generate_ph013,
-    "PH-014": generate_ph014,
-    "VC-001": generate_vc001,
-    "VC-002": generate_vc002,
-    "MT-001": generate_mt001,
-    "MT-002": generate_mt002,
-    "MT-003": generate_mt003,
-    "MT-004": generate_mt004,
-    "MT-005": generate_mt005,
-    "MT-006": generate_mt006,
-    "MT-007": generate_mt007,
-    "MT-008": generate_mt008,
-    "MT-009": generate_mt009,
-    "MT-010": generate_mt010,
-    "HT-001": generate_ht001,
-    "HT-002": generate_ht002,
-    "HT-003": generate_ht003,
-    "HT-004": generate_ht004,
-    "VC-003": generate_vc003,
-    "VC-004": generate_vc004,
-    "VC-005": generate_vc005,
-    "VC-006": generate_vc006,
-    "MT-011": generate_mt011,
-    "MT-012": generate_mt012,
-    "MT-014": generate_mt014,
-    "MT-015": generate_mt015,
-    "HT-006": generate_ht006,
-    "VC-007": generate_vc007,
+    "B-028": generate_b028,
+    "B-034": generate_b034,
+    "B-029": generate_b029,
+    "B-030": generate_b030,
+    "B-038": generate_b038,
+    "B-039": generate_b039,
+    "B-031": generate_b031,
+    "B-032": generate_b032,
+    "B-019": generate_b004,
+    "B-033": generate_b033,
+    "B-037": generate_b035,
+    "B-040": generate_b040,
+    "B-035": generate_b036,
+    "B-041": generate_b041,
+    "B-026": generate_b026,
+    "B-027": generate_b027,
+    "B-004": generate_b005,
+    "B-005": generate_b006,
+    "B-003": generate_b003,
+    "B-006": generate_b007,
+    "B-016": generate_b017,
+    "B-007": generate_b008,
+    "B-008": generate_b009,
+    "B-017": generate_b018,
+    "B-025": generate_b025,
+    "B-014": generate_b015,
+    "B-020": generate_b020,
+    "B-001": generate_b001,
+    "B-011": generate_b012,
+    "B-021": generate_b021,
+    "B-015": generate_b016,
+    "B-024": generate_b024,
+    "B-018": generate_b019,
+    "B-012": generate_b013,
+    "B-010": generate_b011,
+    "B-013": generate_b014,
+    "B-002": generate_b002,
 }
 
 

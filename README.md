@@ -10,6 +10,10 @@ Its YAML front matter is the single source of truth: [`index.md`](index.md) is
 generated from it by `scripts/generate_index.jl`, and `scripts/validate.jl`
 gates it in CI.
 
+Only data is stored. No figure is in the repository: the reference plots and
+every results plot are drawn by `scripts/plot_reference_figures.py` and
+`scripts/plot_results.py` when the site is built.
+
 ## Goals
 
 Not to promote one numerical method, but to define reproducible test cases for
@@ -18,28 +22,17 @@ ghost-fluid, immersed-boundary, enthalpy, and phase-field methods.
 
 ## Identifiers
 
-The prefix is the physics family and is stable. How a case is validated is the
-`reference_type` front-matter field, not part of the identifier.
-
-| Prefix | Family |
-|---|---|
-| `PH` | Phase change: Stefan problems, melting, solidification, evaporation, boiling |
-| `MT` | Mass transfer with interfacial reaction |
-| `HT` | Conjugate transfer across an interface, heat or mass |
-| `VC` | Verification and coherence tests |
-
-Identifiers used before this scheme are mapped in [`aliases.csv`](aliases.csv).
+`B-001` to `B-041`. See [`taxonomy.md`](taxonomy.md).
 
 ## Layout
 
 ```text
 cases/          Benchmark descriptions
 data/           Reference data
-figures/        Reference plots
-scripts/        Case loading, validation, index and site generation
+results/        Submitted solver results, one directory per solver
+scripts/        Case loading, validation, plotting, index and site generation
 docs/           Website source
 references.bib  Bibliography
-aliases.csv     Old identifier to new identifier
 ```
 
 ## Build the site

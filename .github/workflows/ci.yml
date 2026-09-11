@@ -46,12 +46,16 @@ jobs:
 
       - run: pip install matplotlib mpmath
 
+      - run: julia --project=docs scripts/validate_results.jl
+
       - run: python3 scripts/plot_reference_figures.py
 
       - name: Check reference data is in sync
         run: |
           git diff --exit-code -- data/ \
             || { echo "::error::Run scripts/plot_reference_figures.py and commit."; exit 1; }
+
+      - run: python3 scripts/plot_results.py
 
       - run: julia --project=docs docs/make.jl
 

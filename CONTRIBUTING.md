@@ -5,56 +5,106 @@ corrections.
 
 ## Submitting results
 
-One pull request, two things in it.
+A pull request with data. You do not edit a case file, and you do not commit a
+figure. The tables and the plots are generated in CI from what you submit.
 
-1. `results/<your-solver-slug>/` — your figures, named
-   `<ID>-convergence.png` and `<ID>-sh.png`. Extra views take a third name,
-   for instance `<ID>-henry.png`.
-2. In each case file you ran, one subsection appended to `## Results`:
-
-```markdown
-### Method name - A. Author, B. Author
-
-Measured 2026-01-01. Uniform grid, N = 128, 8 MPI ranks. Da = 1, 10, 100.
-
-| Da | 1 | 10 | 100 |
-|---|---|---|---|
-| rel. error | 1e-3 | 2e-3 | 3e-2 |
-| order | 2.00 | 1.93 | 1.76 |
-
-![ID convergence](../results/<slug>/<ID>-convergence.png)
+```text
+results/<your-solver-slug>/solver.yml   once
+results/<your-solver-slug>/<ID>.csv     per benchmark you ran
+results/<your-solver-slug>/<ID>.md      optional, per benchmark
 ```
 
-Nothing else. The front matter, `index.md` and the site are generated.
+### solver.yml
 
-Three rules:
+```yaml
+name: Two-fluid cut-cell method
+authors:
+  - A. Author
+  - B. Author
+code: the solver or repository name
+references:
+  - BibTeXKey
+```
 
-- One subsection per solver, and you edit only your own.
-- Report the runs that missed their gate, and say so. A named failure is worth
-  more than a missing row.
-- The configuration line must be enough to re-run it: grid, resolution, ranks,
+`references` keys must exist in `references.bib`. Add the entry in the same
+pull request if it is not there yet.
+
+### The CSV
+
+One row per run. The full schema is in
+[`results/README.md`](results/README.md); the six columns that are required:
+
+| Column | Meaning |
+|---|---|
+| `id` | the benchmark identifier, matching the filename |
+| `xname` | what the run swept: `h`, `Da`, `Fo`, `Bi`, `phi`, `Pe` |
+| `x` | the value of that sweep point |
+| `N` | cells across the domain |
+| `Sh` | the observable the benchmark asks for |
+| `Sh_exact` | the reference value at that point |
+
+Four more are strongly recommended, because they are what make the figures
+readable rather than generic:
+
+- `n_per_layer` — cells across whatever layer sets the error. This is the
+  abscissa of the convergence figure. Without it there is no convergence
+  figure, only a table.
+- `variant` — the configuration inside the benchmark, when you ran more than
+  one: two reaction orders, a Robin datum beside a Dirichlet one. Each variant
+  is drawn separately rather than threaded into one misleading curve.
+- `grid`, `ranks`, `dim` — runs that differ in any of these are never joined
+  into one line.
+
+**Submit measurements, not errors.** The relative error and the observed order
+are computed from `Sh` and `Sh_exact`, identically for every method, so two
+solvers are always compared on the same footing. A `rel_err` column you supply
+is kept for cross-checking and is not what the site displays.
+
+### The commentary
+
+The optional `<ID>.md` is rendered above your tables. It should say what the
+run was and what the numbers mean — including the runs that missed their gate.
+A named failure is worth more than a missing row.
+
+### Three rules
+
+- One directory per solver, and you edit only your own.
+- The commentary must be enough to re-run it: grid, resolution, ranks,
   parameter values, date.
+- Do not hand-edit anything under `figures/`. It is not in the repository.
 
-A maintainer checks that the case files still validate, that the figures exist
-and are the ones referenced, and that the numbers match the figures. Then it
-merges and CI publishes it.
+### Checking it before you open the pull request
 
-If you would rather not open a pull request, open an issue titled
-`Results: <ID>, <method>` with the same table and the figures attached, and a
-maintainer will commit it under your name.
+```bash
+julia --project=docs scripts/validate_results.jl
+python3 scripts/plot_results.py
+```
+
+The first is what CI gates on. The second writes your figures under
+`figures/results/` so you can look at them; they are ignored by git.
 
 ## Proposing a benchmark
 
-Open an issue titled `New benchmark proposal: <ID> short title`, with the
+Open an issue titled `New benchmark proposal: short title`, with the
 configuration, the governing equations, the boundary and initial conditions,
 the reference solution or dataset, the quantities of interest, the numerical
 difficulty it targets, and the bibliography.
 
-Copy `benchmark-template.md` to `cases/<ID>-short-title.md`. The identifier
-prefix names the family: `PH` phase change, `MT` mass transfer with reaction,
-`HT` conjugate transfer, `VC` verification and coherence. Use the symbols of
-the [notation table](taxonomy.md#notation).
+Copy `benchmark-template.md` to `cases/<ID>-short-title.md`. Identifiers are
+flat, `B-NNN`; a maintainer assigns the number, which places the case in the
+difficulty order described in [`taxonomy.md`](taxonomy.md). Declare every facet
+from the vocabularies there, and use the symbols of the
+[notation table](taxonomy.md#notation).
 
 A case merges as `draft` once the physical idea is clear. It is `ready` only
 when the equations, the conditions, the parameters and the quantities of
 interest are unambiguous and a reference solution or dataset exists.
+
+Reference data lives in `data/<ID>/reference.csv` and is generated by
+`scripts/plot_reference_figures.py`, which CI re-runs and diffs. Add your
+generator there rather than committing a CSV by hand.
+
+## Corrections
+
+Open a pull request. If it changes a number that a benchmark is gated on, say
+in the description where the new number comes from.

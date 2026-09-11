@@ -8,13 +8,15 @@ const REQUIRED_FIELDS = [
     "id",
     "title",
     "status",
-    "benchmark_class",
-    "physics",
     "process",
-    "dimension",
-    "geometry",
     "interface_motion",
-    "reference_type",
+    "interface_condition",
+    "domains",
+    "domain",
+    "dimension",
+    "equations",
+    "reference",
+    "reference_note",
     "numerical_challenge",
     "quantities_of_interest",
     "references",
@@ -75,8 +77,13 @@ end
 function geometry_cell(metadata)
     return strip(string(
         table_cell(getmeta(metadata, "dimension", "")), " ",
-        table_cell(getmeta(metadata, "geometry", "")),
+        table_cell(getmeta(metadata, "domain", "")),
     ))
+end
+
+function domains_cell(metadata)
+    count = table_cell(getmeta(metadata, "domains", ""))
+    return count == "2" ? "2 (diphasic)" : "1 (monophasic)"
 end
 
 function case_record(path::AbstractString)

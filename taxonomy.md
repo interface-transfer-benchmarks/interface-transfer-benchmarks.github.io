@@ -1,64 +1,89 @@
 # Benchmark taxonomy
 
-In the spirit of the historical
-[interface-tracking test-case collections](http://test.interface.free.fr/).
-
-Every case declares the facets below in its file.
-
-## Benchmark class
-
-The identifier prefix.
-
-| Class | Scope |
-|---|---|
-| `PH` | Phase change: Stefan problems, melting, solidification, evaporation, condensation, boiling |
-| `MT` | Mass transfer with reaction, homogeneous in a phase or heterogeneous at the interface |
-| `HT` | Conjugate transfer across an interface, heat or mass, without phase change |
-| `VC` | Verification and coherence: the answer is known by construction |
-
-## Process
-
-melting, solidification, evaporation, condensation, boiling, dissolution,
-absorption, catalysis, interfacial-mass-transfer, interfacial-partition,
-homogeneous-reaction, heterogeneous-reaction, transport-verification.
-
-## Physics
-
-heat-diffusion, mass-diffusion, advection, reaction-diffusion,
-surface-reaction, conjugate-transfer, soluble-species, phase-change,
-stefan-flow, two-phase, surface-tension, gravity, natural-convection,
-hydrodynamic-coupling, thermo-solutal-coupling.
-
 ## Interface motion
 
 | Value | Meaning |
 |---|---|
-| `static` | The interface does not move and its position is exact |
-| `fixed` | An internal boundary between two phases, held in place |
-| `prescribed` | The interface moves along a law imposed by the case |
-| `moving` | The interface velocity comes from the solved transfer rate |
+| `fixed` | The interface geometry does not change in time |
+| `prescribed` | The position follows a law imposed by the case |
+| `free` | The position follows from the solved transfer rate |
 
-## Geometry and dimension
+## Interface condition
 
-`1D`, `2D`, `2D/axisymmetric`, `axisymmetric`, `3D`, over planar, planar-film,
-annulus, disk, sphere, circle-sphere, channel, periodic-box, vertical-plate,
-horizontal-wall, rectangular-cavity.
-
-## Reference type
+How the interfacial value of a transported field is determined. One entry per
+field, so a case that solves two fields declares two closures.
 
 | Value | Meaning |
 |---|---|
-| `exact-solution` | Closed form, valid for all times |
-| `exact-similarity` | Closed form in a similarity variable |
-| `exact-kinematic` | Closed form for a prescribed interface law |
-| `exact-identity` | An identity the discretisation must satisfy |
-| `series-solution` | Convergent eigenfunction series |
-| `semi-analytical-ode` | A reduced ODE integrated to tolerance |
-| `quasi-steady-analytical` | Closed form under a quasi-steady assumption |
-| `asymptotic-solution` | Valid in a stated limit |
-| `analytical-boundary-layer` | Boundary-layer closed form |
-| `numerical-plus-correlation` | Published simulation with a correlation |
-| `experimental` | Measured data |
+| `imposed-value` | The case gives the value |
+| `imposed-flux` | The case gives the flux |
+| `kinetic` | A rate law relates flux and value, the value is solved |
+| `equilibrium` | A thermodynamic relation fixes the value: melting temperature, Henry, liquidus |
+| `conjugate` | Both sides are coupled by a partition and flux continuity, the value is solved |
+
+Two modifiers follow the closures when they apply.
+
+| Value | Meaning |
+|---|---|
+| `volume-change` | The mass flux drives a velocity jump across the interface |
+| `capillary` | Surface tension enters the momentum jump |
+
+A flux jump that sets the interface velocity is not listed here; it is
+`interface_motion: free`.
+
+## Domains
+
+`1` monophasic, one domain carries the solved fields. `2` diphasic, two domains
+are coupled through the interface condition. A phase held at a uniform value
+and not solved does not count as a domain.
+
+## Geometry
+
+`domain` is the shape, `dimension` the number of space dimensions.
+
+`domain`: half-space, slab, film, plate, wall, annulus, disk, sphere, channel,
+cavity, periodic-box.
+
+`dimension`: `1D`, `2D`, `3D`. A configuration with an axis of symmetry is `3D`,
+whatever mesh it is solved on.
+
+## Equations
+
+What is discretised in the bulk.
+
+| Value | Meaning |
+|---|---|
+| `heat-diffusion` | An energy equation |
+| `species-diffusion` | One or more transported scalars |
+| `volume-reaction` | A reaction source inside a phase |
+| `advection` | Transport by a velocity field given by the case |
+| `navier-stokes` | The velocity field is solved |
+
+Surface reactions are not listed here; they are the `robin` interface
+condition.
+
+## Reference
+
+How the reference is evaluated, not what it is called. `reference_note` gives
+the specifics.
+
+| Value | Meaning |
+|---|---|
+| `closed-form` | A formula evaluated to machine precision |
+| `series` | An eigenfunction series truncated to tolerance |
+| `quadrature` | A reduced ODE or integral solved to tolerance |
+| `asymptotic` | Valid only in a stated limit |
+| `data` | Published simulation, correlation or measurement |
+
+## Process
+
+The physical process the case represents.
+
+melting, solidification, evaporation, condensation, boiling, dissolution,
+absorption, reaction, interfacial-transfer, verification.
+
+The cases that solve for the phase-change rate are those with `stefan` among
+their interface conditions.
 
 ## Notation
 

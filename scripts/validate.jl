@@ -60,7 +60,7 @@ function validate(root::AbstractString = REPO_ROOT)
             push!(errors, "$rel: duplicate id '$(case.id)' (also in $(seen[case.id]))")
         seen[case.id] = case.filename
 
-        for field in ("reference_data", "figures"), entry in as_list(getmeta(metadata, field, ""))
+        for field in ("reference_data",), entry in as_list(getmeta(metadata, field, ""))
             isfile(joinpath(root, entry)) ||
                 push!(errors, "$rel: $field path does not exist: $entry")
         end
@@ -77,9 +77,13 @@ function validate(root::AbstractString = REPO_ROOT)
         occursin("cases/$(case.filename)", index_text) ||
             push!(errors, "$rel: not listed in index.md")
 
+        # figures/ is generated at build time and is not in the repository, so
+        # validate.jl must not require it: it runs on a fresh checkout, before
+        # scripts/plot_reference_figures.py has drawn anything.
         for asset in inline_assets(case.body)
+            startswith(asset, "figures/") && continue
             isfile(joinpath(root, asset)) ||
-                push!(errors, "$rel: image does not exist: $asset")
+                push!(errors, "$rel: asset does not exist: $asset")
         end
 
         for problem in notation_problems(case.body)
